@@ -128,6 +128,7 @@
 		AA9D96F6278B90AB0009C044 /* MusicAdder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAdder.swift; sourceTree = "<group>"; };
 		AAA0F69E279DE4DF008D1AA7 /* QueueSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueSettings.swift; sourceTree = "<group>"; };
 		AAA7175C279E6025002EF84C /* LimitInfoPack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitInfoPack.swift; sourceTree = "<group>"; };
+		AAA8DC1F27A5EFC100F22B59 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,6 +243,7 @@
 		AA85E29727829ED9009F24ED = {
 			isa = PBXGroup;
 			children = (
+				AAA8DC1F27A5EFC100F22B59 /* README.md */,
 				AA85E2A227829ED9009F24ED /* PartyQueue */,
 				AA85E2B827829EDA009F24ED /* PartyQueueTests */,
 				AA85E2C227829EDA009F24ED /* PartyQueueUITests */,
