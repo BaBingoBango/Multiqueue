@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_partyqueue._tcp</string>
+		<string>_partyqueue._udp</string>
+		<string>_bonjour._tcp</string>
+		<string>_lnp._tcp.</string>
+	</array>
+	<key>kTCCServiceMediaLibrary</key>
+	<string>PartyQueue uses your music data to manage your queue and look up songs from connected devices.</string>
+</dict>
+</plist>

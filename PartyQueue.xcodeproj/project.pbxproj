@@ -1,0 +1,895 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA035312278527400047BCF9 /* QueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA035311278527400047BCF9 /* QueueView.swift */; };
+		AA0F1F88279C998D00C4D85F /* UserGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0F1F87279C998D00C4D85F /* UserGuide.swift */; };
+		AA0F1F8A279C99C300C4D85F /* HostingMusicQueueHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0F1F89279C99C300C4D85F /* HostingMusicQueueHelpView.swift */; };
+		AA0F1F8D279C9A0400C4D85F /* JoiningMusicQueueHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0F1F8C279C9A0400C4D85F /* JoiningMusicQueueHelpView.swift */; };
+		AA0F1F8F279C9C3C00C4D85F /* PermissionsHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0F1F8E279C9C3C00C4D85F /* PermissionsHelpView.swift */; };
+		AA268B032784BA9E004699DF /* MultipeerServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA268B022784BA9E004699DF /* MultipeerServices.swift */; };
+		AA268B062784E231004699DF /* JoiningViewConnectedDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA268B052784E231004699DF /* JoiningViewConnectedDeviceRow.swift */; };
+		AA268B0B27851F1F004699DF /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA268B0A27851F1F004699DF /* NetworkExtension.framework */; };
+		AA3551B4279B24D90022795A /* HeadingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3551B3279B24D90022795A /* HeadingText.swift */; };
+		AA3551B6279B2C840022795A /* AppleMusicWarningCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3551B5279B2C840022795A /* AppleMusicWarningCard.swift */; };
+		AA3551BD279B2EF30022795A /* AppleMusicPermissionsAlertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3551BC279B2EF30022795A /* AppleMusicPermissionsAlertCard.swift */; };
+		AA3551BF279B30420022795A /* AppleMusicOKCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3551BE279B30420022795A /* AppleMusicOKCard.swift */; };
+		AA3B1FA6279919D9008F6693 /* ButtonSongRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3B1FA5279919D9008F6693 /* ButtonSongRowView.swift */; };
+		AA43F0912782B22C00C9AE08 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43F0902782B22C00C9AE08 /* SettingsView.swift */; };
+		AA43F0992782C07000C9AE08 /* HostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43F0982782C07000C9AE08 /* HostingView.swift */; };
+		AA43F09B2782C60500C9AE08 /* HostingViewConnectedDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43F09A2782C60500C9AE08 /* HostingViewConnectedDeviceRow.swift */; };
+		AA43F0A02782DBC100C9AE08 /* JoiningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43F09F2782DBC100C9AE08 /* JoiningView.swift */; };
+		AA588814279BAD4300D4E9BB /* LocalNetworkAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA588813279BAD4300D4E9BB /* LocalNetworkAuthorization.swift */; };
+		AA588816279BB45100D4E9BB /* LocalNetworkSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA588815279BB45100D4E9BB /* LocalNetworkSettingsView.swift */; };
+		AA588818279BB45F00D4E9BB /* MediaSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA588817279BB45F00D4E9BB /* MediaSettingsView.swift */; };
+		AA58881A279BB49C00D4E9BB /* SubscriptionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA588819279BB49C00D4E9BB /* SubscriptionSettingsView.swift */; };
+		AA5C4C372782A4DC00F34E2B /* PermissionsOKCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C4C362782A4DC00F34E2B /* PermissionsOKCard.swift */; };
+		AA5C4C392782A75500F34E2B /* HostQueueCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C4C382782A75500F34E2B /* HostQueueCard.swift */; };
+		AA5C4C3B2782A9E700F34E2B /* JoinQueueCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C4C3A2782A9E700F34E2B /* JoinQueueCard.swift */; };
+		AA70BA3C27972AF00033D376 /* LibraryAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA70BA3B27972AF00033D376 /* LibraryAdder.swift */; };
+		AA70BA3E27972AF50033D376 /* SearchAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA70BA3D27972AF50033D376 /* SearchAdder.swift */; };
+		AA70BA4027972AFB0033D376 /* LinkAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA70BA3F27972AFB0033D376 /* LinkAdder.swift */; };
+		AA70BA4327972B6F0033D376 /* LibraryServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA70BA4227972B6F0033D376 /* LibraryServices.swift */; };
+		AA70BA452797330B0033D376 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA70BA442797330B0033D376 /* SearchBar.swift */; };
+		AA85E2A427829ED9009F24ED /* PartyQueueApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2A327829ED9009F24ED /* PartyQueueApp.swift */; };
+		AA85E2A827829EDA009F24ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA85E2A727829EDA009F24ED /* Assets.xcassets */; };
+		AA85E2AB27829EDA009F24ED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA85E2AA27829EDA009F24ED /* Preview Assets.xcassets */; };
+		AA85E2AD27829EDA009F24ED /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2AC27829EDA009F24ED /* Persistence.swift */; };
+		AA85E2B027829EDA009F24ED /* PartyQueue.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2AE27829EDA009F24ED /* PartyQueue.xcdatamodeld */; };
+		AA85E2BA27829EDA009F24ED /* PartyQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2B927829EDA009F24ED /* PartyQueueTests.swift */; };
+		AA85E2C427829EDA009F24ED /* PartyQueueUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2C327829EDA009F24ED /* PartyQueueUITests.swift */; };
+		AA85E2C627829EDA009F24ED /* PartyQueueUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2C527829EDA009F24ED /* PartyQueueUITestsLaunchTests.swift */; };
+		AA85E2D327829F29009F24ED /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2D227829F29009F24ED /* MainMenu.swift */; };
+		AA85E2D627829F60009F24ED /* MainMenuNavigationButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2D527829F60009F24ED /* MainMenuNavigationButtons.swift */; };
+		AA85E2D927829FAD009F24ED /* NetworkPermissionsAlertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2D827829FAD009F24ED /* NetworkPermissionsAlertCard.swift */; };
+		AA85E2DB27829FF3009F24ED /* RectangleWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2DA27829FF3009F24ED /* RectangleWrapper.swift */; };
+		AA8E5379278BDC1C009F5458 /* SongRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E5378278BDC1C009F5458 /* SongRowView.swift */; };
+		AA9D96EE278B8AEE0009C044 /* QueueEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9D96ED278B8AEE0009C044 /* QueueEntry.swift */; };
+		AA9D96F3278B8C340009C044 /* QueueState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9D96F2278B8C340009C044 /* QueueState.swift */; };
+		AA9D96F5278B8F5C0009C044 /* SongState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9D96F4278B8F5C0009C044 /* SongState.swift */; };
+		AA9D96F7278B90AB0009C044 /* MusicAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9D96F6278B90AB0009C044 /* MusicAdder.swift */; };
+		AAA0F69F279DE4DF008D1AA7 /* QueueSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA0F69E279DE4DF008D1AA7 /* QueueSettings.swift */; };
+		AAA7175D279E6025002EF84C /* LimitInfoPack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA7175C279E6025002EF84C /* LimitInfoPack.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AA85E2B627829EDA009F24ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA85E29827829ED9009F24ED /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA85E29F27829ED9009F24ED;
+			remoteInfo = PartyQueue;
+		};
+		AA85E2C027829EDA009F24ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA85E29827829ED9009F24ED /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA85E29F27829ED9009F24ED;
+			remoteInfo = PartyQueue;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		AA035311278527400047BCF9 /* QueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueView.swift; sourceTree = "<group>"; };
+		AA0F1F87279C998D00C4D85F /* UserGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGuide.swift; sourceTree = "<group>"; };
+		AA0F1F89279C99C300C4D85F /* HostingMusicQueueHelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingMusicQueueHelpView.swift; sourceTree = "<group>"; };
+		AA0F1F8C279C9A0400C4D85F /* JoiningMusicQueueHelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoiningMusicQueueHelpView.swift; sourceTree = "<group>"; };
+		AA0F1F8E279C9C3C00C4D85F /* PermissionsHelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsHelpView.swift; sourceTree = "<group>"; };
+		AA268B022784BA9E004699DF /* MultipeerServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerServices.swift; sourceTree = "<group>"; };
+		AA268B042784DE56004699DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		AA268B052784E231004699DF /* JoiningViewConnectedDeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoiningViewConnectedDeviceRow.swift; sourceTree = "<group>"; };
+		AA268B0827851F1F004699DF /* PartyQueue.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PartyQueue.entitlements; sourceTree = "<group>"; };
+		AA268B0A27851F1F004699DF /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		AA3551B3279B24D90022795A /* HeadingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadingText.swift; sourceTree = "<group>"; };
+		AA3551B5279B2C840022795A /* AppleMusicWarningCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMusicWarningCard.swift; sourceTree = "<group>"; };
+		AA3551BC279B2EF30022795A /* AppleMusicPermissionsAlertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMusicPermissionsAlertCard.swift; sourceTree = "<group>"; };
+		AA3551BE279B30420022795A /* AppleMusicOKCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMusicOKCard.swift; sourceTree = "<group>"; };
+		AA3B1FA5279919D9008F6693 /* ButtonSongRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSongRowView.swift; sourceTree = "<group>"; };
+		AA43F0902782B22C00C9AE08 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		AA43F0982782C07000C9AE08 /* HostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingView.swift; sourceTree = "<group>"; };
+		AA43F09A2782C60500C9AE08 /* HostingViewConnectedDeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingViewConnectedDeviceRow.swift; sourceTree = "<group>"; };
+		AA43F09F2782DBC100C9AE08 /* JoiningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoiningView.swift; sourceTree = "<group>"; };
+		AA588813279BAD4300D4E9BB /* LocalNetworkAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNetworkAuthorization.swift; sourceTree = "<group>"; };
+		AA588815279BB45100D4E9BB /* LocalNetworkSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNetworkSettingsView.swift; sourceTree = "<group>"; };
+		AA588817279BB45F00D4E9BB /* MediaSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaSettingsView.swift; sourceTree = "<group>"; };
+		AA588819279BB49C00D4E9BB /* SubscriptionSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionSettingsView.swift; sourceTree = "<group>"; };
+		AA5C4C362782A4DC00F34E2B /* PermissionsOKCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsOKCard.swift; sourceTree = "<group>"; };
+		AA5C4C382782A75500F34E2B /* HostQueueCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostQueueCard.swift; sourceTree = "<group>"; };
+		AA5C4C3A2782A9E700F34E2B /* JoinQueueCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinQueueCard.swift; sourceTree = "<group>"; };
+		AA70BA3B27972AF00033D376 /* LibraryAdder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryAdder.swift; sourceTree = "<group>"; };
+		AA70BA3D27972AF50033D376 /* SearchAdder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAdder.swift; sourceTree = "<group>"; };
+		AA70BA3F27972AFB0033D376 /* LinkAdder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkAdder.swift; sourceTree = "<group>"; };
+		AA70BA4227972B6F0033D376 /* LibraryServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryServices.swift; sourceTree = "<group>"; };
+		AA70BA442797330B0033D376 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		AA85E2A027829ED9009F24ED /* PartyQueue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PartyQueue.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA85E2A327829ED9009F24ED /* PartyQueueApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyQueueApp.swift; sourceTree = "<group>"; };
+		AA85E2A727829EDA009F24ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AA85E2AA27829EDA009F24ED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AA85E2AC27829EDA009F24ED /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		AA85E2AF27829EDA009F24ED /* PartyQueue.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PartyQueue.xcdatamodel; sourceTree = "<group>"; };
+		AA85E2B527829EDA009F24ED /* PartyQueueTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PartyQueueTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA85E2B927829EDA009F24ED /* PartyQueueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyQueueTests.swift; sourceTree = "<group>"; };
+		AA85E2BF27829EDA009F24ED /* PartyQueueUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PartyQueueUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA85E2C327829EDA009F24ED /* PartyQueueUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyQueueUITests.swift; sourceTree = "<group>"; };
+		AA85E2C527829EDA009F24ED /* PartyQueueUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyQueueUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		AA85E2D227829F29009F24ED /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
+		AA85E2D527829F60009F24ED /* MainMenuNavigationButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuNavigationButtons.swift; sourceTree = "<group>"; };
+		AA85E2D827829FAD009F24ED /* NetworkPermissionsAlertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPermissionsAlertCard.swift; sourceTree = "<group>"; };
+		AA85E2DA27829FF3009F24ED /* RectangleWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleWrapper.swift; sourceTree = "<group>"; };
+		AA8E5378278BDC1C009F5458 /* SongRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongRowView.swift; sourceTree = "<group>"; };
+		AA9D96ED278B8AEE0009C044 /* QueueEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueEntry.swift; sourceTree = "<group>"; };
+		AA9D96F2278B8C340009C044 /* QueueState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueState.swift; sourceTree = "<group>"; };
+		AA9D96F4278B8F5C0009C044 /* SongState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongState.swift; sourceTree = "<group>"; };
+		AA9D96F6278B90AB0009C044 /* MusicAdder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAdder.swift; sourceTree = "<group>"; };
+		AAA0F69E279DE4DF008D1AA7 /* QueueSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueSettings.swift; sourceTree = "<group>"; };
+		AAA7175C279E6025002EF84C /* LimitInfoPack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitInfoPack.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA85E29D27829ED9009F24ED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA268B0B27851F1F004699DF /* NetworkExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA85E2B227829EDA009F24ED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA85E2BC27829EDA009F24ED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AA0F1F8B279C99CD00C4D85F /* User Guide Support */ = {
+			isa = PBXGroup;
+			children = (
+				AA0F1F89279C99C300C4D85F /* HostingMusicQueueHelpView.swift */,
+				AA0F1F8C279C9A0400C4D85F /* JoiningMusicQueueHelpView.swift */,
+				AA0F1F8E279C9C3C00C4D85F /* PermissionsHelpView.swift */,
+			);
+			path = "User Guide Support";
+			sourceTree = "<group>";
+		};
+		AA268B072784E235004699DF /* Joining View Support */ = {
+			isa = PBXGroup;
+			children = (
+				AA268B052784E231004699DF /* JoiningViewConnectedDeviceRow.swift */,
+			);
+			path = "Joining View Support";
+			sourceTree = "<group>";
+		};
+		AA268B0927851F1F004699DF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AA268B0A27851F1F004699DF /* NetworkExtension.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AA3551B7279B2D9C0022795A /* Warning & Alert Cards */ = {
+			isa = PBXGroup;
+			children = (
+				AA85E2D827829FAD009F24ED /* NetworkPermissionsAlertCard.swift */,
+				AA3551BC279B2EF30022795A /* AppleMusicPermissionsAlertCard.swift */,
+				AA3551B5279B2C840022795A /* AppleMusicWarningCard.swift */,
+			);
+			path = "Warning & Alert Cards";
+			sourceTree = "<group>";
+		};
+		AA3551BA279B2DC00022795A /* OK Cards */ = {
+			isa = PBXGroup;
+			children = (
+				AA5C4C362782A4DC00F34E2B /* PermissionsOKCard.swift */,
+				AA3551BE279B30420022795A /* AppleMusicOKCard.swift */,
+			);
+			path = "OK Cards";
+			sourceTree = "<group>";
+		};
+		AA3551BB279B2DC90022795A /* Host & Join Cards */ = {
+			isa = PBXGroup;
+			children = (
+				AA5C4C382782A75500F34E2B /* HostQueueCard.swift */,
+				AA5C4C3A2782A9E700F34E2B /* JoinQueueCard.swift */,
+			);
+			path = "Host & Join Cards";
+			sourceTree = "<group>";
+		};
+		AA43F09C2782C66200C9AE08 /* Hosting View Support */ = {
+			isa = PBXGroup;
+			children = (
+				AA43F09A2782C60500C9AE08 /* HostingViewConnectedDeviceRow.swift */,
+			);
+			path = "Hosting View Support";
+			sourceTree = "<group>";
+		};
+		AA58881B279BC80800D4E9BB /* Settings View Support */ = {
+			isa = PBXGroup;
+			children = (
+				AA588815279BB45100D4E9BB /* LocalNetworkSettingsView.swift */,
+				AA588817279BB45F00D4E9BB /* MediaSettingsView.swift */,
+				AA588819279BB49C00D4E9BB /* SubscriptionSettingsView.swift */,
+			);
+			path = "Settings View Support";
+			sourceTree = "<group>";
+		};
+		AA70BA4127972B030033D376 /* Music Adder Support */ = {
+			isa = PBXGroup;
+			children = (
+				AA70BA3B27972AF00033D376 /* LibraryAdder.swift */,
+				AA70BA3D27972AF50033D376 /* SearchAdder.swift */,
+				AA70BA3F27972AFB0033D376 /* LinkAdder.swift */,
+				AA3B1FA5279919D9008F6693 /* ButtonSongRowView.swift */,
+			);
+			path = "Music Adder Support";
+			sourceTree = "<group>";
+		};
+		AA85E29727829ED9009F24ED = {
+			isa = PBXGroup;
+			children = (
+				AA85E2A227829ED9009F24ED /* PartyQueue */,
+				AA85E2B827829EDA009F24ED /* PartyQueueTests */,
+				AA85E2C227829EDA009F24ED /* PartyQueueUITests */,
+				AA85E2A127829ED9009F24ED /* Products */,
+				AA268B0927851F1F004699DF /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		AA85E2A127829ED9009F24ED /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AA85E2A027829ED9009F24ED /* PartyQueue.app */,
+				AA85E2B527829EDA009F24ED /* PartyQueueTests.xctest */,
+				AA85E2BF27829EDA009F24ED /* PartyQueueUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AA85E2A227829ED9009F24ED /* PartyQueue */ = {
+			isa = PBXGroup;
+			children = (
+				AA268B0827851F1F004699DF /* PartyQueue.entitlements */,
+				AA268B042784DE56004699DF /* Info.plist */,
+				AA85E2A327829ED9009F24ED /* PartyQueueApp.swift */,
+				AA85E2D427829F4A009F24ED /* Views */,
+				AA9D96EF278B8AF70009C044 /* Models */,
+				AA85E2DC27829FFC009F24ED /* Helper Files */,
+				AA85E2A727829EDA009F24ED /* Assets.xcassets */,
+				AA85E2AC27829EDA009F24ED /* Persistence.swift */,
+				AA85E2AE27829EDA009F24ED /* PartyQueue.xcdatamodeld */,
+				AA85E2A927829EDA009F24ED /* Preview Content */,
+			);
+			path = PartyQueue;
+			sourceTree = "<group>";
+		};
+		AA85E2A927829EDA009F24ED /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				AA85E2AA27829EDA009F24ED /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AA85E2B827829EDA009F24ED /* PartyQueueTests */ = {
+			isa = PBXGroup;
+			children = (
+				AA85E2B927829EDA009F24ED /* PartyQueueTests.swift */,
+			);
+			path = PartyQueueTests;
+			sourceTree = "<group>";
+		};
+		AA85E2C227829EDA009F24ED /* PartyQueueUITests */ = {
+			isa = PBXGroup;
+			children = (
+				AA85E2C327829EDA009F24ED /* PartyQueueUITests.swift */,
+				AA85E2C527829EDA009F24ED /* PartyQueueUITestsLaunchTests.swift */,
+			);
+			path = PartyQueueUITests;
+			sourceTree = "<group>";
+		};
+		AA85E2D427829F4A009F24ED /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AA85E2D227829F29009F24ED /* MainMenu.swift */,
+				AA85E2D727829F6B009F24ED /* Main Menu Support */,
+				AA43F0982782C07000C9AE08 /* HostingView.swift */,
+				AA43F09C2782C66200C9AE08 /* Hosting View Support */,
+				AA43F09F2782DBC100C9AE08 /* JoiningView.swift */,
+				AA268B072784E235004699DF /* Joining View Support */,
+				AA035311278527400047BCF9 /* QueueView.swift */,
+				AA8E537A278BDCB9009F5458 /* Queue View Support */,
+				AA9D96F6278B90AB0009C044 /* MusicAdder.swift */,
+				AA70BA4127972B030033D376 /* Music Adder Support */,
+				AA43F0902782B22C00C9AE08 /* SettingsView.swift */,
+				AA58881B279BC80800D4E9BB /* Settings View Support */,
+				AA0F1F87279C998D00C4D85F /* UserGuide.swift */,
+				AA0F1F8B279C99CD00C4D85F /* User Guide Support */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AA85E2D727829F6B009F24ED /* Main Menu Support */ = {
+			isa = PBXGroup;
+			children = (
+				AA85E2D527829F60009F24ED /* MainMenuNavigationButtons.swift */,
+				AA3551B7279B2D9C0022795A /* Warning & Alert Cards */,
+				AA3551BA279B2DC00022795A /* OK Cards */,
+				AA3551BB279B2DC90022795A /* Host & Join Cards */,
+			);
+			path = "Main Menu Support";
+			sourceTree = "<group>";
+		};
+		AA85E2DC27829FFC009F24ED /* Helper Files */ = {
+			isa = PBXGroup;
+			children = (
+				AA85E2DA27829FF3009F24ED /* RectangleWrapper.swift */,
+				AA268B022784BA9E004699DF /* MultipeerServices.swift */,
+				AA70BA4227972B6F0033D376 /* LibraryServices.swift */,
+				AA70BA442797330B0033D376 /* SearchBar.swift */,
+				AA3551B3279B24D90022795A /* HeadingText.swift */,
+				AA588813279BAD4300D4E9BB /* LocalNetworkAuthorization.swift */,
+			);
+			path = "Helper Files";
+			sourceTree = "<group>";
+		};
+		AA8E537A278BDCB9009F5458 /* Queue View Support */ = {
+			isa = PBXGroup;
+			children = (
+				AA8E5378278BDC1C009F5458 /* SongRowView.swift */,
+				AAA0F69E279DE4DF008D1AA7 /* QueueSettings.swift */,
+			);
+			path = "Queue View Support";
+			sourceTree = "<group>";
+		};
+		AA9D96EF278B8AF70009C044 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AA9D96F2278B8C340009C044 /* QueueState.swift */,
+				AA9D96F4278B8F5C0009C044 /* SongState.swift */,
+				AA9D96ED278B8AEE0009C044 /* QueueEntry.swift */,
+				AAA7175C279E6025002EF84C /* LimitInfoPack.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AA85E29F27829ED9009F24ED /* PartyQueue */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA85E2C927829EDA009F24ED /* Build configuration list for PBXNativeTarget "PartyQueue" */;
+			buildPhases = (
+				AA85E29C27829ED9009F24ED /* Sources */,
+				AA85E29D27829ED9009F24ED /* Frameworks */,
+				AA85E29E27829ED9009F24ED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PartyQueue;
+			productName = PartyQueue;
+			productReference = AA85E2A027829ED9009F24ED /* PartyQueue.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AA85E2B427829EDA009F24ED /* PartyQueueTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA85E2CC27829EDA009F24ED /* Build configuration list for PBXNativeTarget "PartyQueueTests" */;
+			buildPhases = (
+				AA85E2B127829EDA009F24ED /* Sources */,
+				AA85E2B227829EDA009F24ED /* Frameworks */,
+				AA85E2B327829EDA009F24ED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AA85E2B727829EDA009F24ED /* PBXTargetDependency */,
+			);
+			name = PartyQueueTests;
+			productName = PartyQueueTests;
+			productReference = AA85E2B527829EDA009F24ED /* PartyQueueTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		AA85E2BE27829EDA009F24ED /* PartyQueueUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA85E2CF27829EDA009F24ED /* Build configuration list for PBXNativeTarget "PartyQueueUITests" */;
+			buildPhases = (
+				AA85E2BB27829EDA009F24ED /* Sources */,
+				AA85E2BC27829EDA009F24ED /* Frameworks */,
+				AA85E2BD27829EDA009F24ED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AA85E2C127829EDA009F24ED /* PBXTargetDependency */,
+			);
+			name = PartyQueueUITests;
+			productName = PartyQueueUITests;
+			productReference = AA85E2BF27829EDA009F24ED /* PartyQueueUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AA85E29827829ED9009F24ED /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					AA85E29F27829ED9009F24ED = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					AA85E2B427829EDA009F24ED = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = AA85E29F27829ED9009F24ED;
+					};
+					AA85E2BE27829EDA009F24ED = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = AA85E29F27829ED9009F24ED;
+					};
+				};
+			};
+			buildConfigurationList = AA85E29B27829ED9009F24ED /* Build configuration list for PBXProject "PartyQueue" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AA85E29727829ED9009F24ED;
+			productRefGroup = AA85E2A127829ED9009F24ED /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AA85E29F27829ED9009F24ED /* PartyQueue */,
+				AA85E2B427829EDA009F24ED /* PartyQueueTests */,
+				AA85E2BE27829EDA009F24ED /* PartyQueueUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA85E29E27829ED9009F24ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA85E2AB27829EDA009F24ED /* Preview Assets.xcassets in Resources */,
+				AA85E2A827829EDA009F24ED /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA85E2B327829EDA009F24ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA85E2BD27829EDA009F24ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA85E29C27829ED9009F24ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0F1F8D279C9A0400C4D85F /* JoiningMusicQueueHelpView.swift in Sources */,
+				AA85E2B027829EDA009F24ED /* PartyQueue.xcdatamodeld in Sources */,
+				AA85E2AD27829EDA009F24ED /* Persistence.swift in Sources */,
+				AA58881A279BB49C00D4E9BB /* SubscriptionSettingsView.swift in Sources */,
+				AA9D96F3278B8C340009C044 /* QueueState.swift in Sources */,
+				AA0F1F8A279C99C300C4D85F /* HostingMusicQueueHelpView.swift in Sources */,
+				AA0F1F88279C998D00C4D85F /* UserGuide.swift in Sources */,
+				AA268B062784E231004699DF /* JoiningViewConnectedDeviceRow.swift in Sources */,
+				AA5C4C372782A4DC00F34E2B /* PermissionsOKCard.swift in Sources */,
+				AA43F0A02782DBC100C9AE08 /* JoiningView.swift in Sources */,
+				AA035312278527400047BCF9 /* QueueView.swift in Sources */,
+				AA5C4C3B2782A9E700F34E2B /* JoinQueueCard.swift in Sources */,
+				AA3551B4279B24D90022795A /* HeadingText.swift in Sources */,
+				AA85E2A427829ED9009F24ED /* PartyQueueApp.swift in Sources */,
+				AA588816279BB45100D4E9BB /* LocalNetworkSettingsView.swift in Sources */,
+				AA85E2DB27829FF3009F24ED /* RectangleWrapper.swift in Sources */,
+				AAA7175D279E6025002EF84C /* LimitInfoPack.swift in Sources */,
+				AA70BA4027972AFB0033D376 /* LinkAdder.swift in Sources */,
+				AA588818279BB45F00D4E9BB /* MediaSettingsView.swift in Sources */,
+				AA85E2D327829F29009F24ED /* MainMenu.swift in Sources */,
+				AA9D96EE278B8AEE0009C044 /* QueueEntry.swift in Sources */,
+				AA0F1F8F279C9C3C00C4D85F /* PermissionsHelpView.swift in Sources */,
+				AA588814279BAD4300D4E9BB /* LocalNetworkAuthorization.swift in Sources */,
+				AA8E5379278BDC1C009F5458 /* SongRowView.swift in Sources */,
+				AA70BA452797330B0033D376 /* SearchBar.swift in Sources */,
+				AA43F09B2782C60500C9AE08 /* HostingViewConnectedDeviceRow.swift in Sources */,
+				AA3B1FA6279919D9008F6693 /* ButtonSongRowView.swift in Sources */,
+				AA43F0992782C07000C9AE08 /* HostingView.swift in Sources */,
+				AA3551BD279B2EF30022795A /* AppleMusicPermissionsAlertCard.swift in Sources */,
+				AA70BA3C27972AF00033D376 /* LibraryAdder.swift in Sources */,
+				AA268B032784BA9E004699DF /* MultipeerServices.swift in Sources */,
+				AA9D96F7278B90AB0009C044 /* MusicAdder.swift in Sources */,
+				AA70BA3E27972AF50033D376 /* SearchAdder.swift in Sources */,
+				AA3551BF279B30420022795A /* AppleMusicOKCard.swift in Sources */,
+				AA5C4C392782A75500F34E2B /* HostQueueCard.swift in Sources */,
+				AAA0F69F279DE4DF008D1AA7 /* QueueSettings.swift in Sources */,
+				AA70BA4327972B6F0033D376 /* LibraryServices.swift in Sources */,
+				AA85E2D627829F60009F24ED /* MainMenuNavigationButtons.swift in Sources */,
+				AA85E2D927829FAD009F24ED /* NetworkPermissionsAlertCard.swift in Sources */,
+				AA3551B6279B2C840022795A /* AppleMusicWarningCard.swift in Sources */,
+				AA9D96F5278B8F5C0009C044 /* SongState.swift in Sources */,
+				AA43F0912782B22C00C9AE08 /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA85E2B127829EDA009F24ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA85E2BA27829EDA009F24ED /* PartyQueueTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA85E2BB27829EDA009F24ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA85E2C427829EDA009F24ED /* PartyQueueUITests.swift in Sources */,
+				AA85E2C627829EDA009F24ED /* PartyQueueUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AA85E2B727829EDA009F24ED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA85E29F27829ED9009F24ED /* PartyQueue */;
+			targetProxy = AA85E2B627829EDA009F24ED /* PBXContainerItemProxy */;
+		};
+		AA85E2C127829EDA009F24ED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA85E29F27829ED9009F24ED /* PartyQueue */;
+			targetProxy = AA85E2C027829EDA009F24ED /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		AA85E2C727829EDA009F24ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AA85E2C827829EDA009F24ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AA85E2CA27829EDA009F24ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PartyQueue/PartyQueue.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_ASSET_PATHS = "\"PartyQueue/Preview Content\"";
+				DEVELOPMENT_TEAM = GUDZ7ALN9J;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PartyQueue/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "PartyQueue uses your music data to manage your queue and look up songs from connected devices.";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "PartyQueue uses the local network to connect to nearby devices and transmit Apple Music songs.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Ethan.PartyQueue;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AA85E2CB27829EDA009F24ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PartyQueue/PartyQueue.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_ASSET_PATHS = "\"PartyQueue/Preview Content\"";
+				DEVELOPMENT_TEAM = GUDZ7ALN9J;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PartyQueue/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "PartyQueue uses your music data to manage your queue and look up songs from connected devices.";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "PartyQueue uses the local network to connect to nearby devices and transmit Apple Music songs.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Ethan.PartyQueue;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AA85E2CD27829EDA009F24ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GUDZ7ALN9J;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Ethan.PartyQueueTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PartyQueue.app/PartyQueue";
+			};
+			name = Debug;
+		};
+		AA85E2CE27829EDA009F24ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GUDZ7ALN9J;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Ethan.PartyQueueTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PartyQueue.app/PartyQueue";
+			};
+			name = Release;
+		};
+		AA85E2D027829EDA009F24ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GUDZ7ALN9J;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Ethan.PartyQueueUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PartyQueue;
+			};
+			name = Debug;
+		};
+		AA85E2D127829EDA009F24ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GUDZ7ALN9J;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Ethan.PartyQueueUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PartyQueue;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AA85E29B27829ED9009F24ED /* Build configuration list for PBXProject "PartyQueue" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA85E2C727829EDA009F24ED /* Debug */,
+				AA85E2C827829EDA009F24ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA85E2C927829EDA009F24ED /* Build configuration list for PBXNativeTarget "PartyQueue" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA85E2CA27829EDA009F24ED /* Debug */,
+				AA85E2CB27829EDA009F24ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA85E2CC27829EDA009F24ED /* Build configuration list for PBXNativeTarget "PartyQueueTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA85E2CD27829EDA009F24ED /* Debug */,
+				AA85E2CE27829EDA009F24ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA85E2CF27829EDA009F24ED /* Build configuration list for PBXNativeTarget "PartyQueueUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA85E2D027829EDA009F24ED /* Debug */,
+				AA85E2D127829EDA009F24ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		AA85E2AE27829EDA009F24ED /* PartyQueue.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AA85E2AF27829EDA009F24ED /* PartyQueue.xcdatamodel */,
+			);
+			currentVersion = AA85E2AF27829EDA009F24ED /* PartyQueue.xcdatamodel */;
+			path = PartyQueue.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = AA85E29827829ED9009F24ED /* Project object */;
+}
