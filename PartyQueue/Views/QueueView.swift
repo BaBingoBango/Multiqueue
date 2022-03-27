@@ -13,6 +13,7 @@ struct QueueView: View {
     
     @EnvironmentObject var multipeerServices: MultipeerServices
     let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+    @State var timerCheck = 0
     let timeLimitTimer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
     @State var showingMusicAdder = false
     @State var searchResults = MusicItemCollection<Song>()
@@ -121,6 +122,7 @@ struct QueueView: View {
             
         }
         .onReceive(timer) { time in
+            timerCheck += 1;
             searchForSongsProxy()
             // If this is the host, update and transmit the current songState if it's different than the current one
             if multipeerServices.isHost && ((multipeerServices.queueState.currentSong.title != SystemMusicPlayer.shared.queue.currentEntry?.title ?? "No Current Song") || (multipeerServices.queueState.currentSong.artist != SystemMusicPlayer.shared.queue.currentEntry?.description.components(separatedBy: "artistName: \"")[1].components(separatedBy: "\"))")[0] ?? "No Current Artist")) {
@@ -136,7 +138,8 @@ struct QueueView: View {
                 
             }
             
-            if multipeerServices.isHost {
+            if (multipeerServices.isHost && timerCheck == 100) {
+                timerCheck = 0
                 do {
                     try multipeerServices.session.send(JSONEncoder().encode(LimitInfoPack(isTimeLimit: multipeerServices.isTimeLimit, timeLimit: multipeerServices.timeLimit, isSongLimit: multipeerServices.isSongLimit, songLimit: multipeerServices.songLimit)), toPeers: multipeerServices.session.connectedPeers, with: .reliable)
                 } catch {

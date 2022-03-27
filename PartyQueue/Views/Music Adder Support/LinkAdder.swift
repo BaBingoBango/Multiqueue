@@ -86,6 +86,7 @@ struct LinkAdder: View {
             .navigationBarTitle("Add from Link", displayMode: .inline)
             
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     func getLinkResultProxy() {

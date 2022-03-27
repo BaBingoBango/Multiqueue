@@ -77,6 +77,7 @@ struct LibraryAdder: View {
             .navigationBarTitle("Add from Library", displayMode: .inline)
             
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

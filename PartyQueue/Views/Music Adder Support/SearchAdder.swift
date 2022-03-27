@@ -62,6 +62,7 @@ struct SearchAdder: View {
             .navigationBarTitle("Add from Search", displayMode: .inline)
             
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     func searchForSongsProxy() {
