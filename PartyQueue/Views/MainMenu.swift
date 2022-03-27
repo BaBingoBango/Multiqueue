@@ -100,6 +100,7 @@ struct MainMenu: View {
                 grantedLocalNetworkPermissions = authorization
             })
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     func getAppleMusicStatus() async {
@@ -120,6 +121,6 @@ struct MainMenu: View {
 
 struct MainMenu_Previews: PreviewProvider {
     static var previews: some View {
-        MainMenu()
+        MainMenu().environmentObject(MultipeerServices(isHost: true))
     }
 }

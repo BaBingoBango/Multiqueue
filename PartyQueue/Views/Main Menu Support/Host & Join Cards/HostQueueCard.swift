@@ -26,6 +26,7 @@ struct HostQueueCard: View {
                     .foregroundColor(.primary)
                     .multilineTextAlignment(.leading)
             }
+            Spacer()
         }
         .padding(.all)
         .modifier(RectangleWrapper(fixedHeight: 150, color: isGray ? .gray : .blue))
