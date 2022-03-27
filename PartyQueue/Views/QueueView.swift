@@ -13,7 +13,7 @@ struct QueueView: View {
     
     @EnvironmentObject var multipeerServices: MultipeerServices
     let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
-    let timeLimitTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    let timeLimitTimer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
     @State var showingMusicAdder = false
     @State var searchResults = MusicItemCollection<Song>()
     @State var showingSettings = false
@@ -25,7 +25,7 @@ struct QueueView: View {
                 VStack {
                     
                     HStack {
-                        Text(multipeerServices.connectedDevices.count != 1 ? "\(multipeerServices.connectedDevices.count) Devices Connected" : "\(multipeerServices.connectedDevices.count) Device Connected")
+                        Text($multipeerServices.connectedDevices.count != 1 ? "\($multipeerServices.connectedDevices.count) Devices Connected" : "\($multipeerServices.connectedDevices.count) Device Connected")
                             .font(.headline)
                         Spacer()
                     }
@@ -42,7 +42,7 @@ struct QueueView: View {
                     
                     if multipeerServices.isTimeLimit {
                         HStack {
-                            Text("\(multipeerServices.timeLimit) \(multipeerServices.timeLimit == 1 ? "Second" : "Seconds") Left")
+                            Text("\(multipeerServices.timeLimit) \(multipeerServices.timeLimit == 1 ? "Minute" : "Minutes") Left")
                                 .font(.headline)
                             Spacer()
                         }
@@ -136,7 +136,6 @@ struct QueueView: View {
                 
             }
             
-            // TODO: If this is the host, transmit the current limits! Also, disable Auto-Lock and also, the disconnect button crashes the app if its the host :)
             if multipeerServices.isHost {
                 do {
                     try multipeerServices.session.send(JSONEncoder().encode(LimitInfoPack(isTimeLimit: multipeerServices.isTimeLimit, timeLimit: multipeerServices.timeLimit, isSongLimit: multipeerServices.isSongLimit, songLimit: multipeerServices.songLimit)), toPeers: multipeerServices.session.connectedPeers, with: .reliable)
@@ -165,7 +164,7 @@ struct QueueView: View {
         .onAppear {
             searchForSongsProxy()
         }
-        .navigationBarItems(trailing: Button(action: { showingSettings.toggle() }) { Image(systemName: "gear") })
+        .navigationBarItems(trailing: QueueSettingsButton(showingSettings: $showingSettings).environmentObject(multipeerServices))
         .sheet(isPresented: $showingSettings) {
             NavigationView {
                 QueueSettings().environmentObject(multipeerServices)
@@ -198,5 +197,17 @@ struct QueueView: View {
 struct QueueView_Previews: PreviewProvider {
     static var previews: some View {
         QueueView().environmentObject(MultipeerServices(isHost: true))
+    }
+}
+
+struct QueueSettingsButton: View {
+    @EnvironmentObject var multipeerServices: MultipeerServices
+    @Binding var showingSettings: Bool
+    var body: some View {
+        if multipeerServices.isHost {
+            Button(action: { showingSettings.toggle() }) { Image(systemName: "gear") }
+        } else {
+            Button(action: { showingSettings.toggle() }) { Image(systemName: "gear") }.hidden()
+        }
     }
 }

@@ -34,7 +34,7 @@ struct HostingView: View {
                             .padding(.leading, 1)
                     }
                     
-                    if !multipeerServices.discoveredDevices.isEmpty {
+                    if !$multipeerServices.discoveredDevices.isEmpty {
                         HStack {
                             Text("Nearby Devices")
                                 .font(.headline)
@@ -42,7 +42,7 @@ struct HostingView: View {
                             Spacer()
                         }
                         .padding([.top, .leading])
-                    } else if multipeerServices.connectedDevices.isEmpty {
+                    } else if $multipeerServices.connectedDevices.isEmpty {
                         HStack {
                             Text("To allow others access to your music queue, have them open PartyQueue and tap Join Queue. You'll see their device appear here.")
                             Spacer()
@@ -63,7 +63,7 @@ struct HostingView: View {
                     }
                     .padding(.horizontal)
                     
-                    if !multipeerServices.connectedDevices.isEmpty {
+                    if !$multipeerServices.connectedDevices.isEmpty {
                         HStack {
                             Text("Connected Devices")
                                 .font(.headline)
@@ -80,7 +80,7 @@ struct HostingView: View {
                     }
                     .padding(.horizontal)
                     
-                    if !multipeerServices.connectedDevices.isEmpty {
+                    if !$multipeerServices.connectedDevices.isEmpty {
                         Button(action: {
                             do {
                                 try multipeerServices.session.send("DISCONNECT SIGNAL".data(using: .utf8)!, toPeers: multipeerServices.session.connectedPeers, with: .reliable)

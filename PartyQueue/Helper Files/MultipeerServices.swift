@@ -28,7 +28,7 @@ class MultipeerServices: NSObject, ObservableObject {
     @Published var isSongLimit = false
     @Published var isTimeLimit = false
     @Published var songLimit = 20
-    @Published var timeLimit = 0 // In seconds
+    @Published var timeLimit = 5 // In minutes
 
     init(_ musicItemReceivedHandler: MusicItemReceivedHandler? = nil, isHost: Bool) {
         session = MCSession(peer: myPeerId, securityIdentity: nil, encryptionPreference: .none)
@@ -180,7 +180,8 @@ extension MultipeerServices: MCSessionDelegate {
                 timeLimit = receivedLimitPack.timeLimit
                 
             } catch {
-                // MARK: Disconnect Signal Handler
+                //
+                
                 let receivedString = String(data: data, encoding: .utf8)
                 if receivedString == "DISCONNECT SIGNAL" {
                     self.stopBrowsing()

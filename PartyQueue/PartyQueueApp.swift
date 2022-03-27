@@ -16,6 +16,9 @@ struct PartyQueueApp: App {
             MainMenu()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .environmentObject(MultipeerServices(isHost: false))
+                .onAppear {
+                    UIApplication.shared.isIdleTimerDisabled = true
+                }
         }
     }
 }
