@@ -16,6 +16,7 @@ struct AppleMusicPermissionsAlertCard: View {
                 .frame(width: 50)
                 .foregroundColor(.red)
                 .padding(.top)
+                .padding(.top)
             Text("No Media & Apple Music Access")
                 .font(.title3)
                 .fontWeight(.bold)
@@ -25,6 +26,7 @@ struct AppleMusicPermissionsAlertCard: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .padding([.bottom, .horizontal])
                 .padding(.top, 1)
+                .padding(.bottom)
         }
         .modifier(RectangleWrapper(fixedHeight: 215, color: .red))
     }

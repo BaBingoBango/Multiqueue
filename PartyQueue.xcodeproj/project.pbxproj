@@ -55,6 +55,10 @@
 		AA9D96F7278B90AB0009C044 /* MusicAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9D96F6278B90AB0009C044 /* MusicAdder.swift */; };
 		AAA0F69F279DE4DF008D1AA7 /* QueueSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA0F69E279DE4DF008D1AA7 /* QueueSettings.swift */; };
 		AAA7175D279E6025002EF84C /* LimitInfoPack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA7175C279E6025002EF84C /* LimitInfoPack.swift */; };
+		AAF236BE288E272800BF4E01 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF236BD288E272800BF4E01 /* CloudKit.framework */; };
+		AAF236C0288E2BDD00BF4E01 /* MyRoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF236BF288E2BDD00BF4E01 /* MyRoomsView.swift */; };
+		AAF236C4288E378000BF4E01 /* CreateRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF236C3288E378000BF4E01 /* CreateRoomView.swift */; };
+		AAF236C6288E40BC00BF4E01 /* MyRoomsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF236C5288E40BC00BF4E01 /* MyRoomsCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +133,10 @@
 		AAA0F69E279DE4DF008D1AA7 /* QueueSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueSettings.swift; sourceTree = "<group>"; };
 		AAA7175C279E6025002EF84C /* LimitInfoPack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitInfoPack.swift; sourceTree = "<group>"; };
 		AAA8DC1F27A5EFC100F22B59 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		AAF236BD288E272800BF4E01 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		AAF236BF288E2BDD00BF4E01 /* MyRoomsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRoomsView.swift; sourceTree = "<group>"; };
+		AAF236C3288E378000BF4E01 /* CreateRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomView.swift; sourceTree = "<group>"; };
+		AAF236C5288E40BC00BF4E01 /* MyRoomsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRoomsCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA268B0B27851F1F004699DF /* NetworkExtension.framework in Frameworks */,
+				AAF236BE288E272800BF4E01 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +187,7 @@
 		AA268B0927851F1F004699DF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AAF236BD288E272800BF4E01 /* CloudKit.framework */,
 				AA268B0A27851F1F004699DF /* NetworkExtension.framework */,
 			);
 			name = Frameworks;
@@ -207,6 +217,7 @@
 			children = (
 				AA5C4C382782A75500F34E2B /* HostQueueCard.swift */,
 				AA5C4C3A2782A9E700F34E2B /* JoinQueueCard.swift */,
+				AAF236C5288E40BC00BF4E01 /* MyRoomsCard.swift */,
 			);
 			path = "Host & Join Cards";
 			sourceTree = "<group>";
@@ -310,6 +321,8 @@
 				AA85E2D227829F29009F24ED /* MainMenu.swift */,
 				AA85E2D727829F6B009F24ED /* Main Menu Support */,
 				AA43F0982782C07000C9AE08 /* HostingView.swift */,
+				AAF236BF288E2BDD00BF4E01 /* MyRoomsView.swift */,
+				AAF236C3288E378000BF4E01 /* CreateRoomView.swift */,
 				AA43F09C2782C66200C9AE08 /* Hosting View Support */,
 				AA43F09F2782DBC100C9AE08 /* JoiningView.swift */,
 				AA268B072784E235004699DF /* Joining View Support */,
@@ -502,6 +515,7 @@
 				AA0F1F8D279C9A0400C4D85F /* JoiningMusicQueueHelpView.swift in Sources */,
 				AA85E2B027829EDA009F24ED /* PartyQueue.xcdatamodeld in Sources */,
 				AA85E2AD27829EDA009F24ED /* Persistence.swift in Sources */,
+				AAF236C0288E2BDD00BF4E01 /* MyRoomsView.swift in Sources */,
 				AA58881A279BB49C00D4E9BB /* SubscriptionSettingsView.swift in Sources */,
 				AA9D96F3278B8C340009C044 /* QueueState.swift in Sources */,
 				AA0F1F8A279C99C300C4D85F /* HostingMusicQueueHelpView.swift in Sources */,
@@ -525,6 +539,7 @@
 				AA8E5379278BDC1C009F5458 /* SongRowView.swift in Sources */,
 				AA70BA452797330B0033D376 /* SearchBar.swift in Sources */,
 				AA43F09B2782C60500C9AE08 /* HostingViewConnectedDeviceRow.swift in Sources */,
+				AAF236C6288E40BC00BF4E01 /* MyRoomsCard.swift in Sources */,
 				AA3B1FA6279919D9008F6693 /* ButtonSongRowView.swift in Sources */,
 				AA43F0992782C07000C9AE08 /* HostingView.swift in Sources */,
 				AA3551BD279B2EF30022795A /* AppleMusicPermissionsAlertCard.swift in Sources */,
@@ -536,6 +551,7 @@
 				AA5C4C392782A75500F34E2B /* HostQueueCard.swift in Sources */,
 				AAA0F69F279DE4DF008D1AA7 /* QueueSettings.swift in Sources */,
 				AA70BA4327972B6F0033D376 /* LibraryServices.swift in Sources */,
+				AAF236C4288E378000BF4E01 /* CreateRoomView.swift in Sources */,
 				AA85E2D627829F60009F24ED /* MainMenuNavigationButtons.swift in Sources */,
 				AA85E2D927829FAD009F24ED /* NetworkPermissionsAlertCard.swift in Sources */,
 				AA3551B6279B2C840022795A /* AppleMusicWarningCard.swift in Sources */,
@@ -706,6 +722,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PartyQueue/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Multiqueue;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "PartyQueue uses your music data to manage your queue and look up songs from connected devices.";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "PartyQueue uses the local network to connect to nearby devices and transmit Apple Music songs.";
@@ -715,6 +732,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -722,6 +740,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Ethan.PartyQueue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -741,6 +761,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PartyQueue/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Multiqueue;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "PartyQueue uses your music data to manage your queue and look up songs from connected devices.";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "PartyQueue uses the local network to connect to nearby devices and transmit Apple Music songs.";
@@ -750,6 +771,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -757,6 +779,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Ethan.PartyQueue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

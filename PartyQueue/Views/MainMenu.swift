@@ -41,19 +41,23 @@ struct MainMenu: View {
                             .padding([.top, .leading, .trailing])
                     }
                     
-                    // MARK: - 2: Host & Join Cards
-                    
-                    NavigationLink(destination: HostingView().environmentObject(multipeerServices).navigationBarTitle(Text("Host Queue"), displayMode: .inline).environmentObject(MultipeerServices(isHost: true))) {
-                        HostQueueCard(isGray: !grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
+                    // MARK: - 2: Room Management Cards
+                    NavigationLink(destination: MyRoomsView()) {
+                        MyRoomsCard(isGray: !grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
                             .padding([.top, .leading, .trailing])
                     }
-                    .disabled(!grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
                     
-                    NavigationLink(destination: JoiningView().environmentObject(MultipeerServices(isHost: false)).navigationBarTitle(Text("Join Queue"), displayMode: .inline)) {
-                        JoinQueueCard(isGray: !grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
-                            .padding([.top, .leading, .trailing])
-                    }
-                    .disabled(!grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
+//                    NavigationLink(destination: HostingView().environmentObject(multipeerServices).navigationBarTitle(Text("Host Queue"), displayMode: .inline).environmentObject(MultipeerServices(isHost: true))) {
+//                        HostQueueCard(isGray: !grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
+//                            .padding([.top, .leading, .trailing])
+//                    }
+//                    .disabled(!grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
+//
+//                    NavigationLink(destination: JoiningView().environmentObject(MultipeerServices(isHost: false)).navigationBarTitle(Text("Join Queue"), displayMode: .inline)) {
+//                        JoinQueueCard(isGray: !grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
+//                            .padding([.top, .leading, .trailing])
+//                    }
+//                    .disabled(!grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
                     
                     // MARK: - 3: OK/Status Cards
                     
@@ -71,7 +75,7 @@ struct MainMenu: View {
             }
             
             // MARK: - Navigation View Settings
-            .navigationTitle(Text("PartyQueue"))
+            .navigationTitle(Text("Multiqueue"))
             .navigationBarItems(trailing: HStack { MainMenuNavigationButtonsL(); MainMenuNavigationButtonsR().padding(.leading, 10) })
             
         }.onAppear {
