@@ -13,7 +13,7 @@ struct MyRoomsView: View {
     
     // MARK: View Variables
     @State var isShowingCreateRoomView = false
-    @State var userRooms: [CKRecordZone : RoomDetails] = [:]
+    @State var userRooms: [(CKRecordZone, RoomDetails, CKShare)] = []
     
     // MARK: View Body
     var body: some View {
@@ -38,11 +38,13 @@ struct MyRoomsView: View {
                         CreateRoomView()
                     }
                     
-                    ForEach(Array(userRooms.values), id: \.self) { eachRoomDetails in
-                        NavigationLink(destination: EmptyView()) {
-                            RoomOptionView(roomDetails: eachRoomDetails)
+                    if !userRooms.isEmpty {
+                        ForEach(0...userRooms.count - 1, id: \.self) { eachIndex in
+                            NavigationLink(destination: RoomView(room: userRooms[eachIndex])) {
+                                RoomOptionView(roomDetails: userRooms[eachIndex].1)
+                            }
+                                .padding(.horizontal)
                         }
-                            .padding(.horizontal)
                     }
                 }
                 .padding(.bottom)
@@ -66,7 +68,20 @@ struct MyRoomsView: View {
                                     description: queriedRecord["Description"] as! String
                                 )
                                 
-                                userRooms[zone] = roomDetails
+                                let shareQueryOperation = CKQueryOperation(query: CKQuery(recordType: "cloudkit.share", predicate: NSPredicate(value: true)))
+                                shareQueryOperation.zoneID = zone.zoneID
+                                
+                                shareQueryOperation.recordMatchedBlock = { (_ recordID: CKRecord.ID, _ recordResult: Result<CKRecord, Error>) -> Void in
+                                    switch recordResult {
+                                    case .success(let result):
+                                        userRooms.append((zone, roomDetails, result as! CKShare))
+                                        
+                                    case .failure(let error):
+                                        print(error.localizedDescription)
+                                    }
+                                }
+                                
+                                CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(shareQueryOperation)
                                 
                             case .failure(let error):
                                 print(error.localizedDescription)

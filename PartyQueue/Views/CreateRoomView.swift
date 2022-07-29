@@ -119,8 +119,12 @@ struct CreateRoomView: View {
                             switch secondOperationResult {
                             case .success():
                                 let roomShareRecord = CKShare(recordZoneID: zone.zoneID)
-                                let shareSaveOperation = CKModifyRecordsOperation(recordsToSave: [roomShareRecord])
+                                roomShareRecord[CKShare.SystemFieldKey.title] = enteredName as CKRecordValue
+                                roomShareRecord[CKShare.SystemFieldKey.shareType] = "Room" as CKRecordValue
+                                roomShareRecord[CKShare.SystemFieldKey.thumbnailImageData] = NSDataAsset(name: "Rounded App Icon")!.data as CKRecordValue
+                                roomShareRecord.publicPermission = .readWrite
                                 
+                                let shareSaveOperation = CKModifyRecordsOperation(recordsToSave: [roomShareRecord])
                                 shareSaveOperation.modifyRecordsResultBlock = { (_ operationResult: Result<Void, Error>) -> Void in
                                     switch operationResult {
                                     case .success():

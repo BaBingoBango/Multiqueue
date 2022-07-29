@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 /// The information that describes the customization for a Multiqueue room.
-struct RoomDetails: Hashable {
+struct RoomDetails {
     var name: String
     var icon: String
     var color: Color

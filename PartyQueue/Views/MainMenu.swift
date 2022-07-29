@@ -46,6 +46,12 @@ struct MainMenu: View {
                         MyRoomsCard(isGray: !grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
                             .padding([.top, .leading, .trailing])
                     }
+                    .disabled(!grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
+                    
+                    NavigationLink(destination: MyRoomsView()) {
+                        JoinRoomCard(isGray: !grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
+                            .padding([.top, .leading, .trailing])
+                    }
                     
 //                    NavigationLink(destination: HostingView().environmentObject(multipeerServices).navigationBarTitle(Text("Host Queue"), displayMode: .inline).environmentObject(MultipeerServices(isHost: true))) {
 //                        HostQueueCard(isGray: !grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)

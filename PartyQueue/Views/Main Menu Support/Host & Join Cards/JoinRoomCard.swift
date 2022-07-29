@@ -1,27 +1,27 @@
 //
-//  MyRoomsCard.swift
+//  JoinRoomCard.swift
 //  PartyQueue
 //
-//  Created by Ethan Marshall on 7/24/22.
+//  Created by Ethan Marshall on 7/29/22.
 //
 
 import SwiftUI
 
-struct MyRoomsCard: View {
+struct JoinRoomCard: View {
     var isGray = true
     var body: some View {
         HStack {
-            Image(systemName: "person.circle.fill")
+            Image(systemName: "envelope.circle.fill")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 50)
                 .foregroundColor(isGray ? .gray : .blue)
             VStack(alignment: .leading) {
-                Text("Host a Room")
+                Text("Join a Room")
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(.primary)
-                Text("Invite others to use your Apple Music subscription to add songs to your music queue.")
+                Text("Join another user's room to add songs to their Apple Music queue.")
                     .foregroundColor(.primary)
                     .multilineTextAlignment(.leading)
             }
@@ -32,8 +32,8 @@ struct MyRoomsCard: View {
     }
 }
 
-struct MyRoomsCard_Previews: PreviewProvider {
+struct JoinRoomCard_Previews: PreviewProvider {
     static var previews: some View {
-        MyRoomsCard()
+        JoinRoomCard()
     }
 }

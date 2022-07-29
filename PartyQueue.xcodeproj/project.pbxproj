@@ -62,6 +62,9 @@
 		AAF236C0288E2BDD00BF4E01 /* MyRoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF236BF288E2BDD00BF4E01 /* MyRoomsView.swift */; };
 		AAF236C4288E378000BF4E01 /* CreateRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF236C3288E378000BF4E01 /* CreateRoomView.swift */; };
 		AAF236C6288E40BC00BF4E01 /* MyRoomsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF236C5288E40BC00BF4E01 /* MyRoomsCard.swift */; };
+		AAF953AF2894673C00DBE562 /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF953AE2894673C00DBE562 /* RoomView.swift */; };
+		AAF953B12894776300DBE562 /* CloudKitSharingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF953B02894776300DBE562 /* CloudKitSharingView.swift */; };
+		AAF953B328949A6E00DBE562 /* JoinRoomCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF953B228949A6E00DBE562 /* JoinRoomCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +146,9 @@
 		AAF236BF288E2BDD00BF4E01 /* MyRoomsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRoomsView.swift; sourceTree = "<group>"; };
 		AAF236C3288E378000BF4E01 /* CreateRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomView.swift; sourceTree = "<group>"; };
 		AAF236C5288E40BC00BF4E01 /* MyRoomsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRoomsCard.swift; sourceTree = "<group>"; };
+		AAF953AE2894673C00DBE562 /* RoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomView.swift; sourceTree = "<group>"; };
+		AAF953B02894776300DBE562 /* CloudKitSharingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitSharingView.swift; sourceTree = "<group>"; };
+		AAF953B228949A6E00DBE562 /* JoinRoomCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinRoomCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +230,7 @@
 				AA5C4C382782A75500F34E2B /* HostQueueCard.swift */,
 				AA5C4C3A2782A9E700F34E2B /* JoinQueueCard.swift */,
 				AAF236C5288E40BC00BF4E01 /* MyRoomsCard.swift */,
+				AAF953B228949A6E00DBE562 /* JoinRoomCard.swift */,
 			);
 			path = "Host & Join Cards";
 			sourceTree = "<group>";
@@ -331,10 +338,12 @@
 				AA96A5DC28944A0B0014E000 /* RoomOptionView.swift */,
 				AAF236C3288E378000BF4E01 /* CreateRoomView.swift */,
 				AA96A5DA289440C50014E000 /* RoomEmojiPickerView.swift */,
+				AAF953AE2894673C00DBE562 /* RoomView.swift */,
 				AA43F09C2782C66200C9AE08 /* Hosting View Support */,
 				AA43F09F2782DBC100C9AE08 /* JoiningView.swift */,
 				AA268B072784E235004699DF /* Joining View Support */,
 				AA035311278527400047BCF9 /* QueueView.swift */,
+				AAF953B02894776300DBE562 /* CloudKitSharingView.swift */,
 				AA8E537A278BDCB9009F5458 /* Queue View Support */,
 				AA9D96F6278B90AB0009C044 /* MusicAdder.swift */,
 				AA70BA4127972B030033D376 /* Music Adder Support */,
@@ -523,7 +532,9 @@
 			files = (
 				AA0F1F8D279C9A0400C4D85F /* JoiningMusicQueueHelpView.swift in Sources */,
 				AA85E2B027829EDA009F24ED /* PartyQueue.xcdatamodeld in Sources */,
+				AAF953B328949A6E00DBE562 /* JoinRoomCard.swift in Sources */,
 				AA85E2AD27829EDA009F24ED /* Persistence.swift in Sources */,
+				AAF953AF2894673C00DBE562 /* RoomView.swift in Sources */,
 				AAF236C0288E2BDD00BF4E01 /* MyRoomsView.swift in Sources */,
 				AA58881A279BB49C00D4E9BB /* SubscriptionSettingsView.swift in Sources */,
 				AA9D96F3278B8C340009C044 /* QueueState.swift in Sources */,
@@ -540,6 +551,7 @@
 				AA588816279BB45100D4E9BB /* LocalNetworkSettingsView.swift in Sources */,
 				AA85E2DB27829FF3009F24ED /* RectangleWrapper.swift in Sources */,
 				AAA7175D279E6025002EF84C /* LimitInfoPack.swift in Sources */,
+				AAF953B12894776300DBE562 /* CloudKitSharingView.swift in Sources */,
 				AA96A5DB289440C50014E000 /* RoomEmojiPickerView.swift in Sources */,
 				AA70BA4027972AFB0033D376 /* LinkAdder.swift in Sources */,
 				AA588818279BB45F00D4E9BB /* MediaSettingsView.swift in Sources */,
