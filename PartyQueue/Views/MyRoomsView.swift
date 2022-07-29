@@ -13,7 +13,7 @@ struct MyRoomsView: View {
     
     // MARK: View Variables
     @State var isShowingCreateRoomView = false
-    @State var userRooms: [CKRecordZone] = []
+    @State var userRooms: [CKRecordZone : RoomDetails] = [:]
     
     // MARK: View Body
     var body: some View {
@@ -38,10 +38,14 @@ struct MyRoomsView: View {
                         CreateRoomView()
                     }
                     
-                    ForEach(userRooms, id: \.self) { eachRoom in
-                        Text(eachRoom.zoneID.description)
+                    ForEach(Array(userRooms.values), id: \.self) { eachRoomDetails in
+                        NavigationLink(destination: EmptyView()) {
+                            RoomOptionView(roomDetails: eachRoomDetails)
+                        }
+                            .padding(.horizontal)
                     }
                 }
+                .padding(.bottom)
             }
             .onAppear {
                 let zoneFetchOperation = CKFetchRecordZonesOperation.fetchAllRecordZonesOperation()
@@ -49,7 +53,27 @@ struct MyRoomsView: View {
                 zoneFetchOperation.perRecordZoneResultBlock = { (_ recordZoneID: CKRecordZone.ID, _ recordZoneResult: Result<CKRecordZone, Error>) -> Void in
                     switch recordZoneResult {
                     case .success(let zone):
-                        userRooms.append(zone)
+                        let detailsQueryOperation = CKQueryOperation(query: CKQuery(recordType: "RoomDetails", predicate: NSPredicate(value: true)))
+                        detailsQueryOperation.zoneID = zone.zoneID
+                        
+                        detailsQueryOperation.recordMatchedBlock = { (_ recordID: CKRecord.ID, _ recordResult: Result<CKRecord, Error>) -> Void in
+                            switch recordResult {
+                            case .success(let queriedRecord):
+                                let roomDetails = RoomDetails(
+                                    name: queriedRecord["Name"] as! String,
+                                    icon: queriedRecord["Icon"] as! String,
+                                    color: Color(.sRGB, red: (queriedRecord["Color"] as! [Double])[0], green: (queriedRecord["Color"] as! [Double])[1], blue: (queriedRecord["Color"] as! [Double])[2], opacity: (queriedRecord["Color"] as! [Double])[3]),
+                                    description: queriedRecord["Description"] as! String
+                                )
+                                
+                                userRooms[zone] = roomDetails
+                                
+                            case .failure(let error):
+                                print(error.localizedDescription)
+                            }
+                        }
+                        
+                        CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(detailsQueryOperation)
                         
                     case .failure(let error):
                         print(error.localizedDescription)

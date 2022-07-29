@@ -49,6 +49,9 @@
 		AA85E2D927829FAD009F24ED /* NetworkPermissionsAlertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2D827829FAD009F24ED /* NetworkPermissionsAlertCard.swift */; };
 		AA85E2DB27829FF3009F24ED /* RectangleWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2DA27829FF3009F24ED /* RectangleWrapper.swift */; };
 		AA8E5379278BDC1C009F5458 /* SongRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E5378278BDC1C009F5458 /* SongRowView.swift */; };
+		AA96A5DB289440C50014E000 /* RoomEmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96A5DA289440C50014E000 /* RoomEmojiPickerView.swift */; };
+		AA96A5DD28944A0B0014E000 /* RoomOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96A5DC28944A0B0014E000 /* RoomOptionView.swift */; };
+		AA96A5DF28944B5D0014E000 /* RoomDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96A5DE28944B5D0014E000 /* RoomDetails.swift */; };
 		AA9D96EE278B8AEE0009C044 /* QueueEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9D96ED278B8AEE0009C044 /* QueueEntry.swift */; };
 		AA9D96F3278B8C340009C044 /* QueueState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9D96F2278B8C340009C044 /* QueueState.swift */; };
 		AA9D96F5278B8F5C0009C044 /* SongState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9D96F4278B8F5C0009C044 /* SongState.swift */; };
@@ -126,6 +129,9 @@
 		AA85E2D827829FAD009F24ED /* NetworkPermissionsAlertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPermissionsAlertCard.swift; sourceTree = "<group>"; };
 		AA85E2DA27829FF3009F24ED /* RectangleWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleWrapper.swift; sourceTree = "<group>"; };
 		AA8E5378278BDC1C009F5458 /* SongRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongRowView.swift; sourceTree = "<group>"; };
+		AA96A5DA289440C50014E000 /* RoomEmojiPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomEmojiPickerView.swift; sourceTree = "<group>"; };
+		AA96A5DC28944A0B0014E000 /* RoomOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomOptionView.swift; sourceTree = "<group>"; };
+		AA96A5DE28944B5D0014E000 /* RoomDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomDetails.swift; sourceTree = "<group>"; };
 		AA9D96ED278B8AEE0009C044 /* QueueEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueEntry.swift; sourceTree = "<group>"; };
 		AA9D96F2278B8C340009C044 /* QueueState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueState.swift; sourceTree = "<group>"; };
 		AA9D96F4278B8F5C0009C044 /* SongState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongState.swift; sourceTree = "<group>"; };
@@ -322,7 +328,9 @@
 				AA85E2D727829F6B009F24ED /* Main Menu Support */,
 				AA43F0982782C07000C9AE08 /* HostingView.swift */,
 				AAF236BF288E2BDD00BF4E01 /* MyRoomsView.swift */,
+				AA96A5DC28944A0B0014E000 /* RoomOptionView.swift */,
 				AAF236C3288E378000BF4E01 /* CreateRoomView.swift */,
+				AA96A5DA289440C50014E000 /* RoomEmojiPickerView.swift */,
 				AA43F09C2782C66200C9AE08 /* Hosting View Support */,
 				AA43F09F2782DBC100C9AE08 /* JoiningView.swift */,
 				AA268B072784E235004699DF /* Joining View Support */,
@@ -378,6 +386,7 @@
 				AA9D96F4278B8F5C0009C044 /* SongState.swift */,
 				AA9D96ED278B8AEE0009C044 /* QueueEntry.swift */,
 				AAA7175C279E6025002EF84C /* LimitInfoPack.swift */,
+				AA96A5DE28944B5D0014E000 /* RoomDetails.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -522,6 +531,7 @@
 				AA0F1F88279C998D00C4D85F /* UserGuide.swift in Sources */,
 				AA268B062784E231004699DF /* JoiningViewConnectedDeviceRow.swift in Sources */,
 				AA5C4C372782A4DC00F34E2B /* PermissionsOKCard.swift in Sources */,
+				AA96A5DD28944A0B0014E000 /* RoomOptionView.swift in Sources */,
 				AA43F0A02782DBC100C9AE08 /* JoiningView.swift in Sources */,
 				AA035312278527400047BCF9 /* QueueView.swift in Sources */,
 				AA5C4C3B2782A9E700F34E2B /* JoinQueueCard.swift in Sources */,
@@ -530,6 +540,7 @@
 				AA588816279BB45100D4E9BB /* LocalNetworkSettingsView.swift in Sources */,
 				AA85E2DB27829FF3009F24ED /* RectangleWrapper.swift in Sources */,
 				AAA7175D279E6025002EF84C /* LimitInfoPack.swift in Sources */,
+				AA96A5DB289440C50014E000 /* RoomEmojiPickerView.swift in Sources */,
 				AA70BA4027972AFB0033D376 /* LinkAdder.swift in Sources */,
 				AA588818279BB45F00D4E9BB /* MediaSettingsView.swift in Sources */,
 				AA85E2D327829F29009F24ED /* MainMenu.swift in Sources */,
@@ -557,6 +568,7 @@
 				AA3551B6279B2C840022795A /* AppleMusicWarningCard.swift in Sources */,
 				AA9D96F5278B8F5C0009C044 /* SongState.swift in Sources */,
 				AA43F0912782B22C00C9AE08 /* SettingsView.swift in Sources */,
+				AA96A5DF28944B5D0014E000 /* RoomDetails.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
