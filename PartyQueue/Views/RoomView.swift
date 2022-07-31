@@ -84,7 +84,7 @@ struct RoomView: View {
                 }
                 .padding([.top, .leading, .trailing])
                 .sheet(isPresented: $isShowingMusicAdder) {
-                    MusicAdder()
+                    CloudKitMusicAdder()
                 }
             }
             .padding(.bottom)

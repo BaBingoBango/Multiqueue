@@ -52,6 +52,12 @@
 		AA85E2D927829FAD009F24ED /* NetworkPermissionsAlertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2D827829FAD009F24ED /* NetworkPermissionsAlertCard.swift */; };
 		AA85E2DB27829FF3009F24ED /* RectangleWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2DA27829FF3009F24ED /* RectangleWrapper.swift */; };
 		AA8E5379278BDC1C009F5458 /* SongRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8E5378278BDC1C009F5458 /* SongRowView.swift */; };
+		AA90A9F22896FB2D0052E3DC /* CloudKitMusicAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA90A9EC2896FB2D0052E3DC /* CloudKitMusicAdder.swift */; };
+		AA90A9F32896FB2D0052E3DC /* CloudKitLibraryAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA90A9EE2896FB2D0052E3DC /* CloudKitLibraryAdder.swift */; };
+		AA90A9F42896FB2D0052E3DC /* CloudKitButtonSongRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA90A9EF2896FB2D0052E3DC /* CloudKitButtonSongRowView.swift */; };
+		AA90A9F52896FB2D0052E3DC /* CloudKitLinkAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA90A9F02896FB2D0052E3DC /* CloudKitLinkAdder.swift */; };
+		AA90A9F62896FB2D0052E3DC /* CloudKitSearchAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA90A9F12896FB2D0052E3DC /* CloudKitSearchAdder.swift */; };
+		AA90A9F82896FD140052E3DC /* CloudKitServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA90A9F72896FD140052E3DC /* CloudKitServices.swift */; };
 		AA9246212895D28B00E7FCB9 /* MusicServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9246202895D28B00E7FCB9 /* MusicServices.swift */; };
 		AA9246232895D4E200E7FCB9 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9246222895D4E200E7FCB9 /* Room.swift */; };
 		AA9246252895D52C00E7FCB9 /* NowPlayingSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9246242895D52C00E7FCB9 /* NowPlayingSong.swift */; };
@@ -142,6 +148,12 @@
 		AA85E2D827829FAD009F24ED /* NetworkPermissionsAlertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPermissionsAlertCard.swift; sourceTree = "<group>"; };
 		AA85E2DA27829FF3009F24ED /* RectangleWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleWrapper.swift; sourceTree = "<group>"; };
 		AA8E5378278BDC1C009F5458 /* SongRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongRowView.swift; sourceTree = "<group>"; };
+		AA90A9EC2896FB2D0052E3DC /* CloudKitMusicAdder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitMusicAdder.swift; sourceTree = "<group>"; };
+		AA90A9EE2896FB2D0052E3DC /* CloudKitLibraryAdder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitLibraryAdder.swift; sourceTree = "<group>"; };
+		AA90A9EF2896FB2D0052E3DC /* CloudKitButtonSongRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitButtonSongRowView.swift; sourceTree = "<group>"; };
+		AA90A9F02896FB2D0052E3DC /* CloudKitLinkAdder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitLinkAdder.swift; sourceTree = "<group>"; };
+		AA90A9F12896FB2D0052E3DC /* CloudKitSearchAdder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitSearchAdder.swift; sourceTree = "<group>"; };
+		AA90A9F72896FD140052E3DC /* CloudKitServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitServices.swift; sourceTree = "<group>"; };
 		AA9246202895D28B00E7FCB9 /* MusicServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicServices.swift; sourceTree = "<group>"; };
 		AA9246222895D4E200E7FCB9 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		AA9246242895D52C00E7FCB9 /* NowPlayingSong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingSong.swift; sourceTree = "<group>"; };
@@ -355,6 +367,8 @@
 				AAF953AE2894673C00DBE562 /* RoomView.swift */,
 				AA1D78292894C7D100F39AA6 /* JoinRoomView.swift */,
 				AA1D782D2894DC3700F39AA6 /* JoinedRoomView.swift */,
+				AA90A9EC2896FB2D0052E3DC /* CloudKitMusicAdder.swift */,
+				AA90A9ED2896FB2D0052E3DC /* CloudKit Music Adder Support */,
 				AA43F09C2782C66200C9AE08 /* Hosting View Support */,
 				AA43F09F2782DBC100C9AE08 /* JoiningView.swift */,
 				AA268B072784E235004699DF /* Joining View Support */,
@@ -393,6 +407,7 @@
 				AA588813279BAD4300D4E9BB /* LocalNetworkAuthorization.swift */,
 				AA1D782B2894CA8500F39AA6 /* RefreshableScrollView.swift */,
 				AA9246202895D28B00E7FCB9 /* MusicServices.swift */,
+				AA90A9F72896FD140052E3DC /* CloudKitServices.swift */,
 			);
 			path = "Helper Files";
 			sourceTree = "<group>";
@@ -404,6 +419,17 @@
 				AAA0F69E279DE4DF008D1AA7 /* QueueSettings.swift */,
 			);
 			path = "Queue View Support";
+			sourceTree = "<group>";
+		};
+		AA90A9ED2896FB2D0052E3DC /* CloudKit Music Adder Support */ = {
+			isa = PBXGroup;
+			children = (
+				AA90A9EE2896FB2D0052E3DC /* CloudKitLibraryAdder.swift */,
+				AA90A9EF2896FB2D0052E3DC /* CloudKitButtonSongRowView.swift */,
+				AA90A9F02896FB2D0052E3DC /* CloudKitLinkAdder.swift */,
+				AA90A9F12896FB2D0052E3DC /* CloudKitSearchAdder.swift */,
+			);
+			path = "CloudKit Music Adder Support";
 			sourceTree = "<group>";
 		};
 		AA9D96EF278B8AF70009C044 /* Models */ = {
@@ -552,11 +578,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA1D782E2894DC3700F39AA6 /* JoinedRoomView.swift in Sources */,
+				AA90A9F42896FB2D0052E3DC /* CloudKitButtonSongRowView.swift in Sources */,
 				AA0F1F8D279C9A0400C4D85F /* JoiningMusicQueueHelpView.swift in Sources */,
 				AA9246232895D4E200E7FCB9 /* Room.swift in Sources */,
 				AA85E2B027829EDA009F24ED /* PartyQueue.xcdatamodeld in Sources */,
 				AAF953B328949A6E00DBE562 /* JoinRoomCard.swift in Sources */,
 				AA85E2AD27829EDA009F24ED /* Persistence.swift in Sources */,
+				AA90A9F52896FB2D0052E3DC /* CloudKitLinkAdder.swift in Sources */,
 				AAF953AF2894673C00DBE562 /* RoomView.swift in Sources */,
 				AAF236C0288E2BDD00BF4E01 /* MyRoomsView.swift in Sources */,
 				AA58881A279BB49C00D4E9BB /* SubscriptionSettingsView.swift in Sources */,
@@ -569,18 +597,22 @@
 				AA43F0A02782DBC100C9AE08 /* JoiningView.swift in Sources */,
 				AA035312278527400047BCF9 /* QueueView.swift in Sources */,
 				AA5C4C3B2782A9E700F34E2B /* JoinQueueCard.swift in Sources */,
+				AA90A9F82896FD140052E3DC /* CloudKitServices.swift in Sources */,
 				AABB64F42895983700C7A31E /* OperationStatus.swift in Sources */,
 				AA3551B4279B24D90022795A /* HeadingText.swift in Sources */,
 				AA9246212895D28B00E7FCB9 /* MusicServices.swift in Sources */,
 				AA85E2A427829ED9009F24ED /* PartyQueueApp.swift in Sources */,
 				AA588816279BB45100D4E9BB /* LocalNetworkSettingsView.swift in Sources */,
 				AA85E2DB27829FF3009F24ED /* RectangleWrapper.swift in Sources */,
+				AA90A9F22896FB2D0052E3DC /* CloudKitMusicAdder.swift in Sources */,
 				AAA7175D279E6025002EF84C /* LimitInfoPack.swift in Sources */,
 				AAF953B12894776300DBE562 /* CloudKitSharingView.swift in Sources */,
 				AA96A5DB289440C50014E000 /* RoomEmojiPickerView.swift in Sources */,
 				AA70BA4027972AFB0033D376 /* LinkAdder.swift in Sources */,
+				AA90A9F32896FB2D0052E3DC /* CloudKitLibraryAdder.swift in Sources */,
 				AA588818279BB45F00D4E9BB /* MediaSettingsView.swift in Sources */,
 				AA85E2D327829F29009F24ED /* MainMenu.swift in Sources */,
+				AA90A9F62896FB2D0052E3DC /* CloudKitSearchAdder.swift in Sources */,
 				AA9D96EE278B8AEE0009C044 /* QueueEntry.swift in Sources */,
 				AA0F1F8F279C9C3C00C4D85F /* PermissionsHelpView.swift in Sources */,
 				AA588814279BAD4300D4E9BB /* LocalNetworkAuthorization.swift in Sources */,
