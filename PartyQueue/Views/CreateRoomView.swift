@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CloudKit
+import MusicKit
 
 struct CreateRoomView: View {
     // MARK: View Variables
@@ -20,10 +21,12 @@ struct CreateRoomView: View {
     }
     @State var enteredName = ""
     @State var enteredIcon = "🎶"
-    @State var enteredColor = Color.red
+    @State var enteredColor: Color = .red
     @State var enteredDescription = ""
     
     @State var isShowingIconPicker = false
+    
+    @State var roomUploadStatus = OperationStatus.notStarted
     
     // MARK: View Body
     var body: some View {
@@ -93,7 +96,9 @@ struct CreateRoomView: View {
             // MARK: Navigation View Settings
             .navigationTitle(Text("New Room"))
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(leading: Button(action: { self.presentationMode.wrappedValue.dismiss() }) { Text("Cancel").fontWeight(.regular) }, trailing: Button(action: {
+            .navigationBarItems(leading: Button(action: { self.presentationMode.wrappedValue.dismiss() }) { Text("Cancel").fontWeight(.regular) }, trailing: roomUploadStatus == .inProgress || roomUploadStatus == .success ? AnyView(ProgressView().progressViewStyle(CircularProgressViewStyle())) : AnyView(Button(action: {
+                roomUploadStatus = .inProgress
+                
                 let newZone = CKRecordZone(zoneName: "\(enteredName == "" ? defaultRoomName : enteredName) [\(Date().description)] [\(UUID())]")
                 
                 let zoneUploadOperation = CKModifyRecordZonesOperation(recordZonesToSave: [newZone])
@@ -102,7 +107,6 @@ struct CreateRoomView: View {
                     switch saveResult {
                     case .success(let zone):
                         let detailsRecord = CKRecord(recordType: "RoomDetails", recordID: CKRecord.ID(recordName: UUID().uuidString, zoneID: zone.zoneID))
-                        
                         detailsRecord["Name"] = enteredName
                         detailsRecord["Description"] = enteredDescription
                         detailsRecord["Icon"] = enteredIcon
@@ -113,11 +117,28 @@ struct CreateRoomView: View {
                             Double(enteredColor.cgColor!.components![3])
                         ]
                         
-                        let descriptionUploadOperation = CKModifyRecordsOperation(recordsToSave: [detailsRecord])
+                        let nowPlayingRecord = CKRecord(recordType: "NowPlayingSong",  recordID: CKRecord.ID(recordName: UUID().uuidString, zoneID: zone.zoneID))
+                        nowPlayingRecord["Song"] = try! JSONEncoder().encode(SystemMusicPlayer.shared.queue.currentEntry?.item)
+                        nowPlayingRecord["TimeElapsed"] = systemPlayingSongTime.0
+                        nowPlayingRecord["SongTime"] = systemPlayingSongTime.1
                         
-                        descriptionUploadOperation.modifyRecordsResultBlock = { (_ secondOperationResult: Result<Void, Error>) -> Void in
+                        let artworkURL = systemPlayingSong?.artwork?.url(width: 50, height: 50)
+                        let artworkFilename = FileManager.default.temporaryDirectory.appendingPathComponent("artwork.png")
+                        if artworkURL != nil {
+                            try! UIImage(data: Data(contentsOf: artworkURL!), scale: UIScreen.main.scale)!.pngData()!.write(to: artworkFilename)
+                            nowPlayingRecord["Artwork"] = CKAsset(fileURL: artworkFilename)
+                        }
+                        
+                        let roomRecordsUploadOperation = CKModifyRecordsOperation(recordsToSave: [detailsRecord, nowPlayingRecord])
+                        
+                        roomRecordsUploadOperation.modifyRecordsResultBlock = { (_ secondOperationResult: Result<Void, Error>) -> Void in
                             switch secondOperationResult {
                             case .success():
+                                // Delete the artwork file to save space
+                                do {
+                                    try FileManager.default.removeItem(at: artworkFilename)
+                                } catch {}
+                                
                                 let roomShareRecord = CKShare(recordZoneID: zone.zoneID)
                                 roomShareRecord[CKShare.SystemFieldKey.title] = enteredName as CKRecordValue
                                 roomShareRecord[CKShare.SystemFieldKey.shareType] = "Room" as CKRecordValue
@@ -128,9 +149,12 @@ struct CreateRoomView: View {
                                 shareSaveOperation.modifyRecordsResultBlock = { (_ operationResult: Result<Void, Error>) -> Void in
                                     switch operationResult {
                                     case .success():
+                                        roomUploadStatus = .success
                                         presentationMode.wrappedValue.dismiss()
+                                        
                                     case .failure(let error):
                                         print(error.localizedDescription)
+                                        roomUploadStatus = .failure
                                     }
                                 }
                                 
@@ -138,18 +162,20 @@ struct CreateRoomView: View {
                                 
                             case .failure(let error):
                                 print(error.localizedDescription)
+                                roomUploadStatus = .failure
                             }
                         }
                         
-                        CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(descriptionUploadOperation)
+                        CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(roomRecordsUploadOperation)
                         
                     case .failure(let error):
                         print(error.localizedDescription)
+                        roomUploadStatus = .failure
                     }
                 }
                 
                 CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(zoneUploadOperation)
-            }) { Text("Save").fontWeight(.bold) })
+            }) { Text("Save").fontWeight(.bold) }))
         }
     }
 }

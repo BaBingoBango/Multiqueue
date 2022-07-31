@@ -13,13 +13,13 @@ import CloudKit
 /// A SwiftUI view for displaying the CloudKit sharing view for a room via a modal.
 struct CloudKitSharingView: UIViewControllerRepresentable {
     // MARK: View Variables
-    var room: (CKRecordZone, RoomDetails, CKShare)
+    var room: Room
     var container: CKContainer
     
     // MARK: View Controller Generator
     func makeUIViewController(context: Context) -> UICloudSharingController {
         // MARK: Sharing View Settings
-        let cloudSharingController = UICloudSharingController(share: room.2, container: container)
+        let cloudSharingController = UICloudSharingController(share: room.share, container: container)
         
         cloudSharingController.modalPresentationStyle = .pageSheet
         cloudSharingController.availablePermissions = [.allowReadWrite]
@@ -56,7 +56,7 @@ struct CloudKitSharingView: UIViewControllerRepresentable {
         }
         
         func itemTitle(for csc: UICloudSharingController) -> String? {
-            parent.room.1.name
+            parent.room.details.name
         }
         
         func itemThumbnailData(for csc: UICloudSharingController) -> Data? {

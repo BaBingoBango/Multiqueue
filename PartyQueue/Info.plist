@@ -11,5 +11,7 @@
 	</array>
 	<key>kTCCServiceMediaLibrary</key>
 	<string>PartyQueue uses your music data to manage your queue and look up songs from connected devices.</string>
+	<key>CKSharingSupported</key>
+	<true/>
 </dict>
 </plist>

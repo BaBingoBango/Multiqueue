@@ -1,44 +1,36 @@
 //
-//  MyRoomsView.swift
+//  JoinRoomView.swift
 //  PartyQueue
 //
-//  Created by Ethan Marshall on 7/24/22.
+//  Created by Ethan Marshall on 7/29/22.
 //
 
 import SwiftUI
 import CloudKit
 import MusicKit
 
-/// The view listing the user's created rooms
-struct MyRoomsView: View {
+struct JoinRoomView: View {
     
-    // MARK: View Variables
-    @State var isShowingCreateRoomView = false
-    @State var userRooms: [Room] = []
+    // MARK: - View Variables
+    @State var avaliableRooms: [Room] = []
     @State var roomUpdateStatus = OperationStatus.notStarted
     
-    // MARK: View Body
+    // MARK: - View Body
     var body: some View {
 //        NavigationView {
             ScrollView {
                 VStack {
-                    Button(action: {
-                        isShowingCreateRoomView = true
-                    }) {
+                    HStack {
                         HStack {
-                            Image(systemName: "plus.circle.fill")
-                                .foregroundColor(.white)
+                            Image(systemName: "questionmark.circle")
+                                .foregroundColor(.accentColor)
                             
-                            Text("Create Room")
-                                .foregroundColor(.white)
-                                .fontWeight(.bold)
+                            Text("Can't Find Your Room?")
+                                .foregroundColor(.accentColor)
                         }
-                        .modifier(RectangleWrapper(fixedHeight: 50, color: .red, opacity: 1.0))
+                        .modifier(RectangleWrapper(fixedHeight: 50, color: .gray, opacity: 0.15))
                     }
                     .padding()
-                    .sheet(isPresented: $isShowingCreateRoomView) {
-                        CreateRoomView()
-                    }
                     
                     switch roomUpdateStatus {
                     case .notStarted:
@@ -50,20 +42,19 @@ struct MyRoomsView: View {
                             .progressViewStyle(CircularProgressViewStyle())
                         
                     case .success:
-                        if !userRooms.isEmpty {
-                            ForEach(0...userRooms.count - 1, id: \.self) { eachIndex in
-                                ZStack {
-                                    NavigationLink(destination: RoomView(room: userRooms[eachIndex])) {
-                                        RoomOptionView(roomDetails: userRooms[eachIndex].details)
-                                    }
-                                    
-                                    Toggle("", isOn: .constant(true))
-                                        .padding(.trailing)
+                        if !avaliableRooms.isEmpty {
+                            ForEach(0...avaliableRooms.count - 1, id: \.self) { eachIndex in
+                                NavigationLink(destination: JoinedRoomView(room: avaliableRooms[eachIndex])) {
+                                    RoomOptionView(roomDetails: avaliableRooms[eachIndex].details)
                                 }
-                                    .padding(.horizontal)
+                                .padding(.horizontal)
                             }
                         } else {
-                            Text("You Have No Rooms")
+                            Text("No Joinable Rooms Found")
+                                .foregroundColor(.gray)
+                                .fontWeight(.bold)
+                                .font(.title3)
+                                .padding(.top, 25)
                         }
                         
                     case .failure:
@@ -71,7 +62,6 @@ struct MyRoomsView: View {
                         
                     }
                 }
-                .padding(.bottom)
             }
             .onAppear {
                 if roomUpdateStatus == .notStarted {
@@ -79,8 +69,8 @@ struct MyRoomsView: View {
                 }
             }
             
-            // MARK: Navigation View Settings
-            .navigationTitle(Text("My Rooms"))
+            // MARK: - Navigation View Settings
+            .navigationTitle("Join Room")
             .toolbar(content: {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
@@ -96,8 +86,9 @@ struct MyRoomsView: View {
     }
     
     // MARK: - View Functions
+    /// Connects to the server to update the list of rooms shared with the user.
     func updateRoomList() {
-        userRooms = []
+        avaliableRooms = []
         roomUpdateStatus = .inProgress
         
         var zonesToQuery: [CKRecordZone] = []
@@ -151,7 +142,7 @@ struct MyRoomsView: View {
                                     shareQueryOperation.recordMatchedBlock = { (_ recordID: CKRecord.ID, _ recordResult: Result<CKRecord, Error>) -> Void in
                                         switch recordResult {
                                         case .success(let result):
-                                            userRooms.append(Room(zone: eachZone, details: roomDetails, nowPlayingSong: NowPlayingSong(record: nowPlayingRecord, song: try! JSONDecoder().decode(Song.self, from: nowPlayingRecord["Song"] as! Data), timeElapsed: nowPlayingRecord["TimeElapsed"] as! Double, songTime: nowPlayingRecord["SongTime"] as! Double, artwork: nowPlayingRecord["Artwork"] as! CKAsset), share: result as! CKShare))
+                                            avaliableRooms.append(Room(zone: eachZone, details: roomDetails, nowPlayingSong: NowPlayingSong(record: nowPlayingRecord, song: try! JSONDecoder().decode(Song.self, from: nowPlayingRecord["Song"] as! Data), timeElapsed: nowPlayingRecord["TimeElapsed"] as! Double, songTime: nowPlayingRecord["SongTime"] as! Double, artwork: nowPlayingRecord["Artwork"] as! CKAsset), share: result as! CKShare))
                                             
                                             queriedZones += 1
                                             if queriedZones == zonesToQuery.count {
@@ -165,7 +156,7 @@ struct MyRoomsView: View {
                                         }
                                     }
                                     
-                                    CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(shareQueryOperation)
+                                    CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(shareQueryOperation)
                                     
                                 case .failure(let error):
                                     print(error.localizedDescription)
@@ -173,7 +164,7 @@ struct MyRoomsView: View {
                                 }
                             }
                             
-                            CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(nowPlayingQueryOperation)
+                            CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(nowPlayingQueryOperation)
                             
                         case .failure(let error):
                             print(error.localizedDescription)
@@ -181,7 +172,7 @@ struct MyRoomsView: View {
                         }
                     }
                     
-                    CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(detailsQueryOperation)
+                    CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(detailsQueryOperation)
                 }
                 
             case .failure(let error):
@@ -190,12 +181,12 @@ struct MyRoomsView: View {
             }
         }
         
-        CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(zoneFetchOperation)
+        CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(zoneFetchOperation)
     }
 }
 
-struct MyRoomsView_Previews: PreviewProvider {
+struct JoinRoomView_Previews: PreviewProvider {
     static var previews: some View {
-        MyRoomsView()
+        JoinRoomView()
     }
 }

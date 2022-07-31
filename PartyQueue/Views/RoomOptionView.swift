@@ -32,10 +32,6 @@ struct RoomOptionView: View {
             }
             
             Spacer()
-            
-            Toggle("", isOn: .constant(true))
-                .fixedSize()
-                .padding(.trailing)
         }
         .modifier(RectangleWrapper(fixedHeight: 100, color: roomDetails.color, opacity: 0.15))
     }

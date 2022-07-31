@@ -12,6 +12,9 @@ import Network
 /// The landing view for the app. It contains navigation to all the major features, including hosting, joining, settings, and help.
 struct MainMenu: View {
     
+    /// The custom scene delegate object for the app.
+    @EnvironmentObject var sceneDelegate: MultiqueueSceneDelegate
+    
     @EnvironmentObject var multipeerServices: MultipeerServices
     
     @State var subscribedToAppleMusic = false
@@ -48,7 +51,7 @@ struct MainMenu: View {
                     }
                     .disabled(!grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
                     
-                    NavigationLink(destination: MyRoomsView()) {
+                    NavigationLink(destination: JoinRoomView()) {
                         JoinRoomCard(isGray: !grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
                             .padding([.top, .leading, .trailing])
                     }
@@ -109,6 +112,9 @@ struct MainMenu: View {
             LocalNetworkAuthorization().requestAuthorization(completion: { authorization in
                 grantedLocalNetworkPermissions = authorization
             })
+        }
+        .alert("Accepting Room Invitation...", isPresented: $sceneDelegate.isAcceptingShare) {
+            Button("Dismiss", role: .cancel) { }
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

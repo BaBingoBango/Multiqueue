@@ -1,5 +1,5 @@
 //
-//  RoomView.swift
+//  JoinedRoomView.swift
 //  PartyQueue
 //
 //  Created by Ethan Marshall on 7/29/22.
@@ -8,9 +8,8 @@
 import SwiftUI
 import CloudKit
 import MusicKit
-import simd
 
-struct RoomView: View {
+struct JoinedRoomView: View {
     
     // MARK: - View Variables
     @State var room: Room
@@ -23,7 +22,7 @@ struct RoomView: View {
     
     // MARK: - View Body
     var body: some View {
-        //NavigationView {
+//        NavigationView {
             VStack {
                 ScrollView {
                     VStack {
@@ -42,7 +41,7 @@ struct RoomView: View {
                         }
                         .padding([.top, .leading])
                         
-                        SongRowView(title: room.nowPlayingSong.song.title , subtitle: room.nowPlayingSong.song.artistName , artwork: room.nowPlayingSong.song.artwork, mode: .withSongControls, nowPlayingTime: (room.nowPlayingSong.timeElapsed , room.nowPlayingSong.songTime ))
+                        SongRowView(title: room.nowPlayingSong.song.title , subtitle: room.nowPlayingSong.song.artistName, customArtwork: room.nowPlayingSong.artwork, mode: .withTimeBar, nowPlayingTime: (room.nowPlayingSong.timeElapsed , room.nowPlayingSong.songTime ))
                         
                         Image(systemName: "arrow.up")
                             .resizable()
@@ -89,34 +88,21 @@ struct RoomView: View {
             }
             .padding(.bottom)
             .onReceive(timer) { time in
-                // If the current system song has updated, update the Now Playing UI
-                if (room.nowPlayingSong.song.title != systemPlayingSongTitle) ||
-                    (room.nowPlayingSong.song.artistName != systemPlayingSongArtist) ||
-                    (room.nowPlayingSong.song.artwork != systemPlayingSongArtwork ||
-                     (room.nowPlayingSong.timeElapsed, room.nowPlayingSong.song.duration) != systemPlayingSongTime) {
-                    
-                    room.nowPlayingSong.song = systemPlayingSong!
-                    room.nowPlayingSong.timeElapsed = systemPlayingSongTime.0
-                    room.nowPlayingSong.songTime = room.nowPlayingSong.song.duration!
-                    
-                    let artworkURL = systemPlayingSong?.artwork?.url(width: 50, height: 50)
-                    let artworkFilename = FileManager.default.temporaryDirectory.appendingPathComponent("artwork-\(Date().description).png")
-                    if artworkURL != nil {
-                        try! UIImage(data: Data(contentsOf: artworkURL!), scale: UIScreen.main.scale)!.pngData()!.write(to: artworkFilename)
-                        room.nowPlayingSong.artwork = CKAsset(fileURL: artworkFilename)
+                // Update the UI Now Playing song to match the server's
+                let nowPlayingQueryOperation = CKQueryOperation(query: CKQuery(recordType: "NowPlayingSong", predicate: NSPredicate(value: true)))
+                nowPlayingQueryOperation.zoneID = room.zone.zoneID
+                
+                nowPlayingQueryOperation.recordMatchedBlock = { (_ recordID: CKRecord.ID, _ nowPlayingRecordResult: Result<CKRecord, Error>) -> Void in
+                    switch nowPlayingRecordResult {
+                    case .success(let nowPlayingRecord):
+                        room.nowPlayingSong = NowPlayingSong(record: nowPlayingRecord, song: try! JSONDecoder().decode(Song.self, from: nowPlayingRecord["Song"] as! Data), timeElapsed: nowPlayingRecord["TimeElapsed"] as! Double, songTime: nowPlayingRecord["SongTime"] as! Double, artwork: nowPlayingRecord["Artwork"] as! CKAsset)
+                        
+                    case .failure(let error):
+                        print(error.localizedDescription)
                     }
-                    
-                    // Update the Now Playing record on the server
-                    room.nowPlayingSong.record["Song"] = try! JSONEncoder().encode(SystemMusicPlayer.shared.queue.currentEntry?.item)
-                    room.nowPlayingSong.record["TimeElapsed"] = systemPlayingSongTime.0
-                    room.nowPlayingSong.record["SongTime"] = systemPlayingSongTime.1
-                    room.nowPlayingSong.record["Artwork"] = room.nowPlayingSong.artwork
-                    
-                    let nowPlayingUpdateOperation = CKModifyRecordsOperation(recordsToSave: [room.nowPlayingSong.record])
-                    nowPlayingUpdateOperation.savePolicy = .allKeys
-                    nowPlayingUpdateOperation.qualityOfService = .userInteractive
-                    CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(nowPlayingUpdateOperation)
                 }
+                
+                CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(nowPlayingQueryOperation)
             }
             
             // MARK: - Navigation View Settings
@@ -146,12 +132,12 @@ struct RoomView: View {
                     }
                 }
             })
-        //}
+//        }
     }
 }
 
-//struct RoomView_Previews: PreviewProvider {
+//struct JoinedRoomView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        RoomView(room: Room(zone: CKRecordZone(zoneName: "Preview Zone"), details: RoomDetails(name: "Preview Room", icon: "🎶", color: .blue, description: "Preview description."), nowPlayingSong: NowPlayingSong(song: Song()), share: CKShare(recordZoneID: CKRecordZone.ID(zoneName: "Preview Zone", ownerName: "Preview Owner"))))
+//        JoinedRoomView(room: (CKRecordZone(zoneName: "Preview Zone"), RoomDetails(name: "Preview Room", icon: "🎶", color: .blue, description: "Preview description."), CKShare(recordZoneID: CKRecordZone.ID(zoneName: "Preview Zone", ownerName: "Preview Owner"))))
 //    }
 //}
