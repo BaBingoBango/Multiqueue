@@ -22,9 +22,9 @@ struct RoomView: View {
     @State var isShowingPeopleView = false
     @State var isShowingInfoView = false
     
-    let nowPlayingUploadTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    @State var hasCompletedInitialQueueUpdate = false
+    let nowPlayingUploadTimer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
     
+    @State var hasCompletedInitialQueueUpdate = false
     @State var queueUpdateStatus = OperationStatus.notStarted
     
     // MARK: - View Body
@@ -50,11 +50,11 @@ struct RoomView: View {
                         
                         SongRowView(title: room.nowPlayingSong.song.title , subtitle: room.nowPlayingSong.song.artistName , artwork: room.nowPlayingSong.song.artwork, mode: .withSongControls, nowPlayingTime: (room.nowPlayingSong.timeElapsed , room.nowPlayingSong.songTime ))
                         
-                        Image(systemName: "arrow.up")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 30)
-                            .padding(.top)
+//                        Image(systemName: "arrow.up")
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fit)
+//                            .frame(width: 30)
+//                            .padding(.top)
                         
                         HStack {
                             VStack(alignment: .leading) {
@@ -119,10 +119,10 @@ struct RoomView: View {
                     }
                     
                     // Update the Now Playing record on the server
-                    room.nowPlayingSong.record["Song"] = try! JSONEncoder().encode(SystemMusicPlayer.shared.queue.currentEntry?.item)
+                    room.nowPlayingSong.record["PlayingSong"] = try! JSONEncoder().encode(SystemMusicPlayer.shared.queue.currentEntry?.item)
                     room.nowPlayingSong.record["TimeElapsed"] = systemPlayingSongTime.0
                     room.nowPlayingSong.record["SongTime"] = systemPlayingSongTime.1
-                    room.nowPlayingSong.record["Artwork"] = room.nowPlayingSong.artwork
+                    room.nowPlayingSong.record["AlbumArtwork"] = room.nowPlayingSong.artwork
                     
                     let nowPlayingUpdateOperation = CKModifyRecordsOperation(recordsToSave: [room.nowPlayingSong.record])
                     nowPlayingUpdateOperation.savePolicy = .allKeys
@@ -176,7 +176,6 @@ struct RoomView: View {
     /// Downloads `QueueSong` records for the given zone that were created after the given date.
     func getQueueSongs(afterDate: Date, zoneID: CKRecordZone.ID, database: CloudKitDatabase, promptedByNotification: Bool = false) {
         queueUpdateStatus = .inProgress
-        print("Looking for new songs after \(afterDate.formatted(date: .omitted, time: .standard))")
         
         let songQuery = CKQuery(recordType: "QueueSong", predicate: NSPredicate(format: "TimeAdded > %@", afterDate as CVarArg))
         songQuery.sortDescriptors = [NSSortDescriptor(key: "TimeAdded", ascending: false)]

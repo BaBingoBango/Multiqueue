@@ -12,7 +12,7 @@ import UIKit
 
 /// Uploads a song to the specified room zone to be inserted into the room's host's music queue.
 func uploadQueueSong(song: Song, zoneID: CKRecordZone.ID, adderName: String, playType: PlayType, database: CloudKitDatabase, completionHandler: @escaping (Result<CKRecord, Error>) -> Void) {
-    let songRecord = CKRecord(recordType: "QueueSong", recordID: CKRecord.ID(recordName: "\(song.title) [\(adderName) Added \(playType == .next ? "For next" : "For later")] [\(Date().description)] [\(UUID())]", zoneID: zoneID))
+    let songRecord = CKRecord(recordType: "QueueSong", recordID: CKRecord.ID(recordName: "\(song.title) [\(adderName) Added \(playType == .next ? "For Next" : "For Later")] [\(Date().description)] [\(UUID())]", zoneID: zoneID))
     
     songRecord["Song"] = try! JSONEncoder().encode(song)
     songRecord["PlayType"] = playType == .next ? "Next" : "Later"

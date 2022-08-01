@@ -70,11 +70,18 @@ struct CloudKitButtonSongRowView: View {
                 
                 uploadQueueSong(song: song, zoneID: room.zone.zoneID, adderName: room.share.currentUserParticipant?.userIdentity.nameComponents?.formatted() ?? "the host", playType: room.selectedPlayType, database: .privateDatabase) { (_ saveResult: Result<CKRecord, Error>) -> Void in
                     switch saveResult {
-                    case .success(_):
+                        
+                    case .success(let record):
                         uploadStatus = .success
-                        sleep(2)
-                        appDelegate.notificationCompletionHandler = nil
-                        appDelegate.notificationStatus = .responding
+                        
+                        let newQueueSong = QueueSong(song: try! JSONDecoder().decode(Song.self, from: record["Song"] as! Data), playType: record["PlayType"] as! String == "Next" ? .next : .later, adderName: record["AdderName"] as! String, timeAdded: record["TimeAdded"] as! Date, artwork: record["Artwork"] as! CKAsset)
+                        
+                        if let index = room.queueSongs.firstIndex(where: { $0.timeAdded < record["TimeAdded"] as! Date }) {
+                            room.queueSongs.insert(newQueueSong, at: index)
+                        } else {
+                            room.queueSongs.append(newQueueSong)
+                        }
+                        
                     case .failure(let error):
                         uploadStatus = .failure
                         print(error.localizedDescription)

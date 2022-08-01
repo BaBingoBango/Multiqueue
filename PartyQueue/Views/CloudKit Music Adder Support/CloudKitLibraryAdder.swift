@@ -135,10 +135,16 @@ struct CloudKitSwiftUIMPMediaPickerController: UIViewControllerRepresentable {
                     if song != nil {
                         uploadQueueSong(song: song!, zoneID: parent.room.zone.zoneID, adderName: parent.room.share.currentUserParticipant?.userIdentity.nameComponents?.formatted() ?? "the host", playType: parent.room.selectedPlayType, database: .privateDatabase) { (_ saveResult: Result<CKRecord, Error>) -> Void in
                             switch saveResult {
-                            case .success(_):
-                                sleep(2)
-                                self.parent.appDelegate.notificationCompletionHandler = nil
-                                self.parent.appDelegate.notificationStatus = .responding
+                                
+                            case .success(let record):
+                                let newQueueSong = QueueSong(song: try! JSONDecoder().decode(Song.self, from: record["Song"] as! Data), playType: record["PlayType"] as! String == "Next" ? .next : .later, adderName: record["AdderName"] as! String, timeAdded: record["TimeAdded"] as! Date, artwork: record["Artwork"] as! CKAsset)
+                                
+                                if let index = self.parent.room.queueSongs.firstIndex(where: { $0.timeAdded < record["TimeAdded"] as! Date }) {
+                                    self.parent.room.queueSongs.insert(newQueueSong, at: index)
+                                } else {
+                                    self.parent.room.queueSongs.append(newQueueSong)
+                                }
+                                
                             case .failure(let error):
                                 print(error.localizedDescription)
                             }

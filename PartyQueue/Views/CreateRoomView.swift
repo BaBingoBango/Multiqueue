@@ -120,7 +120,7 @@ struct CreateRoomView: View {
                         ]
                         
                         let nowPlayingRecord = CKRecord(recordType: "NowPlayingSong",  recordID: CKRecord.ID(recordName: UUID().uuidString, zoneID: zone.zoneID))
-                        nowPlayingRecord["Song"] = try! JSONEncoder().encode(SystemMusicPlayer.shared.queue.currentEntry?.item)
+                        nowPlayingRecord["PlayingSong"] = try! JSONEncoder().encode(SystemMusicPlayer.shared.queue.currentEntry?.item)
                         nowPlayingRecord["TimeElapsed"] = systemPlayingSongTime.0
                         nowPlayingRecord["SongTime"] = systemPlayingSongTime.1
                         
@@ -128,7 +128,7 @@ struct CreateRoomView: View {
                         let artworkFilename = FileManager.default.temporaryDirectory.appendingPathComponent("artwork.png")
                         if artworkURL != nil {
                             try! UIImage(data: Data(contentsOf: artworkURL!), scale: UIScreen.main.scale)!.pngData()!.write(to: artworkFilename)
-                            nowPlayingRecord["Artwork"] = CKAsset(fileURL: artworkFilename)
+                            nowPlayingRecord["AlbumArtwork"] = CKAsset(fileURL: artworkFilename)
                         }
                         
                         let roomRecordsUploadOperation = CKModifyRecordsOperation(recordsToSave: [detailsRecord, nowPlayingRecord])
