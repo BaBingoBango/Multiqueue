@@ -58,6 +58,9 @@
 		AA90A9F52896FB2D0052E3DC /* CloudKitLinkAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA90A9F02896FB2D0052E3DC /* CloudKitLinkAdder.swift */; };
 		AA90A9F62896FB2D0052E3DC /* CloudKitSearchAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA90A9F12896FB2D0052E3DC /* CloudKitSearchAdder.swift */; };
 		AA90A9F82896FD140052E3DC /* CloudKitServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA90A9F72896FD140052E3DC /* CloudKitServices.swift */; };
+		AA90A9FA289712540052E3DC /* CloudKitDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA90A9F9289712540052E3DC /* CloudKitDatabase.swift */; };
+		AA90A9FC289722FE0052E3DC /* QueueSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA90A9FB289722FE0052E3DC /* QueueSong.swift */; };
+		AA90A9FE289766190052E3DC /* NotificationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA90A9FD289766190052E3DC /* NotificationStatus.swift */; };
 		AA9246212895D28B00E7FCB9 /* MusicServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9246202895D28B00E7FCB9 /* MusicServices.swift */; };
 		AA9246232895D4E200E7FCB9 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9246222895D4E200E7FCB9 /* Room.swift */; };
 		AA9246252895D52C00E7FCB9 /* NowPlayingSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9246242895D52C00E7FCB9 /* NowPlayingSong.swift */; };
@@ -154,6 +157,9 @@
 		AA90A9F02896FB2D0052E3DC /* CloudKitLinkAdder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitLinkAdder.swift; sourceTree = "<group>"; };
 		AA90A9F12896FB2D0052E3DC /* CloudKitSearchAdder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitSearchAdder.swift; sourceTree = "<group>"; };
 		AA90A9F72896FD140052E3DC /* CloudKitServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitServices.swift; sourceTree = "<group>"; };
+		AA90A9F9289712540052E3DC /* CloudKitDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitDatabase.swift; sourceTree = "<group>"; };
+		AA90A9FB289722FE0052E3DC /* QueueSong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueSong.swift; sourceTree = "<group>"; };
+		AA90A9FD289766190052E3DC /* NotificationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationStatus.swift; sourceTree = "<group>"; };
 		AA9246202895D28B00E7FCB9 /* MusicServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicServices.swift; sourceTree = "<group>"; };
 		AA9246222895D4E200E7FCB9 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		AA9246242895D52C00E7FCB9 /* NowPlayingSong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingSong.swift; sourceTree = "<group>"; };
@@ -441,8 +447,11 @@
 				AAA7175C279E6025002EF84C /* LimitInfoPack.swift */,
 				AA96A5DE28944B5D0014E000 /* RoomDetails.swift */,
 				AABB64F32895983700C7A31E /* OperationStatus.swift */,
+				AA90A9FD289766190052E3DC /* NotificationStatus.swift */,
 				AA9246242895D52C00E7FCB9 /* NowPlayingSong.swift */,
 				AA9246222895D4E200E7FCB9 /* Room.swift */,
+				AA90A9FB289722FE0052E3DC /* QueueSong.swift */,
+				AA90A9F9289712540052E3DC /* CloudKitDatabase.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -577,6 +586,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA90A9FE289766190052E3DC /* NotificationStatus.swift in Sources */,
 				AA1D782E2894DC3700F39AA6 /* JoinedRoomView.swift in Sources */,
 				AA90A9F42896FB2D0052E3DC /* CloudKitButtonSongRowView.swift in Sources */,
 				AA0F1F8D279C9A0400C4D85F /* JoiningMusicQueueHelpView.swift in Sources */,
@@ -592,6 +602,7 @@
 				AA0F1F8A279C99C300C4D85F /* HostingMusicQueueHelpView.swift in Sources */,
 				AA0F1F88279C998D00C4D85F /* UserGuide.swift in Sources */,
 				AA268B062784E231004699DF /* JoiningViewConnectedDeviceRow.swift in Sources */,
+				AA90A9FA289712540052E3DC /* CloudKitDatabase.swift in Sources */,
 				AA5C4C372782A4DC00F34E2B /* PermissionsOKCard.swift in Sources */,
 				AA96A5DD28944A0B0014E000 /* RoomOptionView.swift in Sources */,
 				AA43F0A02782DBC100C9AE08 /* JoiningView.swift in Sources */,
@@ -634,6 +645,7 @@
 				AA5C4C392782A75500F34E2B /* HostQueueCard.swift in Sources */,
 				AAA0F69F279DE4DF008D1AA7 /* QueueSettings.swift in Sources */,
 				AA70BA4327972B6F0033D376 /* LibraryServices.swift in Sources */,
+				AA90A9FC289722FE0052E3DC /* QueueSong.swift in Sources */,
 				AAF236C4288E378000BF4E01 /* CreateRoomView.swift in Sources */,
 				AA85E2D627829F60009F24ED /* MainMenuNavigationButtons.swift in Sources */,
 				AA85E2D927829FAD009F24ED /* NetworkPermissionsAlertCard.swift in Sources */,

@@ -37,6 +37,7 @@ struct RoomEmojiPickerView: View {
                                     
                                     Text(String(UnicodeScalar(emojiCode)!))
                                         .font(.system(size: geometry.size.height > geometry.size.width ? geometry.size.width * 0.6: geometry.size.height * 0.6))
+                                        .foregroundColor(.primary)
                                 }
                             }
                             .aspectRatio(contentMode: .fit)

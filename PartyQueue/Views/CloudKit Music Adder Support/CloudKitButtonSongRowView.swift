@@ -7,12 +7,16 @@
 
 import SwiftUI
 import MusicKit
+import CloudKit
 
 struct CloudKitButtonSongRowView: View {
+    /// The custom app delegate object for the app.
+    @EnvironmentObject var appDelegate: MultiqueueAppDelegate
     
     var song: Song
-    @State var showPlus = true
+    @State var uploadStatus = OperationStatus.notStarted
     var artwork: Artwork?
+    @Binding var room: Room
     
     var body: some View {
         HStack {
@@ -39,15 +43,44 @@ struct CloudKitButtonSongRowView: View {
             
             Spacer()
             
-            Image(systemName: showPlus ? "plus.circle" : "checkmark")
-                .foregroundColor(.accentColor)
-                .imageScale(.large)
+            switch uploadStatus {
+            case .notStarted:
+                Image(systemName: "plus.circle")
+                    .foregroundColor(.accentColor)
+                    .imageScale(.large)
+            case .inProgress:
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+            case .success:
+                Image(systemName: "checkmark")
+                    .foregroundColor(.accentColor)
+                    .imageScale(.large)
+            case .failure:
+                Image(systemName: "plus.circle")
+                    .foregroundColor(.accentColor)
+                    .imageScale(.large)
+            }
         }
         .padding()
         .modifier(RectangleWrapper())
         .padding(.horizontal)
         .onTapGesture {
-            showPlus = false
+            if uploadStatus == .notStarted || uploadStatus == .failure {
+                uploadStatus = .inProgress
+                
+                uploadQueueSong(song: song, zoneID: room.zone.zoneID, adderName: room.share.currentUserParticipant?.userIdentity.nameComponents?.formatted() ?? "the host", playType: room.selectedPlayType, database: .privateDatabase) { (_ saveResult: Result<CKRecord, Error>) -> Void in
+                    switch saveResult {
+                    case .success(_):
+                        uploadStatus = .success
+                        sleep(2)
+                        appDelegate.notificationCompletionHandler = nil
+                        appDelegate.notificationStatus = .responding
+                    case .failure(let error):
+                        uploadStatus = .failure
+                        print(error.localizedDescription)
+                    }
+                }
+            }
         }
     }
 }

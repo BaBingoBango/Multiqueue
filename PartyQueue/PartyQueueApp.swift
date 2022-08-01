@@ -32,6 +32,10 @@ struct PartyQueueApp: App {
 class MultiqueueAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
     /// Whether or not a share is currently being accepted.
     @Published var isAcceptingShare = false
+    /// The status of notification handling for the app.
+    @Published var notificationStatus = NotificationStatus.noNotification
+    /// The completion handler to call when the handling of the currently processing notification is complete.
+    @Published var notificationCompletionHandler: ((UIBackgroundFetchResult) -> Void)?
     
     /// The function called to configure the app's custom scene delegate.
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
@@ -57,6 +61,12 @@ class MultiqueueAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
             }
             CKContainer(identifier: "iCloud.Multiqueue").add(acceptShareOperation)
         }
+    }
+    /// The function called when a remote notification arrives that indicates there is data to be fetched.
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        print("Push notification received from server!")
+        notificationCompletionHandler = completionHandler
+        notificationStatus = .responding
     }
 }
 #endif

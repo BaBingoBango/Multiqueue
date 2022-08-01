@@ -19,6 +19,7 @@ struct CloudKitLinkAdder: View {
         guard let songID = components?.queryItems?.first?.value else { return "" }
         return songID
     }
+    @Binding var room: Room
     
     var body: some View {
         NavigationView {
@@ -68,7 +69,7 @@ struct CloudKitLinkAdder: View {
                         
                         ForEach(linkResults) { song in
                             Button(action: {}) {
-                                CloudKitButtonSongRowView(song: song, artwork: song.artwork!).environmentObject(multipeerServices)
+                                CloudKitButtonSongRowView(song: song, artwork: song.artwork!, room: $room).environmentObject(multipeerServices)
                             }
                         }
                         
@@ -109,8 +110,8 @@ struct CloudKitLinkAdder: View {
     
 }
 
-struct CloudKitLinkAdder_Previews: PreviewProvider {
-    static var previews: some View {
-        CloudKitLinkAdder().environmentObject(MultipeerServices(isHost: true))
-    }
-}
+//struct CloudKitLinkAdder_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CloudKitLinkAdder().environmentObject(MultipeerServices(isHost: true))
+//    }
+//}

@@ -157,7 +157,6 @@ struct MyRoomsView: View {
                                             if queriedZones == zonesToQuery.count {
                                                 roomUpdateStatus = .success
                                             }
-                                            print("Queried zone \(queriedZones) out of \(zonesToQuery.count)")
                                             
                                         case .failure(let error):
                                             print(error.localizedDescription)

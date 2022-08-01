@@ -11,11 +11,12 @@ import MusicKit
 struct CloudKitMusicAdder: View {
     
     @State var selectedTab = 0
+    @Binding var room: Room
     
     var body: some View {
         TabView(selection: $selectedTab) {
             
-            CloudKitLibraryAdder()
+            CloudKitLibraryAdder(room: $room)
                 .tabItem {
                 VStack {
                     Image(systemName: "music.note.house.fill")
@@ -23,14 +24,14 @@ struct CloudKitMusicAdder: View {
                 }
             }.tag(1)
             
-            CloudKitSearchAdder().tabItem {
+            CloudKitSearchAdder(room: $room).tabItem {
                 VStack {
                     Image(systemName: "magnifyingglass")
                     Text("Search")
                 }
             }.tag(2)
             
-            CloudKitLinkAdder().tabItem {
+            CloudKitLinkAdder(room: $room).tabItem {
                 VStack {
                     Image(systemName: "link")
                     Text("Link")
@@ -42,8 +43,8 @@ struct CloudKitMusicAdder: View {
     
 }
 
-struct CloudKitMusicAdder_Previews: PreviewProvider {
-    static var previews: some View {
-        CloudKitMusicAdder().environmentObject(MultipeerServices(isHost: true))
-    }
-}
+//struct CloudKitMusicAdder_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CloudKitMusicAdder()
+//    }
+//}

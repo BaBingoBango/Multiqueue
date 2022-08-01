@@ -14,4 +14,6 @@ struct Room {
     var details: RoomDetails
     var nowPlayingSong: NowPlayingSong
     var share: CKShare
+    var selectedPlayType = PlayType.next
+    var queueSongs: [QueueSong] = []
 }

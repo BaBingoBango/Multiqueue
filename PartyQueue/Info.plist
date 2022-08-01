@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CKSharingSupported</key>
+	<true/>
 	<key>NSBonjourServices</key>
 	<array>
 		<string>_partyqueue._tcp</string>
@@ -9,9 +11,12 @@
 		<string>_bonjour._tcp</string>
 		<string>_lnp._tcp.</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>kTCCServiceMediaLibrary</key>
 	<string>PartyQueue uses your music data to manage your queue and look up songs from connected devices.</string>
-	<key>CKSharingSupported</key>
-	<true/>
 </dict>
 </plist>

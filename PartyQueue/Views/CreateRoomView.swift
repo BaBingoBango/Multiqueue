@@ -99,7 +99,9 @@ struct CreateRoomView: View {
             .navigationBarItems(leading: Button(action: { self.presentationMode.wrappedValue.dismiss() }) { Text("Cancel").fontWeight(.regular) }, trailing: roomUploadStatus == .inProgress || roomUploadStatus == .success ? AnyView(ProgressView().progressViewStyle(CircularProgressViewStyle())) : AnyView(Button(action: {
                 roomUploadStatus = .inProgress
                 
-                let newZone = CKRecordZone(zoneName: "\(enteredName == "" ? defaultRoomName : enteredName) [\(Date().description)] [\(UUID())]")
+                let zoneCreationDate = Date()
+                let zoneUUID = UUID()
+                let newZone = CKRecordZone(zoneName: "\(enteredName == "" ? defaultRoomName : enteredName) [\(zoneCreationDate.description)] [\(zoneUUID)]")
                 
                 let zoneUploadOperation = CKModifyRecordZonesOperation(recordZonesToSave: [newZone])
                 
@@ -139,26 +141,49 @@ struct CreateRoomView: View {
                                     try FileManager.default.removeItem(at: artworkFilename)
                                 } catch {}
                                 
-                                let roomShareRecord = CKShare(recordZoneID: zone.zoneID)
-                                roomShareRecord[CKShare.SystemFieldKey.title] = enteredName as CKRecordValue
-                                roomShareRecord[CKShare.SystemFieldKey.shareType] = "Room" as CKRecordValue
-                                roomShareRecord[CKShare.SystemFieldKey.thumbnailImageData] = NSDataAsset(name: "Rounded App Icon")!.data as CKRecordValue
-                                roomShareRecord.publicPermission = .readWrite
+                                let subscription = CKRecordZoneSubscription(zoneID: zone.zoneID, subscriptionID: "\(enteredName == "" ? defaultRoomName : enteredName) Subscription [\(zoneCreationDate.description)] [\(zoneUUID)]")
+                                subscription.recordType = "QueueSong"
                                 
-                                let shareSaveOperation = CKModifyRecordsOperation(recordsToSave: [roomShareRecord])
-                                shareSaveOperation.modifyRecordsResultBlock = { (_ operationResult: Result<Void, Error>) -> Void in
-                                    switch operationResult {
-                                    case .success():
-                                        roomUploadStatus = .success
-                                        presentationMode.wrappedValue.dismiss()
+                                let notificationInfo = CKSubscription.NotificationInfo()
+                                notificationInfo.shouldSendContentAvailable = true
+                                notificationInfo.shouldBadge = true
+                                notificationInfo.title = "Hello!"
+                                notificationInfo.subtitle = "There was a record change just now!"
+                                subscription.notificationInfo = notificationInfo
+                                
+                                let subscriptionUploadOperation = CKModifySubscriptionsOperation(subscriptionsToSave: [subscription])
+                                
+                                subscriptionUploadOperation.perSubscriptionSaveBlock = { (_ subscriptionID: CKSubscription.ID, _ subscriptionSaveResult: Result<CKSubscription, Error>) -> Void in
+                                    switch subscriptionSaveResult {
+                                        
+                                    case .success(_):
+                                        let roomShareRecord = CKShare(recordZoneID: zone.zoneID)
+                                        roomShareRecord[CKShare.SystemFieldKey.title] = enteredName as CKRecordValue
+                                        roomShareRecord[CKShare.SystemFieldKey.shareType] = "Room" as CKRecordValue
+                                        roomShareRecord[CKShare.SystemFieldKey.thumbnailImageData] = NSDataAsset(name: "Rounded App Icon")!.data as CKRecordValue
+                                        roomShareRecord.publicPermission = .readWrite
+
+                                        let shareSaveOperation = CKModifyRecordsOperation(recordsToSave: [roomShareRecord])
+                                        shareSaveOperation.modifyRecordsResultBlock = { (_ operationResult: Result<Void, Error>) -> Void in
+                                            switch operationResult {
+                                            case .success():
+                                                roomUploadStatus = .success
+                                                presentationMode.wrappedValue.dismiss()
+
+                                            case .failure(let error):
+                                                print(error.localizedDescription)
+                                                roomUploadStatus = .failure
+                                            }
+                                        }
+
+                                        CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(shareSaveOperation)
                                         
                                     case .failure(let error):
                                         print(error.localizedDescription)
-                                        roomUploadStatus = .failure
                                     }
                                 }
                                 
-                                CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(shareSaveOperation)
+                                CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(subscriptionUploadOperation)
                                 
                             case .failure(let error):
                                 print(error.localizedDescription)

@@ -8,19 +8,22 @@
 import SwiftUI
 import MediaPlayer
 import MusicKit
+import CloudKit
 
 struct CloudKitLibraryAdder: View {
+    /// The custom app delegate object for the app.
+    @EnvironmentObject var appDelegate: MultiqueueAppDelegate
     
-    @EnvironmentObject var multipeerServices: MultipeerServices
     @State var isShowingLibraryPicker = false
     @Environment(\.presentationMode) var presentationMode
+    @Binding var room: Room
     
     var body: some View {
         NavigationView {
             VStack {
                 
-                Picker("Choose a Play Type", selection: $multipeerServices.playType) {
-                    ForEach(multipeerServices.playTypes, id: \.self) { playType in
+                Picker("Choose a Play Type", selection: $room.selectedPlayType) {
+                    ForEach([PlayType.next, PlayType.later], id: \.self) { playType in
                         if playType == .next {
                             Text("Play Songs Next")
                         } else {
@@ -65,7 +68,7 @@ struct CloudKitLibraryAdder: View {
                 }
                 .padding([.top, .leading, .trailing])
                 .sheet(isPresented: $isShowingLibraryPicker) {
-                    CloudKitSwiftUIMPMediaPickerController(multipeerServices: multipeerServices)
+                    CloudKitSwiftUIMPMediaPickerController(room: $room)
                 }
                 
                 Spacer()
@@ -81,18 +84,20 @@ struct CloudKitLibraryAdder: View {
     }
 }
 
-struct CloudKitLibraryAdder_Previews: PreviewProvider {
-    static var previews: some View {
-        CloudKitLibraryAdder().environmentObject(MultipeerServices(isHost: true))
-    }
-}
+//struct CloudKitLibraryAdder_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CloudKitLibraryAdder(multipeerServices: MultipeerServices(isHost: true))
+//    }
+//}
 
 struct CloudKitSwiftUIMPMediaPickerController: UIViewControllerRepresentable {
     
-    @ObservedObject var multipeerServices: MultipeerServices
+    @Binding var room: Room
+    /// The custom app delegate object for the app.
+    @EnvironmentObject var appDelegate: MultiqueueAppDelegate
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(self, multipeerServices)
+        Coordinator(self, room)
     }
     
     func makeUIViewController(context: Context) -> MPMediaPickerController {
@@ -109,24 +114,37 @@ struct CloudKitSwiftUIMPMediaPickerController: UIViewControllerRepresentable {
     
     class Coordinator: NSObject, MPMediaPickerControllerDelegate, UINavigationControllerDelegate {
         var parent: CloudKitSwiftUIMPMediaPickerController
-        init(_ mediaPickerController: CloudKitSwiftUIMPMediaPickerController, _ multipeerServices: MultipeerServices) {
+        init(_ mediaPickerController: CloudKitSwiftUIMPMediaPickerController, _ room: Room) {
             self.parent = mediaPickerController
         }
         
         // MARK: Media Picker Delegate
         func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
-            print("Media items have been picked!")
             handleMediaItems(mediaItemCollection.items)
             mediaPicker.dismiss(animated: true)
         }
         func mediaPickerDidCancel(_ mediaPicker: MPMediaPickerController) {
-            print("The user cancelled the media picker!")
             mediaPicker.dismiss(animated: true)
         }
         
         func handleMediaItems(_ mediaItems: [MPMediaItem]) {
             for eachMediaItem in mediaItems {
-                
+                Task {
+                    let song = await getSong(eachMediaItem)
+                    
+                    if song != nil {
+                        uploadQueueSong(song: song!, zoneID: parent.room.zone.zoneID, adderName: parent.room.share.currentUserParticipant?.userIdentity.nameComponents?.formatted() ?? "the host", playType: parent.room.selectedPlayType, database: .privateDatabase) { (_ saveResult: Result<CKRecord, Error>) -> Void in
+                            switch saveResult {
+                            case .success(_):
+                                sleep(2)
+                                self.parent.appDelegate.notificationCompletionHandler = nil
+                                self.parent.appDelegate.notificationStatus = .responding
+                            case .failure(let error):
+                                print(error.localizedDescription)
+                            }
+                        }
+                    }
+                }
             }
         }
         
