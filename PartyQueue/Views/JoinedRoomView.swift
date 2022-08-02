@@ -50,13 +50,16 @@ struct JoinedRoomView: View {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle())
                                     .padding(.leading, 5)
-                                    .hidden()
                             }
                             Spacer()
                         }
                         .padding([.top, .leading])
                         
-                        SongRowView(title: room.nowPlayingSong.song.title , subtitle: room.nowPlayingSong.song.artistName, customArtwork: room.nowPlayingSong.artwork, mode: .withTimeBar, nowPlayingTime: (room.nowPlayingSong.timeElapsed , room.nowPlayingSong.songTime ))
+                        if let song = room.nowPlayingSong.song {
+                            SongRowView(title: song.title , subtitle: song.artistName, customArtwork: room.nowPlayingSong.artwork, mode: .withTimeBar, nowPlayingTime: (room.nowPlayingSong.timeElapsed, room.nowPlayingSong.songTime ))
+                        } else {
+                            SongRowView(title: "Not Playing" , subtitle: "", mode: .songOnly, nowPlayingTime: (room.nowPlayingSong.timeElapsed, room.nowPlayingSong.songTime ))
+                        }
                         
 //                        Image(systemName: "arrow.up")
 //                            .resizable()
@@ -75,7 +78,6 @@ struct JoinedRoomView: View {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle())
                                     .padding(.leading, 5)
-                                    .hidden()
                             }
                             
                             Spacer()
@@ -153,7 +155,13 @@ struct JoinedRoomView: View {
     }
     
     // MARK: - View Functions
-    /// Downloads `QueueSong` records for the given zone that were created after the given date.
+    /// Updates the view with data from the server.
+    /// - Parameters:
+    ///   - afterDate: The date for which all downloaded queue songs should be added after.
+    ///   - zoneID: The ID of this room's zone.
+    ///   - database: The database to use to access this room's zone.
+    ///   - fetchChanges: Whether or not to fetch only record changes, or to fetch all `QueueSong` records.
+    ///   - promptedByNotification: Whether or not this function is being called as part of a notification response.
     func getDataFromServer(afterDate: Date, zoneID: CKRecordZone.ID, database: CloudKitDatabase, fetchChanges: Bool = false, promptedByNotification: Bool = false) {
         queueUpdateStatus = .inProgress
         nowPlayingUpdateStatus = .inProgress

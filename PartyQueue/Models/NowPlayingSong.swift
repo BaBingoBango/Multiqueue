@@ -11,8 +11,8 @@ import CloudKit
 
 struct NowPlayingSong {
     var record: CKRecord
-    var song: Song
+    var song: Song?
     var timeElapsed: Double // in seconds
     var songTime: Double // in seconds
-    var artwork: CKAsset
+    var artwork: CKAsset?
 }
