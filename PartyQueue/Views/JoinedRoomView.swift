@@ -26,6 +26,8 @@ struct JoinedRoomView: View {
     @State var hasCompletedInitialQueueUpdate = false
     @State var queueUpdateStatus = OperationStatus.notStarted
     
+    let viewUpdateTimer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
+    
     // MARK: - View Body
     var body: some View {
 //        NavigationView {
@@ -48,6 +50,7 @@ struct JoinedRoomView: View {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle())
                                     .padding(.leading, 5)
+                                    .hidden()
                             }
                             Spacer()
                         }
@@ -72,6 +75,7 @@ struct JoinedRoomView: View {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle())
                                     .padding(.leading, 5)
+                                    .hidden()
                             }
                             
                             Spacer()
@@ -107,35 +111,14 @@ struct JoinedRoomView: View {
             .padding(.bottom)
             .onAppear {
                 if !hasCompletedInitialQueueUpdate {
-                    getQueueSongs(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .sharedDatabase)
+                    getDataFromServer(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .sharedDatabase)
                     hasCompletedInitialQueueUpdate = true
                 }
             }
-            .onReceive(nowPlayingUpdateTimer) { time in
-                // Update the UI Now Playing song to match the server's
-                nowPlayingUpdateStatus = .inProgress
-                
-                let nowPlayingQueryOperation = CKQueryOperation(query: CKQuery(recordType: "NowPlayingSong", predicate: NSPredicate(value: true)))
-                nowPlayingQueryOperation.zoneID = room.zone.zoneID
-                
-                nowPlayingQueryOperation.recordMatchedBlock = { (_ recordID: CKRecord.ID, _ nowPlayingRecordResult: Result<CKRecord, Error>) -> Void in
-                    switch nowPlayingRecordResult {
-                    case .success(let nowPlayingRecord):
-                        room.nowPlayingSong = NowPlayingSong(record: nowPlayingRecord, song: try! JSONDecoder().decode(Song.self, from: nowPlayingRecord["PlayingSong"] as! Data), timeElapsed: nowPlayingRecord["TimeElapsed"] as! Double, songTime: nowPlayingRecord["SongTime"] as! Double, artwork: nowPlayingRecord["AlbumArtwork"] as! CKAsset)
-                        nowPlayingUpdateStatus = .success
-                        
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                        nowPlayingUpdateStatus = .failure
-                    }
-                }
-                
-                CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(nowPlayingQueryOperation)
-            }
-            .onReceive(queueUpdateTimer) { time in
+            .onReceive(viewUpdateTimer) { time in
                 // Update the list of queue songs to match the server's
                 if queueUpdateStatus != .inProgress {
-                    getQueueSongs(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .sharedDatabase, fetchChangesOnly: true)
+                    getDataFromServer(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .sharedDatabase, fetchChanges: true)
                 }
             }
             
@@ -171,10 +154,34 @@ struct JoinedRoomView: View {
     
     // MARK: - View Functions
     /// Downloads `QueueSong` records for the given zone that were created after the given date.
-    func getQueueSongs(afterDate: Date, zoneID: CKRecordZone.ID, database: CloudKitDatabase, fetchChangesOnly: Bool = false, promptedByNotification: Bool = false) {
+    func getDataFromServer(afterDate: Date, zoneID: CKRecordZone.ID, database: CloudKitDatabase, fetchChanges: Bool = false, promptedByNotification: Bool = false) {
         queueUpdateStatus = .inProgress
+        nowPlayingUpdateStatus = .inProgress
         
-        if !fetchChangesOnly {
+        if !fetchChanges {
+            // Fetch the initial Now Playing song from the server
+            nowPlayingUpdateStatus = .inProgress
+            
+            let nowPlayingQueryOperation = CKQueryOperation(query: CKQuery(recordType: "NowPlayingSong", predicate: NSPredicate(value: true)))
+            nowPlayingQueryOperation.zoneID = room.zone.zoneID
+            
+            nowPlayingQueryOperation.recordMatchedBlock = { (_ recordID: CKRecord.ID, _ nowPlayingRecordResult: Result<CKRecord, Error>) -> Void in
+                switch nowPlayingRecordResult {
+                case .success(let nowPlayingRecord):
+                    room.nowPlayingSong = NowPlayingSong(record: nowPlayingRecord, song: try! JSONDecoder().decode(Song.self, from: nowPlayingRecord["PlayingSong"] as! Data), timeElapsed: nowPlayingRecord["TimeElapsed"] as! Double, songTime: nowPlayingRecord["SongTime"] as! Double, artwork: nowPlayingRecord["AlbumArtwork"] as! CKAsset)
+                    nowPlayingUpdateStatus = .success
+                    
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    nowPlayingUpdateStatus = .failure
+                }
+            }
+            
+            CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(nowPlayingQueryOperation)
+            
+            // Fetch initial queue songs from the sever
+            queueUpdateStatus = .inProgress
+            
             let songQuery = CKQuery(recordType: "QueueSong", predicate: NSPredicate(format: "TimeAdded > %@", afterDate as CVarArg))
             songQuery.sortDescriptors = [NSSortDescriptor(key: "TimeAdded", ascending: false)]
             let songQueryOperation = CKQueryOperation(query: songQuery)
@@ -228,8 +235,11 @@ struct JoinedRoomView: View {
             } else if database == .sharedDatabase {
                 CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(songQueryOperation)
             }
+            
         } else {
-            let changeFetchConfiguration = CKFetchRecordZoneChangesOperation.ZoneConfiguration(previousServerChangeToken: queueChangeToken, desiredKeys: ["AdderName", "Artwork", "PlayType", "Song", "TimeAdded"])
+            
+            // Fetch changes for the Now Playing song, queue songs, and the share record
+            let changeFetchConfiguration = CKFetchRecordZoneChangesOperation.ZoneConfiguration(previousServerChangeToken: queueChangeToken)
             let changeFetchOperation = CKFetchRecordZoneChangesOperation(recordZoneIDs: [zoneID], configurationsByRecordZoneID: [zoneID : changeFetchConfiguration])
             
             changeFetchOperation.recordWasChangedBlock = { (_ recordID: CKRecord.ID, _ recordResult: Result<CKRecord, Error>) -> Void in
@@ -237,6 +247,7 @@ struct JoinedRoomView: View {
                     
                 case .success(let record):
                     if record.recordType == "QueueSong" {
+                        // Add a new queue song to the UI
                         let newQueueSong = QueueSong(song: try! JSONDecoder().decode(Song.self, from: record["Song"] as! Data), playType: record["PlayType"] as! String == "Next" ? .next : .later, adderName: record["AdderName"] as! String, timeAdded: record["TimeAdded"] as! Date, artwork: record["Artwork"] as! CKAsset)
                         
                         if let index = room.queueSongs.firstIndex(where: { $0.timeAdded < record["TimeAdded"] as! Date }) {
@@ -244,6 +255,16 @@ struct JoinedRoomView: View {
                         } else {
                             room.queueSongs.append(newQueueSong)
                         }
+                        
+                    } else if record.recordType == "NowPlayingSong" {
+                        // Update the Now Playing song in the UI
+                        room.nowPlayingSong = NowPlayingSong(record: record, song: try! JSONDecoder().decode(Song.self, from: record["PlayingSong"] as! Data), timeElapsed: record["TimeElapsed"] as! Double, songTime: record["SongTime"] as! Double, artwork: record["AlbumArtwork"] as! CKAsset)
+                        nowPlayingUpdateStatus = .success
+                        
+                    } else if record.recordType == "cloudkit.share" {
+                        // Update the room's local share record
+                        room.share = record as! CKShare
+                        
                     }
                     
                 case .failure(let error):
@@ -261,10 +282,10 @@ struct JoinedRoomView: View {
             changeFetchOperation.recordZoneFetchResultBlock = { (_ recordZoneID: CKRecordZone.ID, _ fetchChangesResult: Result<(serverChangeToken: CKServerChangeToken, clientChangeTokenData: Data?, moreComing: Bool), Error>) -> Void in
                 switch fetchChangesResult {
                     
-                case .success((let serverChangeToken, let clientChangeTokenData, let moreComing)):
+                case .success((let serverChangeToken, _, let moreComing)):
                     queueChangeToken = serverChangeToken
                     if moreComing {
-                        getQueueSongs(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .sharedDatabase)
+                        getDataFromServer(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .sharedDatabase)
                     } else {
                         queueUpdateStatus = .success
                     }
