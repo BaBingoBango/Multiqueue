@@ -12,11 +12,12 @@ struct CloudKitMusicAdder: View {
     
     @State var selectedTab = 0
     @Binding var room: Room
+    var database: CloudKitDatabase
     
     var body: some View {
         TabView(selection: $selectedTab) {
             
-            CloudKitLibraryAdder(room: $room)
+            CloudKitLibraryAdder(room: $room, database: database)
                 .tabItem {
                 VStack {
                     Image(systemName: "music.note.house.fill")
@@ -24,14 +25,14 @@ struct CloudKitMusicAdder: View {
                 }
             }.tag(1)
             
-            CloudKitSearchAdder(room: $room).tabItem {
+            CloudKitSearchAdder(room: $room, database: database).tabItem {
                 VStack {
                     Image(systemName: "magnifyingglass")
                     Text("Search")
                 }
             }.tag(2)
             
-            CloudKitLinkAdder(room: $room).tabItem {
+            CloudKitLinkAdder(room: $room, database: database).tabItem {
                 VStack {
                     Image(systemName: "link")
                     Text("Link")

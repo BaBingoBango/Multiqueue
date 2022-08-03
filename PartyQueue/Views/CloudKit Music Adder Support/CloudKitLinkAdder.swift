@@ -20,6 +20,7 @@ struct CloudKitLinkAdder: View {
         return songID
     }
     @Binding var room: Room
+    var database: CloudKitDatabase
     
     var body: some View {
         NavigationView {
@@ -69,7 +70,7 @@ struct CloudKitLinkAdder: View {
                         
                         ForEach(linkResults) { song in
                             Button(action: {}) {
-                                CloudKitButtonSongRowView(song: song, artwork: song.artwork!, room: $room).environmentObject(multipeerServices)
+                                CloudKitButtonSongRowView(song: song, artwork: song.artwork!, room: $room, database: database).environmentObject(multipeerServices)
                             }
                         }
                         

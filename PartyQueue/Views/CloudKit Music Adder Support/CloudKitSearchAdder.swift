@@ -15,6 +15,7 @@ struct CloudKitSearchAdder: View {
     @Environment(\.presentationMode) var presentationMode
     @State var searchResults = MusicItemCollection<Song>()
     @Binding var room: Room
+    var database: CloudKitDatabase
     
     var body: some View {
         NavigationView {
@@ -46,7 +47,7 @@ struct CloudKitSearchAdder: View {
                         
                         ForEach(searchResults) { song in
                             Button(action: {}) {
-                                CloudKitButtonSongRowView(song: song, artwork: song.artwork!, room: $room).environmentObject(multipeerServices)
+                                CloudKitButtonSongRowView(song: song, artwork: song.artwork!, room: $room, database: database).environmentObject(multipeerServices)
                             }
                         }
                         

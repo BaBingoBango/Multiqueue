@@ -157,7 +157,7 @@ struct MyRoomsView: View {
                                                 } catch {
                                                     return nil
                                                 }
-                                            }(), timeElapsed: nowPlayingRecord["TimeElapsed"] as! Double, songTime: nowPlayingRecord["SongTime"] as! Double, artwork: nowPlayingRecord.allKeys().contains("AlbumArtwork") ? nowPlayingRecord["AlbumArtwork"] as! CKAsset : nil), share: result as! CKShare))
+                                            }(), timeElapsed: nowPlayingRecord["TimeElapsed"] as! Double, songTime: nowPlayingRecord["SongTime"] as! Double, artwork: nowPlayingRecord.allKeys().contains("AlbumArtwork") ? nowPlayingRecord["AlbumArtwork"] as? CKAsset : nil), share: result as! CKShare))
                                             
                                             queriedZones += 1
                                             if queriedZones == zonesToQuery.count {

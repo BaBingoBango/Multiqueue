@@ -107,7 +107,7 @@ struct JoinedRoomView: View {
                 }
                 .padding([.top, .leading, .trailing])
                 .sheet(isPresented: $isShowingMusicAdder) {
-                    MusicAdder()
+                    CloudKitMusicAdder(room: $room, database: .sharedDatabase)
                 }
             }
             .padding(.bottom)
@@ -176,7 +176,13 @@ struct JoinedRoomView: View {
             nowPlayingQueryOperation.recordMatchedBlock = { (_ recordID: CKRecord.ID, _ nowPlayingRecordResult: Result<CKRecord, Error>) -> Void in
                 switch nowPlayingRecordResult {
                 case .success(let nowPlayingRecord):
-                    room.nowPlayingSong = NowPlayingSong(record: nowPlayingRecord, song: try! JSONDecoder().decode(Song.self, from: nowPlayingRecord["PlayingSong"] as! Data), timeElapsed: nowPlayingRecord["TimeElapsed"] as! Double, songTime: nowPlayingRecord["SongTime"] as! Double, artwork: nowPlayingRecord["AlbumArtwork"] as! CKAsset)
+                    room.nowPlayingSong = NowPlayingSong(record: nowPlayingRecord, song: {
+                        do {
+                            return try JSONDecoder().decode(Song.self, from: nowPlayingRecord["PlayingSong"] as! Data)
+                        } catch {
+                            return nil
+                        }
+                    }(), timeElapsed: nowPlayingRecord["TimeElapsed"] as! Double, songTime: nowPlayingRecord["SongTime"] as! Double, artwork: nowPlayingRecord["AlbumArtwork"] as? CKAsset)
                     nowPlayingUpdateStatus = .success
                     
                 case .failure(let error):
@@ -266,7 +272,13 @@ struct JoinedRoomView: View {
                         
                     } else if record.recordType == "NowPlayingSong" {
                         // Update the Now Playing song in the UI
-                        room.nowPlayingSong = NowPlayingSong(record: record, song: try! JSONDecoder().decode(Song.self, from: record["PlayingSong"] as! Data), timeElapsed: record["TimeElapsed"] as! Double, songTime: record["SongTime"] as! Double, artwork: record["AlbumArtwork"] as! CKAsset)
+                        room.nowPlayingSong = NowPlayingSong(record: record, song: {
+                            do {
+                                return try JSONDecoder().decode(Song.self, from: record["PlayingSong"] as! Data)
+                            } catch {
+                                return nil
+                            }
+                        }(), timeElapsed: record["TimeElapsed"] as! Double, songTime: record["SongTime"] as! Double, artwork: record["AlbumArtwork"] as? CKAsset)
                         nowPlayingUpdateStatus = .success
                         
                     } else if record.recordType == "cloudkit.share" {

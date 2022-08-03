@@ -18,6 +18,8 @@ struct CloudKitLibraryAdder: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var room: Room
     
+    var database: CloudKitDatabase
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -68,7 +70,7 @@ struct CloudKitLibraryAdder: View {
                 }
                 .padding([.top, .leading, .trailing])
                 .sheet(isPresented: $isShowingLibraryPicker) {
-                    CloudKitSwiftUIMPMediaPickerController(room: $room)
+                    CloudKitSwiftUIMPMediaPickerController(room: $room, database: database)
                 }
                 
                 Spacer()
@@ -95,6 +97,7 @@ struct CloudKitSwiftUIMPMediaPickerController: UIViewControllerRepresentable {
     @Binding var room: Room
     /// The custom app delegate object for the app.
     @EnvironmentObject var appDelegate: MultiqueueAppDelegate
+    var database: CloudKitDatabase
     
     func makeCoordinator() -> Coordinator {
         Coordinator(self, room)
@@ -133,7 +136,7 @@ struct CloudKitSwiftUIMPMediaPickerController: UIViewControllerRepresentable {
                     let song = await getSong(eachMediaItem)
                     
                     if song != nil {
-                        uploadQueueSong(song: song!, zoneID: parent.room.zone.zoneID, adderName: parent.room.share.currentUserParticipant?.userIdentity.nameComponents?.formatted() ?? "the host", playType: parent.room.selectedPlayType, database: .privateDatabase) { (_ saveResult: Result<CKRecord, Error>) -> Void in
+                        uploadQueueSong(song: song!, zoneID: parent.room.zone.zoneID, adderName: parent.room.share.currentUserParticipant?.userIdentity.nameComponents?.formatted() ?? "the host", playType: parent.room.selectedPlayType, database: parent.database) { (_ saveResult: Result<CKRecord, Error>) -> Void in
                             switch saveResult {
                                 
                             case .success(let record):

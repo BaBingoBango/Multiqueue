@@ -17,6 +17,7 @@ struct CloudKitButtonSongRowView: View {
     @State var uploadStatus = OperationStatus.notStarted
     var artwork: Artwork?
     @Binding var room: Room
+    var database: CloudKitDatabase
     
     var body: some View {
         HStack {
@@ -68,7 +69,7 @@ struct CloudKitButtonSongRowView: View {
             if uploadStatus == .notStarted || uploadStatus == .failure {
                 uploadStatus = .inProgress
                 
-                uploadQueueSong(song: song, zoneID: room.zone.zoneID, adderName: room.share.currentUserParticipant?.userIdentity.nameComponents?.formatted() ?? "the host", playType: room.selectedPlayType, database: .privateDatabase) { (_ saveResult: Result<CKRecord, Error>) -> Void in
+                uploadQueueSong(song: song, zoneID: room.zone.zoneID, adderName: room.share.currentUserParticipant?.userIdentity.nameComponents?.formatted() ?? "the host", playType: room.selectedPlayType, database: database) { (_ saveResult: Result<CKRecord, Error>) -> Void in
                     switch saveResult {
                         
                     case .success(let record):

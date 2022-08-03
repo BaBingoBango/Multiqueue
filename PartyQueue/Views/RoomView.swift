@@ -102,14 +102,14 @@ struct RoomView: View {
                 }
                 .padding([.top, .leading, .trailing])
                 .sheet(isPresented: $isShowingMusicAdder) {
-                    CloudKitMusicAdder(room: $room)
+                    CloudKitMusicAdder(room: $room, database: .privateDatabase)
                 }
             }
             .padding(.bottom)
             .onReceive(changeFetchTimer) { time in
                 // Update the list of queue songs to match the server's
                 if queueUpdateStatus != .inProgress {
-                    getDataFromServer(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .sharedDatabase, fetchChanges: true)
+                    getDataFromServer(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .privateDatabase, fetchChanges: true)
                 }
             }
             .onReceive(nowPlayingUploadTimer) { time in
@@ -258,7 +258,6 @@ struct RoomView: View {
             // Fetch changes for the Now Playing song, queue songs, and the share record
             let changeFetchConfiguration = CKFetchRecordZoneChangesOperation.ZoneConfiguration(previousServerChangeToken: queueChangeToken)
             let changeFetchOperation = CKFetchRecordZoneChangesOperation(recordZoneIDs: [zoneID], configurationsByRecordZoneID: [zoneID : changeFetchConfiguration])
-            
             changeFetchOperation.recordWasChangedBlock = { (_ recordID: CKRecord.ID, _ recordResult: Result<CKRecord, Error>) -> Void in
                 switch recordResult {
                     
@@ -297,7 +296,7 @@ struct RoomView: View {
                 case .success((let serverChangeToken, _, let moreComing)):
                     queueChangeToken = serverChangeToken
                     if moreComing {
-                        getDataFromServer(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .sharedDatabase)
+                        getDataFromServer(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .privateDatabase)
                     } else {
                         queueUpdateStatus = .success
                     }
