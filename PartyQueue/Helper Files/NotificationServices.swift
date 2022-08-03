@@ -9,30 +9,31 @@ import Foundation
 import UserNotifications
 import Intents
 import UIKit
+import CloudKit
 
-func showSongAddedNotification(adderName: String, songTitle: String, playType: PlayType, adderEmail: String?, userEmail: String, userName: String, roomName: String) {
-    // Set the content for the notification
+func showSongAddedNotification(adderName: String, songTitle: String, artistName: String, songArtworkURL: URL?, playType: PlayType, userName: String, roomName: String) {
+    // Set the basic content for the notification
     var content = UNMutableNotificationContent()
-    content.title = "Multiqueue"
-    content.subtitle = "Song Added To Queue"
-    content.badge = 1
-    content.body = "\(adderName) just added \"\(songTitle)\" to play \(playType == .next ? "next" : "later")!"
+    content.body = "\"\(songTitle)\" by \(artistName) was just added to play \(playType == .next ? "next" : "later")!"
     content.sound = UNNotificationSound.default
     
-    // Configure the notification's receipient
+    // Attempt to set the attachment for the notification
+//    do {
+//        content.attachments = [try UNNotificationAttachment(identifier: "\(songTitle) by \(artistName) Artwork", url: songArtworkURL!)]
+//    } catch {
+//        print(error.localizedDescription)
+//    }
+    
+    // Configure the notification's recipient
     let user = INPerson(
-        personHandle: INPersonHandle(value: userEmail, type: .emailAddress),
+        personHandle: INPersonHandle(value: nil, type: .unknown),
         nameComponents: {
             var nameComponents = PersonNameComponents()
             nameComponents.nickname = userName
             return nameComponents
         }(),
         displayName: userName,
-        image: {
-            let initialsImage: UIImageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-            initialsImage.setImageForName(userName, backgroundColor: .gray, circular: true, textAttributes: nil)
-            return INImage(imageData: initialsImage.image!.pngData()!)
-        }(),
+        image: nil,
         contactIdentifier: nil,
         customIdentifier: nil,
         isMe: true,
@@ -41,14 +42,25 @@ func showSongAddedNotification(adderName: String, songTitle: String, playType: P
     
     // Create an image for the sender
     let senderImage: INImage = {
+        let gradientWhite = UIColor(red: 165.0 / 255.0, green: 169.0 / 255.0, blue: 182.0 / 255.0, alpha: 1)
+        let gradientGray = UIColor(red: 136.0 / 255.0, green: 140.0 / 255.0, blue: 150.0 / 255.0, alpha: 1)
+        
         let initialsImage: UIImageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        initialsImage.setImageForName(adderName, backgroundColor: .gray, circular: true, textAttributes: nil)
+        initialsImage.setImageForName(adderName, gradientColors: (gradientWhite, gradientGray), circular: true, textAttributes: [NSAttributedString.Key.font: {
+            let fontSize: CGFloat = 24
+            let systemFont = UIFont.systemFont(ofSize: fontSize, weight: .semibold)
+            if let descriptor = systemFont.fontDescriptor.withDesign(.rounded) {
+                return UIFont(descriptor: descriptor, size: fontSize)
+            } else {
+                return UIFont.systemFont(ofSize: fontSize, weight: .bold)
+            }
+        }(), NSAttributedString.Key.foregroundColor: UIColor.white])
         return INImage(imageData: initialsImage.image!.pngData()!)
     }()
     
     // Configure the notification's sender
     let sender = INPerson(
-        personHandle: INPersonHandle(value: adderEmail, type: .emailAddress),
+        personHandle: INPersonHandle(value: nil, type: .unknown),
         nameComponents: {
             var nameComponents = PersonNameComponents()
             nameComponents.nickname = adderName
@@ -64,7 +76,7 @@ func showSongAddedNotification(adderName: String, songTitle: String, playType: P
     
     // Create an intent object with the communciation info
     let intent = INSendMessageIntent(
-        recipients: [user],
+        recipients: [sender, user],
         outgoingMessageType: .unknown,
         content: "content!",
         speakableGroupName: INSpeakableString(spokenPhrase: roomName),
@@ -73,7 +85,7 @@ func showSongAddedNotification(adderName: String, songTitle: String, playType: P
         sender: sender,
         attachments: nil
     )
-    intent.setImage(senderImage, forParameterNamed: \.sender)
+    intent.setImage(senderImage, forParameterNamed: \.speakableGroupName)
     
     // Configure an interaction object for the intent
     let interaction = INInteraction(intent: intent, response: nil)
@@ -90,4 +102,13 @@ func showSongAddedNotification(adderName: String, songTitle: String, playType: P
     // Display the notification
     let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
     UNUserNotificationCenter.current().add(request)
+    
+    // Delete the artwork to save space
+    if songArtworkURL != nil {
+        do {
+            try FileManager.default.removeItem(at: songArtworkURL!)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }

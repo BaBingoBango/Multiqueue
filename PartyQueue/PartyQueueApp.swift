@@ -112,7 +112,18 @@ class MultiqueueAppDelegate: NSObject, UIApplicationDelegate, UNUserNotification
                                         try await SystemMusicPlayer.shared.queue.insert(newSong.song, position: newSong.playType == .next ? .afterCurrentEntry : .tail)
                                         
                                         // Display a visual notification about the new song
-                                        showSongAddedNotification(adderName: newSong.adderName, songTitle: newSong.song.title, playType: newSong.playType)
+                                        showSongAddedNotification(adderName: newSong.adderName, songTitle: newSong.song.title, artistName: newSong.song.artistName, songArtworkURL: {
+                                            
+                                            let artworkURL = newSong.song.artwork?.url(width: 50, height: 50)
+                                            let artworkFilename = FileManager.default.temporaryDirectory.appendingPathComponent("artwork-\(newSong.ID).png")
+                                            if artworkURL != nil {
+                                                try! UIImage(data: Data(contentsOf: artworkURL!), scale: UIScreen.main.scale)!.pngData()!.write(to: artworkFilename)
+                                                return artworkFilename
+                                            } else {
+                                                return nil
+                                            }
+                                            
+                                        }(), playType: newSong.playType, userName: zoneOwnerName, roomName: zoneName.components(separatedBy: " [")[0])
                                         
                                         completionHandler(.newData)
                                     } catch {

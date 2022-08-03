@@ -122,7 +122,7 @@ struct MainMenu: View {
             })
         }
         .alert("Accepting Room Invitation...", isPresented: $sceneDelegate.isAcceptingShare) {
-            Button("Dismiss", role: .cancel) { }
+            Button("Cancel", role: .cancel) { }
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
