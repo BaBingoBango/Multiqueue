@@ -93,6 +93,14 @@ struct MainMenu: View {
 //            multipeerServices.isReceivingData = false
 //            multipeerServices.session.disconnect()
             
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                if success {
+                    print("All set!")
+                } else if let error = error {
+                    print(error.localizedDescription)
+                }
+            }
+            
             @Sendable func requestMusicAuthorizationAsync() async {
                 _ = await MusicKit.MusicAuthorization.request()
             }

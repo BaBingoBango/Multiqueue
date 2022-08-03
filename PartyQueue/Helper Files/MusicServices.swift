@@ -8,6 +8,8 @@
 import Foundation
 import MusicKit
 
+var testSongs: [QueueSong] = []
+
 var systemPlayingSong: Song? {
     if SystemMusicPlayer.shared.queue.currentEntry == nil {
         return nil

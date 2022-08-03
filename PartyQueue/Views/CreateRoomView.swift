@@ -140,15 +140,13 @@ struct CreateRoomView: View {
                                 do {
                                     try FileManager.default.removeItem(at: artworkFilename)
                                 } catch {}
-                                
+                                // FIXME: Change this to a query subscription
                                 let subscription = CKRecordZoneSubscription(zoneID: zone.zoneID, subscriptionID: "\(enteredName == "" ? defaultRoomName : enteredName) Subscription [\(zoneCreationDate.description)] [\(zoneUUID)]")
                                 subscription.recordType = "QueueSong"
                                 
                                 let notificationInfo = CKSubscription.NotificationInfo()
                                 notificationInfo.shouldSendContentAvailable = true
-                                notificationInfo.shouldBadge = true
-                                notificationInfo.title = "Hello!"
-                                notificationInfo.subtitle = "There was a record change just now!"
+                                notificationInfo.desiredKeys = ["AdderName", "PlayType", "TimeAdded"]
                                 subscription.notificationInfo = notificationInfo
                                 
                                 let subscriptionUploadOperation = CKModifySubscriptionsOperation(subscriptionsToSave: [subscription])

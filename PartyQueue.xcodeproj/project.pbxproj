@@ -74,6 +74,7 @@
 		AAA0F69F279DE4DF008D1AA7 /* QueueSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA0F69E279DE4DF008D1AA7 /* QueueSettings.swift */; };
 		AAA7175D279E6025002EF84C /* LimitInfoPack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA7175C279E6025002EF84C /* LimitInfoPack.swift */; };
 		AABB64F42895983700C7A31E /* OperationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB64F32895983700C7A31E /* OperationStatus.swift */; };
+		AAEB5324289A083C00020E13 /* NotificationServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEB5323289A083C00020E13 /* NotificationServices.swift */; };
 		AAF236BE288E272800BF4E01 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF236BD288E272800BF4E01 /* CloudKit.framework */; };
 		AAF236C0288E2BDD00BF4E01 /* MyRoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF236BF288E2BDD00BF4E01 /* MyRoomsView.swift */; };
 		AAF236C4288E378000BF4E01 /* CreateRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF236C3288E378000BF4E01 /* CreateRoomView.swift */; };
@@ -174,6 +175,7 @@
 		AAA7175C279E6025002EF84C /* LimitInfoPack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitInfoPack.swift; sourceTree = "<group>"; };
 		AAA8DC1F27A5EFC100F22B59 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AABB64F32895983700C7A31E /* OperationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationStatus.swift; sourceTree = "<group>"; };
+		AAEB5323289A083C00020E13 /* NotificationServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationServices.swift; sourceTree = "<group>"; };
 		AAF236BD288E272800BF4E01 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		AAF236BF288E2BDD00BF4E01 /* MyRoomsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRoomsView.swift; sourceTree = "<group>"; };
 		AAF236C3288E378000BF4E01 /* CreateRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomView.swift; sourceTree = "<group>"; };
@@ -414,6 +416,7 @@
 				AA1D782B2894CA8500F39AA6 /* RefreshableScrollView.swift */,
 				AA9246202895D28B00E7FCB9 /* MusicServices.swift */,
 				AA90A9F72896FD140052E3DC /* CloudKitServices.swift */,
+				AAEB5323289A083C00020E13 /* NotificationServices.swift */,
 			);
 			path = "Helper Files";
 			sourceTree = "<group>";
@@ -646,6 +649,7 @@
 				AAA0F69F279DE4DF008D1AA7 /* QueueSettings.swift in Sources */,
 				AA70BA4327972B6F0033D376 /* LibraryServices.swift in Sources */,
 				AA90A9FC289722FE0052E3DC /* QueueSong.swift in Sources */,
+				AAEB5324289A083C00020E13 /* NotificationServices.swift in Sources */,
 				AAF236C4288E378000BF4E01 /* CreateRoomView.swift in Sources */,
 				AA85E2D627829F60009F24ED /* MainMenuNavigationButtons.swift in Sources */,
 				AA85E2D927829FAD009F24ED /* NetworkPermissionsAlertCard.swift in Sources */,

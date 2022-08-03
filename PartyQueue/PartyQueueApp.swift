@@ -29,7 +29,9 @@ struct PartyQueueApp: App {
 
 #if os(iOS)
 /// The custom app delegate class for the app.
-class MultiqueueAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
+class MultiqueueAppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, ObservableObject {
+    /// The system-provided `ScenePhase` object.
+    @Environment(\.scenePhase) var scenePhase
     /// Whether or not a share is currently being accepted.
     @Published var isAcceptingShare = false
     /// The status of notification handling for the app.
@@ -62,11 +64,29 @@ class MultiqueueAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
             CKContainer(identifier: "iCloud.Multiqueue").add(acceptShareOperation)
         }
     }
-    /// The function called when a remote notification arrives that indicates there is data to be fetched.
+    /// The "notification port" function; called when a push notification arrives from the server.
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        print("Push notification received from server!")
+        print("[\(Date().formatted(date: .omitted, time: .standard))] Push notification received from the server!")
+        
+        // Update the app-wide notification status and completion handler
         notificationCompletionHandler = completionHandler
         notificationStatus = .responding
+        
+        // If the app is in the background, add the song to the local queue now
+        if scenePhase != .active {
+            CKQuerySubscription(
+        }
+        
+        // Display a visual notification
+        showSongAddedNotification()
+    }
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        UNUserNotificationCenter.current().delegate = self
+        
+        return true
+    }
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .sound])
     }
 }
 #endif

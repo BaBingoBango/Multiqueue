@@ -27,7 +27,7 @@ struct RoomView: View {
     
     @State var queueChangeToken: CKServerChangeToken? = nil
     @State var hasCompletedInitialQueueUpdate = false
-    @State var queueUpdateStatus = OperationStatus.notStarted
+    @State var queueUpdateStatus = OperationStatus.inProgress
     
     // MARK: - View Body
     var body: some View {
@@ -106,12 +106,6 @@ struct RoomView: View {
                 }
             }
             .padding(.bottom)
-            .onReceive(changeFetchTimer) { time in
-                // Update the list of queue songs to match the server's
-                if queueUpdateStatus != .inProgress {
-                    getDataFromServer(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .privateDatabase, fetchChanges: true)
-                }
-            }
             .onReceive(nowPlayingUploadTimer) { time in
                 // If the current system song has updated, update the Now Playing UI
                 if (room.nowPlayingSong.song?.title != systemPlayingSongTitle) ||
@@ -148,8 +142,14 @@ struct RoomView: View {
                     hasCompletedInitialQueueUpdate = true
                 }
             }
+            .onReceive(changeFetchTimer) { time in
+                // Update the list of queue songs to match the server's
+                if queueUpdateStatus != .inProgress {
+//                    getDataFromServer(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .privateDatabase, fetchChanges: true)
+                }
+            }
             .onChange(of: appDelegate.notificationStatus) { newValue in
-                if newValue == .responding {
+                if newValue == .responding && queueUpdateStatus != .inProgress {
                     getDataFromServer(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .privateDatabase, promptedByNotification: true)
                 }
             }
@@ -258,18 +258,30 @@ struct RoomView: View {
             // Fetch changes for the Now Playing song, queue songs, and the share record
             let changeFetchConfiguration = CKFetchRecordZoneChangesOperation.ZoneConfiguration(previousServerChangeToken: queueChangeToken)
             let changeFetchOperation = CKFetchRecordZoneChangesOperation(recordZoneIDs: [zoneID], configurationsByRecordZoneID: [zoneID : changeFetchConfiguration])
+            changeFetchOperation.qualityOfService = .userInteractive
             changeFetchOperation.recordWasChangedBlock = { (_ recordID: CKRecord.ID, _ recordResult: Result<CKRecord, Error>) -> Void in
                 switch recordResult {
                     
                 case .success(let record):
                     if record.recordType == "QueueSong" {
-                        // Add a new queue song to the UI
                         let newQueueSong = QueueSong(song: try! JSONDecoder().decode(Song.self, from: record["Song"] as! Data), playType: record["PlayType"] as! String == "Next" ? .next : .later, adderName: record["AdderName"] as! String, timeAdded: record["TimeAdded"] as! Date, artwork: record["Artwork"] as! CKAsset)
                         
-                        if let index = room.queueSongs.firstIndex(where: { $0.timeAdded < record["TimeAdded"] as! Date }) {
-                            room.queueSongs.insert(newQueueSong, at: index)
-                        } else {
-                            room.queueSongs.append(newQueueSong)
+                        // Add the song to the local queue
+                        Task {
+                            do {
+                                try await SystemMusicPlayer.shared.queue.insert(newQueueSong.song, position: room.selectedPlayType == .next ? .afterCurrentEntry : .tail)
+                            } catch {
+                                print(error.localizedDescription)
+                            }
+                        }
+                        
+                        // Add the new song to the UI
+                        if !room.queueSongs.contains(where: { newQueueSong.song == $0.song && newQueueSong.timeAdded == $0.timeAdded }) {
+                            if let index = room.queueSongs.firstIndex(where: { $0.timeAdded < record["TimeAdded"] as! Date }) {
+                                room.queueSongs.insert(newQueueSong, at: index)
+                            } else {
+                                room.queueSongs.append(newQueueSong)
+                            }
                         }
                         
                     } else if record.recordType == "cloudkit.share" {
