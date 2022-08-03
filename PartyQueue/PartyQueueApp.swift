@@ -67,7 +67,7 @@ class MultiqueueAppDelegate: NSObject, UIApplicationDelegate, UNUserNotification
     }
     /// The "notification port" function; called when a push notification arrives from the server.
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        print("[\(Date().formatted(date: .omitted, time: .standard))] Push notification received from the server!")
+        print("[\(Date().formatted(date: .omitted, time: .standard))] [SP: \(scenePhase)] Push notification received from the server!")
         
         // Update the app-wide notification status and completion handler
         notificationCompletionHandler = completionHandler
