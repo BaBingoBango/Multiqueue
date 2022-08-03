@@ -18,6 +18,9 @@ func uploadQueueSong(song: Song, zoneID: CKRecordZone.ID, adderName: String, pla
     songRecord["PlayType"] = playType == .next ? "Next" : "Later"
     songRecord["AdderName"] = adderName
     songRecord["TimeAdded"] = Date()
+    songRecord["RecordName"] = songRecord.recordID.recordName
+    songRecord["ZoneName"] = zoneID.zoneName
+    songRecord["ZoneOwnerName"] = zoneID.ownerName
     
     let artworkURL = song.artwork?.url(width: 50, height: 50)
     let artworkFilename = FileManager.default.temporaryDirectory.appendingPathComponent("\(song.title)-\(UUID()).png")

@@ -34,6 +34,7 @@
 		AA5C4C372782A4DC00F34E2B /* PermissionsOKCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C4C362782A4DC00F34E2B /* PermissionsOKCard.swift */; };
 		AA5C4C392782A75500F34E2B /* HostQueueCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C4C382782A75500F34E2B /* HostQueueCard.swift */; };
 		AA5C4C3B2782A9E700F34E2B /* JoinQueueCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C4C3A2782A9E700F34E2B /* JoinQueueCard.swift */; };
+		AA6CFC4F289AD70500E8C8E4 /* InitialsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6CFC4E289AD70500E8C8E4 /* InitialsImageView.swift */; };
 		AA70BA3C27972AF00033D376 /* LibraryAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA70BA3B27972AF00033D376 /* LibraryAdder.swift */; };
 		AA70BA3E27972AF50033D376 /* SearchAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA70BA3D27972AF50033D376 /* SearchAdder.swift */; };
 		AA70BA4027972AFB0033D376 /* LinkAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA70BA3F27972AFB0033D376 /* LinkAdder.swift */; };
@@ -131,6 +132,7 @@
 		AA5C4C362782A4DC00F34E2B /* PermissionsOKCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsOKCard.swift; sourceTree = "<group>"; };
 		AA5C4C382782A75500F34E2B /* HostQueueCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostQueueCard.swift; sourceTree = "<group>"; };
 		AA5C4C3A2782A9E700F34E2B /* JoinQueueCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinQueueCard.swift; sourceTree = "<group>"; };
+		AA6CFC4E289AD70500E8C8E4 /* InitialsImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialsImageView.swift; sourceTree = "<group>"; };
 		AA70BA3B27972AF00033D376 /* LibraryAdder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryAdder.swift; sourceTree = "<group>"; };
 		AA70BA3D27972AF50033D376 /* SearchAdder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAdder.swift; sourceTree = "<group>"; };
 		AA70BA3F27972AFB0033D376 /* LinkAdder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkAdder.swift; sourceTree = "<group>"; };
@@ -417,6 +419,7 @@
 				AA9246202895D28B00E7FCB9 /* MusicServices.swift */,
 				AA90A9F72896FD140052E3DC /* CloudKitServices.swift */,
 				AAEB5323289A083C00020E13 /* NotificationServices.swift */,
+				AA6CFC4E289AD70500E8C8E4 /* InitialsImageView.swift */,
 			);
 			path = "Helper Files";
 			sourceTree = "<group>";
@@ -597,6 +600,7 @@
 				AA85E2B027829EDA009F24ED /* PartyQueue.xcdatamodeld in Sources */,
 				AAF953B328949A6E00DBE562 /* JoinRoomCard.swift in Sources */,
 				AA85E2AD27829EDA009F24ED /* Persistence.swift in Sources */,
+				AA6CFC4F289AD70500E8C8E4 /* InitialsImageView.swift in Sources */,
 				AA90A9F52896FB2D0052E3DC /* CloudKitLinkAdder.swift in Sources */,
 				AAF953AF2894673C00DBE562 /* RoomView.swift in Sources */,
 				AAF236C0288E2BDD00BF4E01 /* MyRoomsView.swift in Sources */,

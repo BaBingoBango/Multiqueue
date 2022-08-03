@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CloudKit
+import MusicKit
 
 @main
 struct PartyQueueApp: App {
@@ -74,11 +75,63 @@ class MultiqueueAppDelegate: NSObject, UIApplicationDelegate, UNUserNotification
         
         // If the app is in the background, add the song to the local queue now
         if scenePhase != .active {
-            CKQuerySubscription(
+            // Get the record and zone information from the notification
+            if let cloudKitInfo = userInfo["ck"] as? [String: Any] {
+                if let queryInfo = cloudKitInfo["qry"] as? [String: Any] {
+                    if let requestedKeys = queryInfo["af"] as? [String: Any] {
+                        
+                        let recordName = requestedKeys["RecordName"] as! String
+                        let zoneName = requestedKeys["ZoneName"] as! String
+                        let zoneOwnerName = requestedKeys["ZoneOwnerName"] as! String
+                        
+                        // Fetch the new song this notification was triggered by
+                        let songFetchOperation = CKFetchRecordsOperation(recordIDs: [CKRecord.ID(recordName: recordName, zoneID: CKRecordZone.ID(zoneName: zoneName, ownerName: zoneOwnerName))])
+                        songFetchOperation.qualityOfService = .userInteractive
+                        
+                        songFetchOperation.perRecordResultBlock = { (_ recordID: CKRecord.ID, _ recordResult: Result<CKRecord, Error>) -> Void in
+                            switch recordResult {
+                                
+                            case .success(let record):
+                                // Unpack the fetched record
+                                let newSong = QueueSong(song: try! JSONDecoder().decode(Song.self, from: record["Song"] as! Data),
+                                                        playType: {
+                                    let playTypeString = record["PlayType"] as! String
+                                    if playTypeString == "Next" {
+                                        return .next
+                                    } else {
+                                        return .later
+                                    }
+                                }(),
+                                                        adderName: record["AdderName"] as! String,
+                                                        timeAdded: record["TimeAdded"] as! Date,
+                                                        artwork: record["Artwork"] as! CKAsset)
+                                
+                                // Add the song to the system music queue
+                                Task {
+                                    do {
+                                        try await SystemMusicPlayer.shared.queue.insert(newSong.song, position: newSong.playType == .next ? .afterCurrentEntry : .tail)
+                                        
+                                        // Display a visual notification about the new song
+                                        showSongAddedNotification(adderName: newSong.adderName, songTitle: newSong.song.title, playType: newSong.playType)
+                                        
+                                        completionHandler(.newData)
+                                    } catch {
+                                        print(error.localizedDescription)
+                                        completionHandler(.failed)
+                                    }
+                                }
+                                
+                            case .failure(let error):
+                                print(error.localizedDescription)
+                                completionHandler(.failed)
+                            }
+                        }
+                        
+                        CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(songFetchOperation)
+                    }
+                }
+            }
         }
-        
-        // Display a visual notification
-        showSongAddedNotification()
     }
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         UNUserNotificationCenter.current().delegate = self

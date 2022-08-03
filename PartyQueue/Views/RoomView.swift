@@ -145,12 +145,7 @@ struct RoomView: View {
             .onReceive(changeFetchTimer) { time in
                 // Update the list of queue songs to match the server's
                 if queueUpdateStatus != .inProgress {
-//                    getDataFromServer(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .privateDatabase, fetchChanges: true)
-                }
-            }
-            .onChange(of: appDelegate.notificationStatus) { newValue in
-                if newValue == .responding && queueUpdateStatus != .inProgress {
-                    getDataFromServer(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .privateDatabase, promptedByNotification: true)
+                    getDataFromServer(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .privateDatabase, fetchChanges: true)
                 }
             }
             
@@ -223,7 +218,6 @@ struct RoomView: View {
                                             timeAdded: record["TimeAdded"] as! Date,
                                             artwork: record["Artwork"] as! CKAsset)
                     newSongs.append(newSong)
-                    
                 case .failure(let error):
                     print(error.localizedDescription)
                     queueUpdateStatus = .failure
