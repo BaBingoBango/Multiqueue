@@ -136,7 +136,7 @@ struct MyRoomsView: View {
                                 name: queriedRecord["Name"] as! String,
                                 icon: queriedRecord["Icon"] as! String,
                                 color: Color(.sRGB, red: (queriedRecord["Color"] as! [Double])[0], green: (queriedRecord["Color"] as! [Double])[1], blue: (queriedRecord["Color"] as! [Double])[2], opacity: (queriedRecord["Color"] as! [Double])[3]),
-                                description: queriedRecord["Description"] as! String
+                                description: queriedRecord["Description"] as! String, record: queriedRecord
                             )
                             
                             let nowPlayingQueryOperation = CKQueryOperation(query: CKQuery(recordType: "NowPlayingSong", predicate: NSPredicate(value: true)))

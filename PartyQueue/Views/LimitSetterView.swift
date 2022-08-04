@@ -80,7 +80,7 @@ struct LimitSetterView: View {
                             
                             Spacer()
                         }
-                    } else {
+                    } else if limitName == "Time" {
                         let timeLimit = secondsToHoursMinutesSeconds(limit)
                         
                         VStack {
@@ -233,6 +233,6 @@ struct LimitSetterView: View {
 
 struct LimitSetterView_Previews: PreviewProvider {
     static var previews: some View {
-        LimitSetterView(limitName: "AppleCare+", limit: .constant(99))
+        LimitSetterView(limitName: "Time", limit: .constant(5))
     }
 }

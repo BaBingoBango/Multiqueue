@@ -22,7 +22,7 @@ struct RoomView: View {
     @State var isShowingPeopleView = false
     @State var isShowingInfoView = false
     
-    let nowPlayingUploadTimer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
+    let dataUploadTimer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
     let changeFetchTimer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
     
     @State var queueChangeToken: CKServerChangeToken? = nil
@@ -106,12 +106,15 @@ struct RoomView: View {
                 }
             }
             .padding(.bottom)
-            .onReceive(nowPlayingUploadTimer) { time in
+            .onReceive(dataUploadTimer) { time in
+                var shouldUploadNowPlaying = false
+                
                 // If the current system song has updated, update the Now Playing UI
                 if (room.nowPlayingSong.song?.title != systemPlayingSongTitle) ||
                     (room.nowPlayingSong.song?.artistName != systemPlayingSongArtist) ||
                     (room.nowPlayingSong.song?.artwork != systemPlayingSongArtwork ||
                      (room.nowPlayingSong.timeElapsed, room.nowPlayingSong.song?.duration) != systemPlayingSongTime) {
+                    shouldUploadNowPlaying = true
                     
                     room.nowPlayingSong.song = systemPlayingSong
                     room.nowPlayingSong.timeElapsed = systemPlayingSongTime.0
@@ -124,17 +127,31 @@ struct RoomView: View {
                         room.nowPlayingSong.artwork = CKAsset(fileURL: artworkFilename)
                     }
                     
-                    // Update the Now Playing record on the server
+                    // Prepare a new copy of the Now Playing record
                     room.nowPlayingSong.record["PlayingSong"] = try! JSONEncoder().encode(SystemMusicPlayer.shared.queue.currentEntry?.item)
                     room.nowPlayingSong.record["TimeElapsed"] = systemPlayingSongTime.0
                     room.nowPlayingSong.record["SongTime"] = systemPlayingSongTime.1
                     room.nowPlayingSong.record["AlbumArtwork"] = room.nowPlayingSong.artwork
-                    
-                    let nowPlayingUpdateOperation = CKModifyRecordsOperation(recordsToSave: [room.nowPlayingSong.record])
-                    nowPlayingUpdateOperation.savePolicy = .allKeys
-                    nowPlayingUpdateOperation.qualityOfService = .userInteractive
-                    CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(nowPlayingUpdateOperation)
                 }
+                
+                // Prepare a new copy of the room details
+                room.details.record["Color"] = [
+                    Double(room.details.color.cgColor!.components![0]),
+                    Double(room.details.color.cgColor!.components![1]),
+                    Double(room.details.color.cgColor!.components![2]),
+                    Double(room.details.color.cgColor!.components![3])
+                ]
+                room.details.record["Description"] = room.details.description
+                room.details.record["Icon"] = room.details.icon
+                room.details.record["Name"] = room.details.name
+                room.details.record["SongLimit"] = room.songLimit
+                room.details.record["TimeLimit"] = room.timeLimit
+                
+                // Upload the records to the server
+                let nowPlayingUpdateOperation = CKModifyRecordsOperation(recordsToSave: shouldUploadNowPlaying ? [room.nowPlayingSong.record, room.details.record] : [room.details.record])
+                nowPlayingUpdateOperation.savePolicy = .allKeys
+                nowPlayingUpdateOperation.qualityOfService = .userInteractive
+                CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(nowPlayingUpdateOperation)
             }
             .onAppear {
                 if !hasCompletedInitialQueueUpdate {

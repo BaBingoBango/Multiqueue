@@ -37,8 +37,8 @@ struct RoomOptionView: View {
     }
 }
 
-struct RoomOptionView_Previews: PreviewProvider {
-    static var previews: some View {
-        RoomOptionView(roomDetails: RoomDetails(name: "My Room Room Room Room", icon: "🎶", color: .blue, description: "Test description!"))
-    }
-}
+//struct RoomOptionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RoomOptionView(roomDetails: RoomDetails(name: "My Room Room Room Room", icon: "🎶", color: .blue, description: "Test description!"))
+//    }
+//}

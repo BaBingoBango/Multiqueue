@@ -291,6 +291,15 @@ struct JoinedRoomView: View {
                         // Update the room's local share record
                         room.share = record as! CKShare
                         
+                    } else if record.recordType == "RoomDetails" {
+                        // Update the room's local copy of the details
+                        room.details = RoomDetails(
+                            name: record["Name"] as! String,
+                            icon: record["Icon"] as! String,
+                            color: Color(.sRGB, red: (record["Color"] as! [Double])[0], green: (record["Color"] as! [Double])[1], blue: (record["Color"] as! [Double])[2], opacity: (record["Color"] as! [Double])[3]),
+                            description: record["Description"] as! String,
+                            record: record
+                        )
                     }
                     
                 case .failure(let error):

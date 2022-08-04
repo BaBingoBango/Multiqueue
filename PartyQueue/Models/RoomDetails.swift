@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import CloudKit
 
 /// The information that describes the customization for a Multiqueue room.
 struct RoomDetails {
@@ -14,4 +15,5 @@ struct RoomDetails {
     var icon: String
     var color: Color
     var description: String
+    var record: CKRecord
 }
