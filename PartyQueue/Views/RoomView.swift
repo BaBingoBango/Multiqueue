@@ -24,6 +24,7 @@ struct RoomView: View {
     
     let dataUploadTimer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
     let changeFetchTimer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
+    let timeLimitTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     @State var queueChangeToken: CKServerChangeToken? = nil
     @State var hasCompletedInitialQueueUpdate = false
@@ -165,6 +166,11 @@ struct RoomView: View {
                     getDataFromServer(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .privateDatabase, fetchChanges: true)
                 }
             }
+            .onReceive(timeLimitTimer) { time in
+                if room.timeLimit > 0 {
+                    room.timeLimit -= 1
+                }
+            }
             
             // MARK: - Navigation View Settings
             .navigationTitle(room.details.name)
@@ -293,6 +299,11 @@ struct RoomView: View {
                             } else {
                                 room.queueSongs.append(newQueueSong)
                             }
+                        }
+                        
+                        // Decrement the song limit
+                        if room.songLimit > 0 {
+                            room.songLimit -= 1
                         }
                         
                     } else if record.recordType == "cloudkit.share" {

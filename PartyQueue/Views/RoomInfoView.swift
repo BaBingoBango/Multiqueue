@@ -19,6 +19,7 @@ struct RoomInfoView: View {
     @State var isShowingIconPicker = false
     @State var isShowingSongLimitEditor = false
     @State var isShowingTimeLimitEditor = false
+    @State var isShowingDeletionConfirmation = false
     
     // MARK: - View Body
     var body: some View {
@@ -142,7 +143,7 @@ struct RoomInfoView: View {
                             Spacer()
                             Text(verbatim: {
                                 let timeLeft = secondsToHoursMinutesSeconds(room.timeLimit)
-                                return "\(timeLeft.0):\(timeLeft.1):\(timeLeft.2)"
+                                return "\(timeLeft.0 < 10 ? "0" : "")\(timeLeft.0):\(timeLeft.1 < 10 ? "0" : "")\(timeLeft.1):\(timeLeft.2 < 10 ? "0" : "")\(timeLeft.2)"
                             }())
                                 .foregroundColor(.secondary)
                         }
@@ -208,6 +209,18 @@ struct RoomInfoView: View {
                     TextEditor(text: $room.details.description)
                         .frame(height: 100)
                         .disabled(!isHost)
+                }
+                
+                Button(action: {
+                    isShowingDeletionConfirmation = true
+                }) {
+                    Text("Delete Room")
+                }
+                .confirmationDialog("Are you sure you want to delete this room? All participants will be removed and all data will be deleted.", isPresented: $isShowingDeletionConfirmation, titleVisibility: .visible) {
+                    Button("Delete Room", role: .destructive) {
+                        // FIXME: delete room here!
+                        // FIXME: next add room deletion and limit expiration actions! :)
+                    }
                 }
             }
             
