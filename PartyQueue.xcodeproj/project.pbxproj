@@ -22,6 +22,8 @@
 		AA3551B6279B2C840022795A /* AppleMusicWarningCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3551B5279B2C840022795A /* AppleMusicWarningCard.swift */; };
 		AA3551BD279B2EF30022795A /* AppleMusicPermissionsAlertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3551BC279B2EF30022795A /* AppleMusicPermissionsAlertCard.swift */; };
 		AA3551BF279B30420022795A /* AppleMusicOKCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3551BE279B30420022795A /* AppleMusicOKCard.swift */; };
+		AA3A9911289B39E7007DB861 /* RoomInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3A9910289B39E7007DB861 /* RoomInfoView.swift */; };
+		AA3A9913289B3EC7007DB861 /* LimitExpirationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3A9912289B3EC7007DB861 /* LimitExpirationAction.swift */; };
 		AA3B1FA6279919D9008F6693 /* ButtonSongRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3B1FA5279919D9008F6693 /* ButtonSongRowView.swift */; };
 		AA43F0912782B22C00C9AE08 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43F0902782B22C00C9AE08 /* SettingsView.swift */; };
 		AA43F0992782C07000C9AE08 /* HostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43F0982782C07000C9AE08 /* HostingView.swift */; };
@@ -120,6 +122,8 @@
 		AA3551B5279B2C840022795A /* AppleMusicWarningCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMusicWarningCard.swift; sourceTree = "<group>"; };
 		AA3551BC279B2EF30022795A /* AppleMusicPermissionsAlertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMusicPermissionsAlertCard.swift; sourceTree = "<group>"; };
 		AA3551BE279B30420022795A /* AppleMusicOKCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMusicOKCard.swift; sourceTree = "<group>"; };
+		AA3A9910289B39E7007DB861 /* RoomInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomInfoView.swift; sourceTree = "<group>"; };
+		AA3A9912289B3EC7007DB861 /* LimitExpirationAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitExpirationAction.swift; sourceTree = "<group>"; };
 		AA3B1FA5279919D9008F6693 /* ButtonSongRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSongRowView.swift; sourceTree = "<group>"; };
 		AA43F0902782B22C00C9AE08 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AA43F0982782C07000C9AE08 /* HostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingView.swift; sourceTree = "<group>"; };
@@ -377,6 +381,7 @@
 				AAF953AE2894673C00DBE562 /* RoomView.swift */,
 				AA1D78292894C7D100F39AA6 /* JoinRoomView.swift */,
 				AA1D782D2894DC3700F39AA6 /* JoinedRoomView.swift */,
+				AA3A9910289B39E7007DB861 /* RoomInfoView.swift */,
 				AA90A9EC2896FB2D0052E3DC /* CloudKitMusicAdder.swift */,
 				AA90A9ED2896FB2D0052E3DC /* CloudKit Music Adder Support */,
 				AA43F09C2782C66200C9AE08 /* Hosting View Support */,
@@ -458,6 +463,7 @@
 				AA9246222895D4E200E7FCB9 /* Room.swift */,
 				AA90A9FB289722FE0052E3DC /* QueueSong.swift */,
 				AA90A9F9289712540052E3DC /* CloudKitDatabase.swift */,
+				AA3A9912289B3EC7007DB861 /* LimitExpirationAction.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -629,6 +635,7 @@
 				AA70BA4027972AFB0033D376 /* LinkAdder.swift in Sources */,
 				AA90A9F32896FB2D0052E3DC /* CloudKitLibraryAdder.swift in Sources */,
 				AA588818279BB45F00D4E9BB /* MediaSettingsView.swift in Sources */,
+				AA3A9911289B39E7007DB861 /* RoomInfoView.swift in Sources */,
 				AA85E2D327829F29009F24ED /* MainMenu.swift in Sources */,
 				AA90A9F62896FB2D0052E3DC /* CloudKitSearchAdder.swift in Sources */,
 				AA9D96EE278B8AEE0009C044 /* QueueEntry.swift in Sources */,
@@ -645,6 +652,7 @@
 				AA268B032784BA9E004699DF /* MultipeerServices.swift in Sources */,
 				AA9D96F7278B90AB0009C044 /* MusicAdder.swift in Sources */,
 				AA1D782C2894CA8500F39AA6 /* RefreshableScrollView.swift in Sources */,
+				AA3A9913289B3EC7007DB861 /* LimitExpirationAction.swift in Sources */,
 				AA70BA3E27972AF50033D376 /* SearchAdder.swift in Sources */,
 				AA3551BF279B30420022795A /* AppleMusicOKCard.swift in Sources */,
 				AA9246252895D52C00E7FCB9 /* NowPlayingSong.swift in Sources */,

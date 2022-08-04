@@ -32,7 +32,6 @@ struct CreateRoomView: View {
     var body: some View {
         NavigationView {
             Form {
-                
                 HStack {
                     Circle()
                         .aspectRatio(contentMode: .fit)
