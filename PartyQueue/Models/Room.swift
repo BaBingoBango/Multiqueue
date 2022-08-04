@@ -16,4 +16,6 @@ struct Room {
     var share: CKShare
     var selectedPlayType = PlayType.next
     var queueSongs: [QueueSong] = []
+    var songLimit: Int
+    var timeLimit: Int
 }

@@ -149,7 +149,7 @@ struct JoinedRoomView: View {
                                 .foregroundColor(.accentColor)
                         }
                         .sheet(isPresented: $isShowingInfoView) {
-                            EmptyView()
+                            RoomInfoView(room: $room, isHost: false)
                         }
                     }
                 }

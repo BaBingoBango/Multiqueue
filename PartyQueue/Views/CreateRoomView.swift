@@ -117,6 +117,8 @@ struct CreateRoomView: View {
                             Double(enteredColor.cgColor!.components![2]),
                             Double(enteredColor.cgColor!.components![3])
                         ]
+                        detailsRecord["SongLimit"] = 0
+                        detailsRecord["TimeLimit"] = 0
                         
                         let nowPlayingRecord = CKRecord(recordType: "NowPlayingSong",  recordID: CKRecord.ID(recordName: UUID().uuidString, zoneID: zone.zoneID))
                         nowPlayingRecord["PlayingSong"] = try! JSONEncoder().encode(SystemMusicPlayer.shared.queue.currentEntry?.item)

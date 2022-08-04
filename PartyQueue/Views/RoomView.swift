@@ -171,7 +171,7 @@ struct RoomView: View {
                                 .foregroundColor(.accentColor)
                         }
                         .sheet(isPresented: $isShowingInfoView) {
-                            EmptyView()
+                            RoomInfoView(room: $room, isHost: true)
                         }
                     }
                 }
