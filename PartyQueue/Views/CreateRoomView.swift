@@ -108,6 +108,7 @@ struct CreateRoomView: View {
                     switch saveResult {
                     case .success(let zone):
                         let detailsRecord = CKRecord(recordType: "RoomDetails", recordID: CKRecord.ID(recordName: UUID().uuidString, zoneID: zone.zoneID))
+                        detailsRecord["IsActive"] = 1
                         detailsRecord["Name"] = enteredName
                         detailsRecord["Description"] = enteredDescription
                         detailsRecord["Icon"] = enteredIcon
@@ -118,7 +119,9 @@ struct CreateRoomView: View {
                             Double(enteredColor.cgColor!.components![3])
                         ]
                         detailsRecord["SongLimit"] = 0
+                        detailsRecord["SongLimitAction"] = "Deactivate Room"
                         detailsRecord["TimeLimit"] = 0
+                        detailsRecord["TimeLimitAction"] = "Deactivate Room"
                         
                         let nowPlayingRecord = CKRecord(recordType: "NowPlayingSong",  recordID: CKRecord.ID(recordName: UUID().uuidString, zoneID: zone.zoneID))
                         nowPlayingRecord["PlayingSong"] = try! JSONEncoder().encode(SystemMusicPlayer.shared.queue.currentEntry?.item)
@@ -141,7 +144,7 @@ struct CreateRoomView: View {
                                 do {
                                     try FileManager.default.removeItem(at: artworkFilename)
                                 } catch {}
-                                // FIXME: Change this to a query subscription
+                                
                                 let subscription = CKQuerySubscription(recordType: "QueueSong",
                                                                        predicate: NSPredicate(value: true),
                                                                        subscriptionID: "\(enteredName == "" ? defaultRoomName : enteredName) Subscription [\(zoneCreationDate.description)] [\(zoneUUID)]",

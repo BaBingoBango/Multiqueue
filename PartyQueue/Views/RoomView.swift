@@ -30,6 +30,8 @@ struct RoomView: View {
     @State var hasCompletedInitialQueueUpdate = false
     @State var queueUpdateStatus = OperationStatus.inProgress
     
+    @Binding var isRoomViewShowing: Bool
+    
     // MARK: - View Body
     var body: some View {
         //NavigationView {
@@ -37,8 +39,35 @@ struct RoomView: View {
                 ScrollView {
                     VStack {
                         HStack {
-                            Text("Quick Info")
+                            Text("\(room.share.participants.count) Participant\(room.share.participants.count != 1 ? "s" : "")")
                                 .font(.headline)
+                            Spacer()
+                        }
+                        .padding(.leading)
+                        
+                        HStack {
+                            if room.songLimit <= 0 {
+                                Text("No Song Limit")
+                                    .font(.headline)
+                            } else {
+                                Text("\(room.songLimit) Song\(room.songLimit != 1 ? "s" : "") Remaining")
+                                    .font(.headline)
+                            }
+                            Spacer()
+                        }
+                        .padding(.leading)
+                        
+                        HStack {
+                            if room.timeLimit <= 0 {
+                                Text("No Time Limit")
+                                    .font(.headline)
+                            } else {
+                                Text(verbatim: {
+                                    let timeLeft = secondsToHoursMinutesSeconds(room.timeLimit)
+                                    return "\(timeLeft.0 < 10 ? "0" : "")\(timeLeft.0):\(timeLeft.1 < 10 ? "0" : "")\(timeLeft.1):\(timeLeft.2 < 10 ? "0" : "")\(timeLeft.2) Remaining"
+                                }())
+                                    .font(.headline)
+                            }
                             Spacer()
                         }
                         .padding(.leading)
@@ -136,6 +165,7 @@ struct RoomView: View {
                 }
                 
                 // Prepare a new copy of the room details
+                room.details.record["IsActive"] = room.isActive ? 1 : 0
                 room.details.record["Color"] = [
                     Double(room.details.color.cgColor!.components![0]),
                     Double(room.details.color.cgColor!.components![1]),
@@ -146,10 +176,20 @@ struct RoomView: View {
                 room.details.record["Icon"] = room.details.icon
                 room.details.record["Name"] = room.details.name
                 room.details.record["SongLimit"] = room.songLimit
+                room.details.record["SongLimitAction"] = convertLimitExpirationActionToString(room.songLimitAction)
                 room.details.record["TimeLimit"] = room.timeLimit
+                room.details.record["TimeLimitAction"] = convertLimitExpirationActionToString(room.songLimitAction)
+                
+                // If the share was deleted, "intercept" it here and generate a new one
+                if room.share.participants.count == 0 {
+                    room.share[CKShare.SystemFieldKey.title] = room.details.name as CKRecordValue
+                    room.share[CKShare.SystemFieldKey.shareType] = "Room" as CKRecordValue
+                    room.share[CKShare.SystemFieldKey.thumbnailImageData] = NSDataAsset(name: "Rounded App Icon")!.data as CKRecordValue
+                    room.share.publicPermission = .readWrite
+                }
                 
                 // Upload the records to the server
-                let nowPlayingUpdateOperation = CKModifyRecordsOperation(recordsToSave: shouldUploadNowPlaying ? [room.nowPlayingSong.record, room.details.record] : [room.details.record])
+                let nowPlayingUpdateOperation = CKModifyRecordsOperation(recordsToSave: shouldUploadNowPlaying ? [room.nowPlayingSong.record, room.details.record, room.share] : [room.details.record, room.share])
                 nowPlayingUpdateOperation.savePolicy = .allKeys
                 nowPlayingUpdateOperation.qualityOfService = .userInteractive
                 CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(nowPlayingUpdateOperation)
@@ -169,6 +209,38 @@ struct RoomView: View {
             .onReceive(timeLimitTimer) { time in
                 if room.timeLimit > 0 {
                     room.timeLimit -= 1
+                    
+                    // If the song limit expires, perform the requested action
+                    if room.timeLimit <= 0 {
+                        switch room.timeLimitAction {
+                        case .nothing:
+                            print("Nothing is happening!")
+                            
+                        case .deactivateRoom:
+                            room.isActive = false
+                            
+                        case .removeParticipants:
+                            for eachParticipant in room.share.participants {
+                                if eachParticipant != room.share.owner {
+                                    room.share.removeParticipant(eachParticipant)
+                                }
+                            }
+                            
+                        case .deleteRoom:
+                            let roomDeleteOperation = CKModifyRecordZonesOperation(recordZoneIDsToDelete: [room.zone.zoneID])
+                            
+                            roomDeleteOperation.perRecordZoneDeleteBlock = { (_ recordZoneID: CKRecordZone.ID, _ deleteResult: Result<Void, Error>) -> Void in
+                                switch deleteResult {
+                                case .success():
+                                    isRoomViewShowing = false
+                                case .failure(let error):
+                                    print(error.localizedDescription)
+                                }
+                            }
+                            
+                            CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(roomDeleteOperation)
+                        }
+                    }
                 }
             }
             
@@ -194,7 +266,7 @@ struct RoomView: View {
                                 .foregroundColor(.accentColor)
                         }
                         .sheet(isPresented: $isShowingInfoView) {
-                            RoomInfoView(room: $room, isHost: true)
+                            RoomInfoView(room: $room, isHost: true, isRoomViewShowing: $isRoomViewShowing)
                         }
                     }
                 }
@@ -304,6 +376,38 @@ struct RoomView: View {
                         // Decrement the song limit
                         if room.songLimit > 0 {
                             room.songLimit -= 1
+                            
+                            // If the song limit expires, perform the requested action
+                            if room.songLimit <= 0 {
+                                switch room.songLimitAction {
+                                case .nothing:
+                                    print("Nothing is happening!")
+                                    
+                                case .deactivateRoom:
+                                    room.isActive = false
+                                    
+                                case .removeParticipants:
+                                    for eachParticipant in room.share.participants {
+                                        if eachParticipant != room.share.owner {
+                                            room.share.removeParticipant(eachParticipant)
+                                        }
+                                    }
+                                    
+                                case .deleteRoom:
+                                    let roomDeleteOperation = CKModifyRecordZonesOperation(recordZoneIDsToDelete: [room.zone.zoneID])
+                                    
+                                    roomDeleteOperation.perRecordZoneDeleteBlock = { (_ recordZoneID: CKRecordZone.ID, _ deleteResult: Result<Void, Error>) -> Void in
+                                        switch deleteResult {
+                                        case .success():
+                                            isRoomViewShowing = false
+                                        case .failure(let error):
+                                            print(error.localizedDescription)
+                                        }
+                                    }
+                                    
+                                    CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(roomDeleteOperation)
+                                }
+                            }
                         }
                         
                     } else if record.recordType == "cloudkit.share" {

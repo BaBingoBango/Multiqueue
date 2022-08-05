@@ -137,11 +137,11 @@ struct CloudKitSwiftUIMPMediaPickerController: UIViewControllerRepresentable {
                     
                     if song != nil {
                         // Add the song to the local queue
-                        do {
-                            try await SystemMusicPlayer.shared.queue.insert(song!, position: parent.room.selectedPlayType == .next ? .afterCurrentEntry : .tail)
-                        } catch {
-                            print(error.localizedDescription)
-                        }
+//                        do {
+//                            try await SystemMusicPlayer.shared.queue.insert(song!, position: parent.room.selectedPlayType == .next ? .afterCurrentEntry : .tail)
+//                        } catch {
+//                            print(error.localizedDescription)
+//                        }
                         
                         // Upload the song to the server
                         uploadQueueSong(song: song!, zoneID: parent.room.zone.zoneID, adderName: parent.room.share.currentUserParticipant?.userIdentity.nameComponents?.formatted() ?? "the host", playType: parent.room.selectedPlayType, database: parent.database) { (_ saveResult: Result<CKRecord, Error>) -> Void in

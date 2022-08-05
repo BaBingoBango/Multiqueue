@@ -28,6 +28,8 @@ struct JoinedRoomView: View {
     
     let viewUpdateTimer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
     
+    @Binding var isRoomViewShowing: Bool
+    
     // MARK: - View Body
     var body: some View {
 //        NavigationView {
@@ -35,8 +37,35 @@ struct JoinedRoomView: View {
                 ScrollView {
                     VStack {
                         HStack {
-                            Text("Quick Info")
+                            Text("\(room.share.participants.count) Participant\(room.share.participants.count != 1 ? "s" : "")")
                                 .font(.headline)
+                            Spacer()
+                        }
+                        .padding(.leading)
+                        
+                        HStack {
+                            if room.songLimit <= 0 {
+                                Text("No Song Limit")
+                                    .font(.headline)
+                            } else {
+                                Text("\(room.songLimit) Song\(room.songLimit != 1 ? "s" : "") Remaining")
+                                    .font(.headline)
+                            }
+                            Spacer()
+                        }
+                        .padding(.leading)
+                        
+                        HStack {
+                            if room.timeLimit <= 0 {
+                                Text("No Time Limit")
+                                    .font(.headline)
+                            } else {
+                                Text(verbatim: {
+                                    let timeLeft = secondsToHoursMinutesSeconds(room.timeLimit)
+                                    return "\(timeLeft.0 < 10 ? "0" : "")\(timeLeft.0):\(timeLeft.1 < 10 ? "0" : "")\(timeLeft.1):\(timeLeft.2 < 10 ? "0" : "")\(timeLeft.2) Remaining"
+                                }())
+                                    .font(.headline)
+                            }
                             Spacer()
                         }
                         .padding(.leading)
@@ -149,7 +178,7 @@ struct JoinedRoomView: View {
                                 .foregroundColor(.accentColor)
                         }
                         .sheet(isPresented: $isShowingInfoView) {
-                            RoomInfoView(room: $room, isHost: false)
+                            RoomInfoView(room: $room, isHost: false, isRoomViewShowing: $isRoomViewShowing)
                         }
                     }
                 }
@@ -300,6 +329,29 @@ struct JoinedRoomView: View {
                             description: record["Description"] as! String,
                             record: record
                         )
+                        
+                        // Keep a record of previous limits
+                        let previousSongsLeft = room.songLimit
+                        let previousTimeLeft = room.timeLimit
+                        
+                        // Update other room variables
+                        room.isActive = record["IsActive"] as! Int == 1 ? true : false
+                        room.songLimit = record["SongLimit"] as! Int
+                        room.songLimitAction = convertStringToLimitExpirationAction(record["SongLimitAction"] as! String)
+                        room.timeLimit = record["TimeLimit"] as! Int
+                        room.timeLimitAction = convertStringToLimitExpirationAction(record["TimeLimitAction"] as! String)
+                        
+                        // Perform limit actions if needed
+                        if room.songLimit <= 0 && previousSongsLeft > 0 {
+                            if room.songLimitAction == .deleteRoom {
+                                isRoomViewShowing = false
+                            }
+                        }
+                        if room.timeLimit <= 0 && previousTimeLeft > 0 {
+                            if room.timeLimitAction == .deleteRoom {
+                                isRoomViewShowing = false
+                            }
+                        }
                     }
                     
                 case .failure(let error):

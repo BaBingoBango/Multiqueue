@@ -21,3 +21,28 @@ enum LimitExpirationAction {
     /// The room is deleted when the limit expires.
     case deleteRoom
 }
+
+func convertStringToLimitExpirationAction(_ string: String) -> LimitExpirationAction {
+    if string == "Deactivate Room" {
+        return .deactivateRoom
+    } else if string == "Remove Participants" {
+        return .removeParticipants
+    } else if string == "Delete Room" {
+        return .deleteRoom
+    } else {
+        return .nothing
+    }
+}
+
+func convertLimitExpirationActionToString(_ action: LimitExpirationAction) -> String {
+    switch action {
+    case .nothing:
+        return "Nothing"
+    case .deactivateRoom:
+        return "Deactivate Room"
+    case .removeParticipants:
+        return "Remove Participants"
+    case .deleteRoom:
+        return "Delete Room"
+    }
+}

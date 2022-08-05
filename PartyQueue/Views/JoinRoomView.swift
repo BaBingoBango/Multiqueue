@@ -14,6 +14,7 @@ struct JoinRoomView: View {
     // MARK: - View Variables
     @State var avaliableRooms: [Room] = []
     @State var roomUpdateStatus = OperationStatus.notStarted
+    @State var isRoomViewShowing = false
     
     // MARK: - View Body
     var body: some View {
@@ -43,11 +44,12 @@ struct JoinRoomView: View {
                         
                     case .success:
                         if !avaliableRooms.isEmpty {
-                            ForEach(0...avaliableRooms.count - 1, id: \.self) { eachIndex in
-                                NavigationLink(destination: JoinedRoomView(room: avaliableRooms[eachIndex])) {
-                                    RoomOptionView(roomDetails: avaliableRooms[eachIndex].details)
+                            ForEach(avaliableRooms, id: \.ID) { eachRoom in
+                                ZStack {
+                                    LinkedRoomOptionView(room: eachRoom)
+                                        .padding(.trailing)
                                 }
-                                .padding(.horizontal)
+                                    .padding(.horizontal)
                             }
                         } else {
                             Text("No Joinable Rooms Found")
@@ -55,16 +57,30 @@ struct JoinRoomView: View {
                                 .fontWeight(.bold)
                                 .font(.title3)
                                 .padding(.top, 25)
+                            Text("Open an invitation link received by your host to see it here!")
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(.gray)
+                                .font(.callout)
+                                .padding(.top, 5)
                         }
                         
                     case .failure:
                         Text("Request Failure")
+                            .foregroundColor(.gray)
+                            .fontWeight(.bold)
+                            .font(.title3)
+                            .padding(.top, 25)
+                        Text("Check that you are connected to the Internet and signed in to iCloud and try again.")
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.gray)
+                            .font(.callout)
+                            .padding(.top, 5)
                         
                     }
                 }
             }
             .onAppear {
-                if roomUpdateStatus == .notStarted {
+                if roomUpdateStatus != .inProgress {
                     updateRoomList()
                 }
             }
@@ -142,13 +158,13 @@ struct JoinRoomView: View {
                                     shareQueryOperation.recordMatchedBlock = { (_ recordID: CKRecord.ID, _ recordResult: Result<CKRecord, Error>) -> Void in
                                         switch recordResult {
                                         case .success(let result):
-                                            avaliableRooms.append(Room(zone: eachZone, details: roomDetails, nowPlayingSong: NowPlayingSong(record: nowPlayingRecord, song: {
+                                            avaliableRooms.append(Room(isActive: queriedRecord["IsActive"] as! Int == 1 ? true : false, zone: eachZone, details: roomDetails, nowPlayingSong: NowPlayingSong(record: nowPlayingRecord, song: {
                                                 do {
                                                     return try JSONDecoder().decode(Song.self, from: nowPlayingRecord["PlayingSong"] as! Data)
                                                 } catch {
                                                     return nil
                                                 }
-                                            }(), timeElapsed: nowPlayingRecord["TimeElapsed"] as! Double, songTime: nowPlayingRecord["SongTime"] as! Double, artwork: nowPlayingRecord.allKeys().contains("AlbumArtwork") ? nowPlayingRecord["AlbumArtwork"] as? CKAsset : nil), share: result as! CKShare, songLimit: queriedRecord["SongLimit"] as! Int, timeLimit: queriedRecord["TimeLimit"] as! Int))
+                                            }(), timeElapsed: nowPlayingRecord["TimeElapsed"] as! Double, songTime: nowPlayingRecord["SongTime"] as! Double, artwork: nowPlayingRecord.allKeys().contains("AlbumArtwork") ? nowPlayingRecord["AlbumArtwork"] as? CKAsset : nil), share: result as! CKShare, songLimit: queriedRecord["SongLimit"] as! Int, songLimitAction: convertStringToLimitExpirationAction(queriedRecord["SongLimitAction"] as! String), timeLimit: queriedRecord["TimeLimit"] as! Int, timeLimitAction: convertStringToLimitExpirationAction(queriedRecord["TimeLimitAction"] as! String)))
                                             
                                             queriedZones += 1
                                             if queriedZones == zonesToQuery.count {

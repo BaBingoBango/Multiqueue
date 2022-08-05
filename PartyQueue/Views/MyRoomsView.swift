@@ -16,6 +16,7 @@ struct MyRoomsView: View {
     @State var isShowingCreateRoomView = false
     @State var userRooms: [Room] = []
     @State var roomUpdateStatus = OperationStatus.notStarted
+    @State var isRoomViewShowing = false
     
     // MARK: View Body
     var body: some View {
@@ -51,30 +52,49 @@ struct MyRoomsView: View {
                         
                     case .success:
                         if !userRooms.isEmpty {
-                            ForEach(0...userRooms.count - 1, id: \.self) { eachIndex in
+                            ForEach(userRooms, id: \.ID) { eachRoom in
                                 ZStack {
-                                    NavigationLink(destination: RoomView(room: userRooms[eachIndex])) {
-                                        RoomOptionView(roomDetails: userRooms[eachIndex].details)
-                                    }
-                                    
-                                    Toggle("", isOn: .constant(true))
+                                    LinkedRoomOptionView(room: eachRoom)
                                         .padding(.trailing)
                                 }
                                     .padding(.horizontal)
                             }
                         } else {
                             Text("You Have No Rooms")
+                                .foregroundColor(.gray)
+                                .fontWeight(.bold)
+                                .font(.title3)
+                                .padding(.top, 25)
+                            Text("Tap Create Room to create your first!")
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(.gray)
+                                .font(.callout)
+                                .padding(.top, 5)
                         }
                         
                     case .failure:
-                        Text("Request Failure")
+                        Text("Network Error")
+                            .foregroundColor(.gray)
+                            .fontWeight(.bold)
+                            .font(.title3)
+                            .padding(.top, 25)
+                        Text("Check that you are connected to the Internet and signed in to iCloud and try again.")
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.gray)
+                            .font(.callout)
+                            .padding(.top, 5)
                         
                     }
                 }
                 .padding(.bottom)
             }
             .onAppear {
-                if roomUpdateStatus == .notStarted {
+                if roomUpdateStatus != .inProgress {
+                    updateRoomList()
+                }
+            }
+            .onChange(of: isShowingCreateRoomView) { newValue in
+                if newValue == false && roomUpdateStatus != .inProgress {
                     updateRoomList()
                 }
             }
@@ -151,13 +171,13 @@ struct MyRoomsView: View {
                                     shareQueryOperation.recordMatchedBlock = { (_ recordID: CKRecord.ID, _ recordResult: Result<CKRecord, Error>) -> Void in
                                         switch recordResult {
                                         case .success(let result):
-                                            userRooms.append(Room(zone: eachZone, details: roomDetails, nowPlayingSong: NowPlayingSong(record: nowPlayingRecord, song: {
+                                            userRooms.append(Room(isActive: queriedRecord["IsActive"] as! Int == 1 ? true : false, zone: eachZone, details: roomDetails, nowPlayingSong: NowPlayingSong(record: nowPlayingRecord, song: {
                                                 do {
                                                     return try JSONDecoder().decode(Song.self, from: nowPlayingRecord["PlayingSong"] as! Data)
                                                 } catch {
                                                     return nil
                                                 }
-                                            }(), timeElapsed: nowPlayingRecord["TimeElapsed"] as! Double, songTime: nowPlayingRecord["SongTime"] as! Double, artwork: nowPlayingRecord.allKeys().contains("AlbumArtwork") ? nowPlayingRecord["AlbumArtwork"] as? CKAsset : nil), share: result as! CKShare, songLimit: queriedRecord["SongLimit"] as! Int, timeLimit: queriedRecord["TimeLimit"] as! Int))
+                                            }(), timeElapsed: nowPlayingRecord["TimeElapsed"] as! Double, songTime: nowPlayingRecord["SongTime"] as! Double, artwork: nowPlayingRecord.allKeys().contains("AlbumArtwork") ? nowPlayingRecord["AlbumArtwork"] as? CKAsset : nil), share: result as! CKShare, songLimit: queriedRecord["SongLimit"] as! Int, songLimitAction: convertStringToLimitExpirationAction(queriedRecord["SongLimitAction"] as! String), timeLimit: queriedRecord["TimeLimit"] as! Int, timeLimitAction: convertStringToLimitExpirationAction(queriedRecord["TimeLimitAction"] as! String)))
                                             
                                             queriedZones += 1
                                             if queriedZones == zonesToQuery.count {

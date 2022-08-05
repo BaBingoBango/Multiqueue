@@ -10,6 +10,8 @@ import CloudKit
 
 /// The basic and CloudKit information making up a Multiqueue room.
 struct Room {
+    var ID = UUID()
+    var isActive: Bool
     var zone: CKRecordZone
     var details: RoomDetails
     var nowPlayingSong: NowPlayingSong
@@ -17,5 +19,7 @@ struct Room {
     var selectedPlayType = PlayType.next
     var queueSongs: [QueueSong] = []
     var songLimit: Int
+    var songLimitAction: LimitExpirationAction
     var timeLimit: Int
+    var timeLimitAction: LimitExpirationAction
 }

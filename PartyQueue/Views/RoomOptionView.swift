@@ -7,33 +7,51 @@
 
 import SwiftUI
 
+struct LinkedRoomOptionView: View {
+    
+    var room: Room
+    @State var isRoomViewShowing = false
+    
+    var body: some View {
+        ZStack {
+            NavigationLink("", destination: RoomView(room: room, isRoomViewShowing: $isRoomViewShowing), isActive: $isRoomViewShowing)
+            
+            Button(action: {
+                isRoomViewShowing = true
+            }) {
+                RoomOptionView(room: room)
+            }
+        }
+    }
+}
+
 struct RoomOptionView: View {
     
     // MARK: - View Variables
-    var roomDetails: RoomDetails
+    var room: Room
     
     var body: some View {
         HStack {
-            Text(roomDetails.icon)
+            Text(room.details.icon)
                 .font(.system(size: 50))
                 .foregroundColor(.primary)
                 .padding(.leading)
             
             VStack(alignment: .leading) {
-                Text(roomDetails.name)
+                Text(room.details.name)
                     .font(.system(size: 25))
                     .foregroundColor(.primary)
                     .fontWeight(.bold)
                     .lineLimit(1)
                     .minimumScaleFactor(0.5)
                 
-                Text("3 Users Invited")
+                Text("\(room.share.participants.count) Participant\(room.share.participants.count != 1 ? "s" : "")")
                     .foregroundColor(.primary)
             }
             
             Spacer()
         }
-        .modifier(RectangleWrapper(fixedHeight: 100, color: roomDetails.color, opacity: 0.15))
+        .modifier(RectangleWrapper(fixedHeight: 100, color: room.details.color, opacity: 0.15))
     }
 }
 

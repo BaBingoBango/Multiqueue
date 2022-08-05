@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CloudKit
 
 /// A view prividing information about a room and optionally surfacing controls for its editing.
 struct RoomInfoView: View {
@@ -20,6 +21,8 @@ struct RoomInfoView: View {
     @State var isShowingSongLimitEditor = false
     @State var isShowingTimeLimitEditor = false
     @State var isShowingDeletionConfirmation = false
+    
+    @Binding var isRoomViewShowing: Bool
     
     // MARK: - View Body
     var body: some View {
@@ -53,6 +56,10 @@ struct RoomInfoView: View {
                         .font(.title)
                 }
                 .listRowBackground(Color(UIColor.systemGroupedBackground))
+                
+                Section(footer: Text("An inactive room will not accept new songs, but will still be visible to participants.")) {
+                    Toggle("Enable Room", isOn: $room.isActive)
+                }
                 
                 Section(header: Text("Song Limit")) {
                     let isSongLimitOn = Binding(
@@ -98,7 +105,7 @@ struct RoomInfoView: View {
                     }
                     
                     if isHost {
-                        Picker(selection: .constant(LimitExpirationAction.nothing), label: Text("Expiration Action")) {
+                        Picker(selection: $room.songLimitAction, label: Text("Expiration Action")) {
                             Text("No Action").tag(LimitExpirationAction.nothing)
                             Text("Deactivate Room").tag(LimitExpirationAction.deactivateRoom)
                             Text("Remove Participants").tag(LimitExpirationAction.removeParticipants)
@@ -161,7 +168,7 @@ struct RoomInfoView: View {
                     }
                     
                     if isHost {
-                        Picker(selection: .constant(LimitExpirationAction.nothing), label: Text("Expiration Action")) {
+                        Picker(selection: $room.timeLimitAction, label: Text("Expiration Action")) {
                             Text("No Action").tag(LimitExpirationAction.nothing)
                             Text("Deactivate Room").tag(LimitExpirationAction.deactivateRoom)
                             Text("Remove Participants").tag(LimitExpirationAction.removeParticipants)
@@ -211,15 +218,28 @@ struct RoomInfoView: View {
                         .disabled(!isHost)
                 }
                 
-                Button(action: {
-                    isShowingDeletionConfirmation = true
-                }) {
-                    Text("Delete Room")
-                }
-                .confirmationDialog("Are you sure you want to delete this room? All participants will be removed and all data will be deleted.", isPresented: $isShowingDeletionConfirmation, titleVisibility: .visible) {
-                    Button("Delete Room", role: .destructive) {
-                        // FIXME: delete room here!
-                        // FIXME: next add room deletion and limit expiration actions! :)
+                if isHost {
+                    Button(action: {
+                        isShowingDeletionConfirmation = true
+                    }) {
+                        Text("Delete Room")
+                    }
+                    .confirmationDialog("Are you sure you want to delete this room? All participants will be removed and all data will be deleted.", isPresented: $isShowingDeletionConfirmation, titleVisibility: .visible) {
+                        Button("Delete Room", role: .destructive) {
+                            let roomDeleteOperation = CKModifyRecordZonesOperation(recordZoneIDsToDelete: [room.zone.zoneID])
+                            
+                            roomDeleteOperation.perRecordZoneDeleteBlock = { (_ recordZoneID: CKRecordZone.ID, _ deleteResult: Result<Void, Error>) -> Void in
+                                switch deleteResult {
+                                case .success():
+                                    presentationMode.wrappedValue.dismiss()
+                                    isRoomViewShowing = false
+                                case .failure(let error):
+                                    print(error.localizedDescription)
+                                }
+                            }
+                            
+                            CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(roomDeleteOperation)
+                        }
                     }
                 }
             }
