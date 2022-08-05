@@ -182,7 +182,6 @@ struct MyRoomsView: View {
                                             }(), timeElapsed: nowPlayingRecord["TimeElapsed"] as! Double, songTime: nowPlayingRecord["SongTime"] as! Double, artwork: nowPlayingRecord.allKeys().contains("AlbumArtwork") ? nowPlayingRecord["AlbumArtwork"] as? CKAsset : nil), share: result as! CKShare, songLimit: queriedRecord["SongLimit"] as! Int, songLimitAction: convertStringToLimitExpirationAction(queriedRecord["SongLimitAction"] as! String), timeLimit: queriedRecord["TimeLimit"] as! Int, timeLimitAction: convertStringToLimitExpirationAction(queriedRecord["TimeLimitAction"] as! String)))
 
                                             queriedZones += 1
-                                            print("Queried zone \(queriedZones) / \(zonesToQuery.count)!")
                                             if queriedZones == zonesToQuery.count {
                                                 roomUpdateStatus = .success
                                             }
