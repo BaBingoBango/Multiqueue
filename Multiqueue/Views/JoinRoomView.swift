@@ -21,18 +21,6 @@ struct JoinRoomView: View {
 //        NavigationView {
             ScrollView {
                 VStack {
-                    HStack {
-                        HStack {
-                            Image(systemName: "questionmark.circle")
-                                .foregroundColor(.accentColor)
-                            
-                            Text("Can't Find Your Room?")
-                                .foregroundColor(.accentColor)
-                        }
-                        .modifier(RectangleWrapper(fixedHeight: 50, color: .gray, opacity: 0.15))
-                    }
-                    .padding()
-                    
                     switch roomUpdateStatus {
                     case .notStarted:
                         ProgressView()
@@ -75,10 +63,10 @@ struct JoinRoomView: View {
                             .foregroundColor(.gray)
                             .font(.callout)
                             .padding(.top, 5)
-                            .padding(.horizontal)
                         
                     }
                 }
+                .padding(.horizontal)
             }
             .onAppear {
                 if roomUpdateStatus != .inProgress {

@@ -65,11 +65,12 @@ struct MyRoomsView: View {
                                 .fontWeight(.bold)
                                 .font(.title3)
                                 .padding(.top, 25)
-                            Text("Tap Create Room to create your first!")
+                            Text("Tap Create Room to get started!")
                                 .multilineTextAlignment(.center)
                                 .foregroundColor(.gray)
                                 .font(.callout)
                                 .padding(.top, 5)
+                            padding(.horizontal)
                         }
                         
                     case .failure:

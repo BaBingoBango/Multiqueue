@@ -23,17 +23,32 @@ struct UserGuideView: View {
                         ScrollView {
                             Text(verbatim: {
                                 """
-                                Data in Metrics is represented by transactions. In order to keep track of your Product Zone stats, Metrics uses your list of transactions to calculate the relevant information. Thus, in order to report your stats, you need to log each of your transactions in the Metrics app.
+                                Multiqueue allows users to transmit song data over the internet by way of the iCloud private database.
 
-                                To access the Log Transaction screen, tap the green plus symbol in the top-right corner of the Today screen on iOS, iPadOS, and macOS. On watchOS, select Log Transaction from the initial Today tab.
+                                Thus, in order to use Multiqueue, you’ll need to be signed in to an Apple ID on your device, which will enable you to authenticate with Apple’s iCloud servers.
 
-                                From there, select the type of device you transacted; if there was no physical device involved (e.g. an unaccompanied business lead), don’t select a device type (on watchOS, swipe left to access the additions selection page).
+                                To sign in, or check your account information, navigate to your device’s settings and select either the prompt to sign in, or your name, at the top of the view.
+                                """
+                            }())
+                            .padding()
+                        }
+                        .navigationTitle("Signing in to iCloud")
+                        .navigationBarTitleDisplayMode(.inline)
+                    }) {
+                        HStack { Image(systemName: "icloud").imageScale(.large); Text("Signing in to iCloud") }
+                    }
+                    
+                    NavigationLink(destination: {
+                        ScrollView {
+                            Text(verbatim: {
+                                """
+                                When you opened Multiqueue for the first time, you were presented with two requests for system permissions.
 
-                                From there, select any additions to your transaction, whether that be AppleCare+, a Business Lead, or a successful cellular connection for an iPhone. To indicate standalone AppleCare+, tap the AppleCare+ button twice (this also indicates that no new device was purchased).
+                                Firstly, you were asked to provide access to the Media & Apple Music permission, which is required for Multiqueue to work. This permission enables Multiqueue to query Apple Music for song data, enabling the add by search, library, and link features.
 
-                                The only addition available for a no-device transaction is a Business Lead, so to indicate a standalone lead, leave the device type unselected and toggle on the Business Lead option.
+                                You were also asked to enable notifications for Multiqueue. This is an entirely optional permission that, when enabled, shows notifications in Notification Center when your music queue is updated by another user via an active room.
 
-                                To save your transaction, select the Save button.
+                                To adjust your permission settings, navigate to the Multiqueue section in the Settings app, or tap on the notification status card.
                                 """
                             }())
                             .padding()
@@ -41,178 +56,213 @@ struct UserGuideView: View {
                         .navigationTitle("Setting Permissions")
                         .navigationBarTitleDisplayMode(.inline)
                     }) {
-                        HStack { Image(systemName: "plus").imageScale(.large); Text("Adding Transactions") }
+                        HStack { Image(systemName: "hand.raised.fill").imageScale(.large); Text("Setting Permissions") }
                     }
                     
                     NavigationLink(destination: {
                         ScrollView {
                             Text(verbatim: {
                                 """
-                                To view and delete all of your transactions on iOS, iPadOS, and watchOS, navigate to the Settings screen and select View Transaction Data. From there, you can view each of your transaction’s device type and log date.
+                                Multiqueue allows multiple users to contribute to a single user’s Apple Music queue. Thus, while Apple Music is not required for contributing, it is required in order to be a person contributed to, that is, a host.
 
-                                Tap on a transaction to reveal the complete list of information about it. On this detail screen, you can view all pieces of data that encompass the transaction. From here, you can select Done to return to the list of transactions, or Delete to erase the transaction.
+                                In short, in order to host rooms, an Apple Music subscription is required. This is because when you receive the data for a song to be added from another user, it does not actually contain the audio file for that song. Rather, the song’s metadata, such as its title, its artist’s name, and its Apple Music ID are transmitted.
+
+                                Multiqueue then uses this ID to add the corresponding Apple Music song to your queue by using your subscription.
                                 """
                             }())
                             .padding()
                         }
-                        .navigationTitle("Managing Transactions")
+                        .navigationTitle("Apple Music")
                         .navigationBarTitleDisplayMode(.inline)
                     }) {
-                        HStack { Image(systemName: "doc.on.doc.fill").imageScale(.medium); Text("Managing Transactions") }
-                    }
-                    
-                    NavigationLink(destination: {
-                        ScrollView {
-                            Text(verbatim: {
-                                """
-                                Daily Goals help you keep track of standards you’d like to maintain in a day-to-day context. Each of the goals you set from the Settings screen will be reflected in the three circles at the top of the Today view.
-
-                                As your day’s transactions are logged, the Daily Goals circles will fill or lower in accordance with progress towards the values you set. When you have completed a goal, you’ll see a green checkmark instead of a progress circle.
-                                """
-                            }())
-                            .padding()
-                        }
-                        .navigationTitle("Setting Daily Goals")
-                        .navigationBarTitleDisplayMode(.inline)
-                    }) {
-                        HStack { Image(systemName: "star.fill").imageScale(.medium); Text("Setting Daily Goals") }
+                        HStack { Image(systemName: "music.note").imageScale(.large); Text("Apple Music") }
                     }
                 }
                 
-                Section(header: Text("Viewing Data")) {
+                Section(header: Text("Hosting a Room")) {
                     NavigationLink(destination: {
                         ScrollView {
                             Text(verbatim: {
                                 """
-                                The Today view is accessible from the left-most tab on iOS, the first sidebar option on iPadOS and macOS, and the first page on watchOS. If enabled, it displays progress towards Daily Goals at the top and summarizes information about the day’s transactions below.
+                                The first step in opening your music queue to other users is to create a room. A room is a central place for users to gather and transmit queue data.
 
-                                Below your daily summary, the Today view displays the Sharing section, which lists a short summary of the daily transactions of anyone who is sharing their data with you. From there, you can tap on an individual’s display to view that person’s This Week, Lifetime, and Transaction Data views.
-
-                                You can also select the green plus icon located on the Today view to log a new transaction.
+                                To create a room, tap Host a Room, then select Create Room. From there, you can provide a name, icon, color, and description for your room. This information is visible to all room participants and helps to identify your room from others.
                                 """
                             }())
                             .padding()
                         }
-                        .navigationTitle("Today View")
+                        .navigationTitle("Creating a Room")
                         .navigationBarTitleDisplayMode(.inline)
                     }) {
-                        HStack { Image(systemName: "sun.max.fill").imageScale(.large); Text("Today View") }
+                        HStack { Image(systemName: "plus").imageScale(.large); Text("Creating a Room") }
                     }
                     
                     NavigationLink(destination: {
                         ScrollView {
                             Text(verbatim: {
                                 """
-                                The This Week screen is available on iOS, iPadOS, and macOS, and is your one-stop shop to view your weekly transaction history! The bar graphs display your daily metrics for AppleCare+, Business Leads, and iPhone connectivity for each day of the current week, Sunday through Saturday.
+                                To manage the participants in your room, tap on the room in the list of your rooms. From there, tap the portrait icon in the top-right corner to open the Sharing view.
 
-                                It also displays your averages for the three metrics and provides access to the graph views for each - tap on any of the graphs to open the full information for each statistic.
+                                From this screen, you can add participants, remove participants, and change the permissions for your room. If you choose the “View only” permission, participants will not be able to contribute to your queue.
                                 """
                             }())
                             .padding()
                         }
-                        .navigationTitle("This Week View")
+                        .navigationTitle("Managing Participants")
                         .navigationBarTitleDisplayMode(.inline)
                     }) {
-                        HStack { Image(systemName: "calendar").imageScale(.large); Text("This Week View") }
+                        HStack { Image(systemName: "person.crop.circle.fill.badge.plus").imageScale(.large); Text("Managing Participants") }
                     }
                     
                     NavigationLink(destination: {
                         ScrollView {
                             Text(verbatim: {
                                 """
-                                The graph view provides a visual display of your complete transaction history! You can access it by tapping on any one of the smaller bar graphs on the This Week view.
+                                To edit your room’s data, tap the information icon in the top-right corner of the room’s screen. From there, you can modify your room’s active state, song limit, time limit, icon, color, and description.
 
-                                The graph view displays information about your complete transaction history for a certain metric. At the top of the view, you can choose from Weekly, Monthly, or Yearly displays, which change the scale of the main bar graph displayed.
-
-                                Once you have selected a scale, you can use the arrow buttons near the top of the view to adjust the period of time you are currently examining.
-
-                                Below the bar graph, the Highlights section summarizes the data contained in the current time selection for easy viewing.
+                                Any changes you make will be uploaded and sent to all other participants.
                                 """
                             }())
                             .padding()
                         }
-                        .navigationTitle("Graph View")
+                        .navigationTitle("Edit a Room")
                         .navigationBarTitleDisplayMode(.inline)
                     }) {
-                        HStack { Image(systemName: "chart.bar.fill").imageScale(.medium); Text("Graph View") }
+                        HStack { Image(systemName: "pencil").imageScale(.large); Text("Edit a Room") }
                     }
                     
                     NavigationLink(destination: {
                         ScrollView {
                             Text(verbatim: {
                                 """
-                                The Lifetime view provides a summary of your entire transaction history! The statistics displayed here are based off of all your logged transactions and is a great place to review your entire transactional journey!
+                                Room Limits give you an additional layer of control over your music queue and your room. Song limits perform an action when a certain number of songs are added, while time limits perform an action when their countdowns reach zero.
 
-                                The Lifetime view is also accessible when viewing the metrics of someone who is sharing their data with you.
+                                To set a limit, tap the information icon in the top-right corner of the room’s screen. From there, toggle on the limit you would like to set and select either Set Song Limit or Set Time Limit. You can also select the action that takes place when limits expires on this screen.
+
+                                You can monitor limits from this information screen or from the main room view.
                                 """
                             }())
                             .padding()
                         }
-                        .navigationTitle("Lifetime View")
+                        .navigationTitle("Set Room Limits")
                         .navigationBarTitleDisplayMode(.inline)
                     }) {
-                        HStack { Image(systemName: "crown.fill").imageScale(.medium); Text("Lifetime View") }
+                        HStack { Image(systemName: "clock.fill").imageScale(.large); Text("Set Room Limits") }
+                    }
+                    
+                    NavigationLink(destination: {
+                        ScrollView {
+                            Text(verbatim: {
+                                """
+                                To delete a room, tap the information icon in the top-right corner of the room’s screen. From there, select Delete Room, and confirm your choice on the resulting dialog.
+                                """
+                            }())
+                            .padding()
+                        }
+                        .navigationTitle("Delete a Room")
+                        .navigationBarTitleDisplayMode(.inline)
+                    }) {
+                        HStack { Image(systemName: "trash.fill").imageScale(.large); Text("Delete a Room") }
                     }
                 }
                 
-                Section(header: Text("Sharing Data")) {
+                Section(header: Text("Joining a Room")) {
                     NavigationLink(destination: {
                         ScrollView {
                             Text(verbatim: {
                                 """
-                                The Product Zone of Apple Retail environments is a very social place; employees of all different levels are constantly conversing and sharing information. To that end, Metrics provides the Sharing feature!
+                                The first step to contributing to someone else’s Apple Music queue is to open their invitation link. When you do this, Multiqueue will launch and display a “Accepting Room Invitation…” alert.
 
-                                Sharing allows you to keep others updated on your transactions and check up on the transactions of others! Anyone with Sharing access to another person’s data can view (but not edit) their entire transaction history and any new transactions via the Sharing section of the Today view on iOS, iPadOS, and macOS, and the Sharing page of watchOS.
+                                If you don’t stop the acceptance by tapping Cancel, the room will be added to your accepted room list.
 
-                                In order to participate in Sharing, you’ll need to be connected to the Internet and your device will need to be signed in to iCloud. After confirming these, you can share your data with another by navigating to the Settings screen and selecting Share My Metrics. From there, you can add people to your data, any of whom can view your latest transactions.
-
-                                At any time, if you would like to revoke access, return to the Share My Metrics screen and select the name of the person you would like to remove.
+                                You may need to refresh the Join Room screen in order to see your invitation’s room appear in the list.
                                 """
                             }())
                             .padding()
                         }
-                        .navigationTitle("Sharing Your Data")
+                        .navigationTitle("Accepting an Invitation")
                         .navigationBarTitleDisplayMode(.inline)
                     }) {
-                        HStack { Image(systemName: "square.and.arrow.up").imageScale(.large); Text("Sharing Your Data") }
+                        HStack { Image(systemName: "envelope.fill").imageScale(.large); Text("Accepting an Invitation") }
                     }
                     
                     NavigationLink(destination: {
                         ScrollView {
                             Text(verbatim: {
                                 """
-                                The first step in viewing someone’s transaction data is to accept their invitation by tapping on an invitation link. From there, the Metrics app will open and automatically accept the invitation.
-
-                                Once you have accepted an invitation, you can view that person’s information in the Sharing section of the Today view.
-
-                                If you no longer want to view someone else’s data, or to view the list of people sharing with you, navigate to Settings and select Shared With You. From there, you can select someone’s name to view other participants and revoke your access.
+                                To open a room you’ve been invited to, select Join a Room on the main menu. You will then be brought to that room’s main screen, where you can add songs to the queue, view the song Now Playing, and view the room’s information.
                                 """
                             }())
                             .padding()
                         }
-                        .navigationTitle("Viewing Shared Data")
+                        .navigationTitle("Opening a Room")
                         .navigationBarTitleDisplayMode(.inline)
                     }) {
-                        HStack { Image(systemName: "person.2.fill").imageScale(.medium); Text("Viewing Shared Data") }
+                        HStack { Image(systemName: "envelope.open.fill").imageScale(.large); Text("Opening a Room") }
                     }
                     
                     NavigationLink(destination: {
                         ScrollView {
                             Text(verbatim: {
                                 """
-                                In order to facilitate the Sharing feature, your data must be uploaded to a place on the Internet so that people you share with can access it. In order to protect your privacy as much as possible during this process, Metrics utilizes iCloud private databases through Apple’s CloudKit technology.
+                                To leave a room you’ve been invited to, first open the room from the Join Room list. From there, tap the portrait icon in the top-right corner to open the Sharing view. You can then select Remove Me to remove yourself from the room.
 
-                                Using this model, any and all data sent off your device to the Internet is stored in your personal private database, which is managed by Apple and locked behind your Apple ID. This means that only you and those you invite with Sharing, not even Apple or the developer of Metrics, can view your data.
-
-                                When you share your data with Sharing, those you invite receive a “window” into your private database. In this way, specific individuals can access your data without comprising it for the whole world to see.
+                                If you leave a room, you won’t be able to access it unless you re-open an invitation link.
                                 """
                             }())
                             .padding()
                         }
-                        .navigationTitle("Sharing and Privacy")
+                        .navigationTitle("Leaving a Room")
                         .navigationBarTitleDisplayMode(.inline)
                     }) {
-                        HStack { Image(systemName: "hand.raised.fill").imageScale(.large); Text("Sharing and Privacy") }
+                        HStack { Image(systemName: "figure.walk").imageScale(.large); Text("Leaving a Room") }
+                    }
+                }
+                
+                Section(header: Text("Adding Music")) {
+                    NavigationLink(destination: {
+                        ScrollView {
+                            Text(verbatim: {
+                                """
+                                To add music to the room’s queue by way of your Apple Music library, select the Library tab from the Add Music screen. From there, tap the button to open your library and add music you’ve added to your library.
+                                """
+                            }())
+                            .padding()
+                        }
+                        .navigationTitle("Adding via Library")
+                        .navigationBarTitleDisplayMode(.inline)
+                    }) {
+                        HStack { Image(systemName: "books.vertical.fill").imageScale(.large); Text("Adding via Library") }
+                    }
+                    
+                    NavigationLink(destination: {
+                        ScrollView {
+                            Text(verbatim: {
+                                """
+                                To search the Apple Music catalog for music to add to the queue, select the Search tab from the Add Music screen. From there, type in the search field to find music. Then, select any of the songs to add them to your queue.
+                                """
+                            }())
+                            .padding()
+                        }
+                        .navigationTitle("Adding via Search")
+                        .navigationBarTitleDisplayMode(.inline)
+                    }) {
+                        HStack { Image(systemName: "magnifyingglass").imageScale(.large); Text("Adding via Search") }
+                    }
+                    
+                    NavigationLink(destination: {
+                        ScrollView {
+                            Text(verbatim: {
+                                """
+                                You can add a song to a room’s queue using an Apple Music link. First, select the Link tab from the Add Music screen. From there, paste your link in the search bar, which will display your song. Then, tap your song to add it to the queue.
+                                """
+                            }())
+                            .padding()
+                        }
+                        .navigationTitle("Adding via Link")
+                        .navigationBarTitleDisplayMode(.inline)
+                    }) {
+                        HStack { Image(systemName: "link").imageScale(.large); Text("Adding via Link") }
                     }
                 }
             }
@@ -221,6 +271,7 @@ struct UserGuideView: View {
             .navigationTitle("User Guide")
             .navigationBarItems(trailing: Button(action: { self.presentationMode.wrappedValue.dismiss() }) { Text("Done").fontWeight(.bold) })
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

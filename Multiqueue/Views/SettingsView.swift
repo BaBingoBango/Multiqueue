@@ -58,7 +58,7 @@ struct SettingsView: View {
                         HStack { Image(systemName: "book.fill").imageScale(.large); Text("User Guide") }
                     }
                     .sheet(isPresented: $isShowingUserGuide) {
-                        EmptyView()
+                        UserGuideView()
                     }
                     
                     Link(destination: URL(string: "https://github.com/BaBingoBango/Multiqueue/wiki/Privacy-Policy")!) {
