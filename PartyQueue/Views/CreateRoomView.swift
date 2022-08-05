@@ -114,10 +114,10 @@ struct CreateRoomView: View {
                         detailsRecord["Description"] = enteredDescription
                         detailsRecord["Icon"] = enteredIcon
                         detailsRecord["Color"] = [
-                            Double(enteredColor.cgColor!.components![0]),
-                            Double(enteredColor.cgColor!.components![1]),
-                            Double(enteredColor.cgColor!.components![2]),
-                            Double(enteredColor.cgColor!.components![3])
+                            Double(enteredColor.cgColor?.components![0] ?? 1),
+                            Double(enteredColor.cgColor?.components![1] ?? 0),
+                            Double(enteredColor.cgColor?.components![2] ?? 0),
+                            Double(enteredColor.cgColor?.components![3] ?? 1)
                         ]
                         detailsRecord["SongLimit"] = 0
                         detailsRecord["SongLimitAction"] = "Deactivate Room"

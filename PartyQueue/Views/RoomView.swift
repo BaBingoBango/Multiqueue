@@ -174,10 +174,10 @@ struct RoomView: View {
                 room.details.record["IsActive"] = room.isActive ? 1 : 0
                 room.details.record["HostOnScreen"] = 1
                 room.details.record["Color"] = [
-                    Double(room.details.color.cgColor!.components![0]),
-                    Double(room.details.color.cgColor!.components![1]),
-                    Double(room.details.color.cgColor!.components![2]),
-                    Double(room.details.color.cgColor!.components![3])
+                    Double(room.details.color.cgColor?.components![0] ?? 1),
+                    Double(room.details.color.cgColor?.components![1] ?? 0),
+                    Double(room.details.color.cgColor?.components![2] ?? 0),
+                    Double(room.details.color.cgColor?.components![3] ?? 1)
                 ]
                 room.details.record["Description"] = room.details.description
                 room.details.record["Icon"] = room.details.icon
