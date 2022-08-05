@@ -6,62 +6,79 @@
 //
 
 import SwiftUI
-import MusicKit
+import MessageUI
 
 /// The view surfacing controls for various preferences of the app.
 struct SettingsView: View {
     
     @Environment(\.presentationMode) var presentationMode
-    @State var grantedLocalNetworkPermissions = true
-    let timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
-    @State var subscribedToAppleMusic = false
+    @State var isShowingMailSender = false
+    @State var hasCopiedFeedbackEmail = false
+    @State var isShowingUserGuide = false
     
     var body: some View {
         NavigationView {
             Form {
-                
-                Section(header: Text("PERMISSIONS & CAPABILITIES")) {
-                    NavigationLink(destination: LocalNetworkSettingsView().navigationBarTitle("", displayMode: .inline)) {
-                        HStack {
-                            Image(systemName: grantedLocalNetworkPermissions ? "checkmark.circle.fill" : "exclamationmark.octagon.fill")
-                                .imageScale(.large)
-                                .foregroundColor(grantedLocalNetworkPermissions ? .green : .red)
-                            Text("Local Network")
-                        }
-                    }
-                    NavigationLink(destination: MediaSettingsView().navigationBarTitle("", displayMode: .inline)) {
-                        HStack {
-                            Image(systemName: MusicAuthorization.currentStatus == .authorized ? "checkmark.circle.fill" : "exclamationmark.octagon.fill")
-                                .imageScale(.large)
-                                .foregroundColor(MusicAuthorization.currentStatus == .authorized ? .green : .red)
-                            Text("Media & Apple Music")
-                        }
-                    }
-                    NavigationLink(destination: SubscriptionSettingsView().navigationBarTitle("", displayMode: .inline)) {
-                        HStack {
-                            Image(systemName: subscribedToAppleMusic ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
-                                .imageScale(.large)
-                                .foregroundColor(subscribedToAppleMusic ? .green : .yellow)
-                            Text("Apple Music Subscription")
-                        }
+                Section(header: Text("Permissions"), footer: Text("To grant or revoke Multiqueue permissions, tap to visit Settings.")) {
+                    Button(action: {
+                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, completionHandler: { _ in })
+                    }) {
+                        Text("Configure Multiqueue in Settings")
                     }
                 }
                 
-                Section(header: Text("ABOUT")) {
-                    HStack {
-                        Text("Version Number")
-                        Spacer()
-                        Text("1.0.0")
-                            .foregroundColor(.secondary)
+                Section(header: Text("Feedback")) {
+                    if MFMailComposeViewController.canSendMail() {
+                        Button(action: {
+                            isShowingMailSender = true
+                        }) {
+                            HStack { Image(systemName: "exclamationmark.bubble.fill").imageScale(.large); Text("Send Feedback Mail") }
+                        }
+                        .sheet(isPresented: $isShowingMailSender) {
+                            MailSenderView(recipients: ["brook.patten_0n@icloud.com"], subject: "Multiqueue Feedback", body: "Please provide your feedback below. Feature suggestions, bug reports, and more are all appreciated! :)\n\n(If applicable, you may be contacted for more information or for follow-up questions.)\n\n\n")
+                        }
+                    } else {
+                        Button(action: {
+                            UIPasteboard.general.string = "brook.patten_0n@icloud.com"
+                            hasCopiedFeedbackEmail = true
+                        }) {
+                            HStack { Image(systemName: "exclamationmark.bubble.fill").imageScale(.large); Text(!hasCopiedFeedbackEmail ? "Copy Feedback Email" : "Feedback Email Copied!") }
+                        }
                     }
-                    HStack {
-                        Text("Build Number")
-                        Spacer()
-                        Text("4")
-                            .foregroundColor(.secondary)
+                    
+                    Link(destination: URL(string: "https://apps.apple.com/us/app/multiqueue/id1604105691?action=write-review")!) {
+                        HStack { Image(systemName: "star.bubble.fill").imageScale(.large); Text("Review on the App Store") }
                     }
                 }
                 
+                Section(header: Text("Resources")) {
+                    Button(action: {
+                        isShowingUserGuide = true
+                    }) {
+                        HStack { Image(systemName: "book.fill").imageScale(.large); Text("User Guide") }
+                    }
+                    .sheet(isPresented: $isShowingUserGuide) {
+                        EmptyView()
+                    }
+                    
+                    Link(destination: URL(string: "https://github.com/BaBingoBango/Multiqueue/wiki/Privacy-Policy")!) {
+                        HStack { Image(systemName: "hand.raised.fill").imageScale(.large); Text("Privacy Policy") }
+                    }
+                    
+                    Link(destination: URL(string: "https://github.com/BaBingoBango/Multiqueue/wiki/Support-Center")!) {
+                        HStack { Image(systemName: "questionmark.circle.fill").imageScale(.large); Text("Support Center") }
+                    }
+                    
+                    Link(destination: URL(string: "https://github.com/BaBingoBango/Multiqueue")!) {
+                        HStack { Image(systemName: "curlybraces").imageScale(.large); Text("Multiqueue on GitHub") }
+                    }
+                }
+                
+                Section(header: Text("About")) {
+                    HStack { Text("App Version"); Spacer(); Text(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String).foregroundColor(.secondary) }
+                    
+                    HStack { Text("Build Number"); Spacer(); Text(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String).foregroundColor(.secondary) }
+                }
             }
             
             // MARK: Navigation View Settings
@@ -73,34 +90,7 @@ struct SettingsView: View {
             })
             
         }
-        .onAppear {
-            getAppleMusicStatusProxy()
-            LocalNetworkAuthorization().requestAuthorization(completion: { authorization in
-                grantedLocalNetworkPermissions = authorization
-            })
-        }
-        .onReceive(timer) { time in
-            getAppleMusicStatusProxy()
-            LocalNetworkAuthorization().requestAuthorization(completion: { authorization in
-                grantedLocalNetworkPermissions = authorization
-            })
-        }
     }
-    
-    func getAppleMusicStatus() async {
-        do {
-            try await subscribedToAppleMusic = MusicSubscription.current.canPlayCatalogContent
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-
-    func getAppleMusicStatusProxy() {
-        Task {
-            await getAppleMusicStatus()
-        }
-    }
-    
 }
 
 struct SettingsView_Previews: PreviewProvider {

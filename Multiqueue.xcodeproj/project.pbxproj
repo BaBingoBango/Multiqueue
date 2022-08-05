@@ -44,6 +44,8 @@
 		AA70BA4027972AFB0033D376 /* LinkAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA70BA3F27972AFB0033D376 /* LinkAdder.swift */; };
 		AA70BA4327972B6F0033D376 /* LibraryServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA70BA4227972B6F0033D376 /* LibraryServices.swift */; };
 		AA70BA452797330B0033D376 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA70BA442797330B0033D376 /* SearchBar.swift */; };
+		AA70E9A9289CDD3D0033C06D /* NotificationStatusCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA70E9A8289CDD3D0033C06D /* NotificationStatusCard.swift */; };
+		AA70E9AB289CE1B10033C06D /* SendMailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA70E9AA289CE1B10033C06D /* SendMailView.swift */; };
 		AA85E2A427829ED9009F24ED /* MultiqueueApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2A327829ED9009F24ED /* MultiqueueApp.swift */; };
 		AA85E2A827829EDA009F24ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA85E2A727829EDA009F24ED /* Assets.xcassets */; };
 		AA85E2AB27829EDA009F24ED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA85E2AA27829EDA009F24ED /* Preview Assets.xcassets */; };
@@ -66,6 +68,7 @@
 		AA90A9FA289712540052E3DC /* CloudKitDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA90A9F9289712540052E3DC /* CloudKitDatabase.swift */; };
 		AA90A9FC289722FE0052E3DC /* QueueSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA90A9FB289722FE0052E3DC /* QueueSong.swift */; };
 		AA90A9FE289766190052E3DC /* NotificationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA90A9FD289766190052E3DC /* NotificationStatus.swift */; };
+		AA91B8F4289CEB7200B8BE88 /* UserGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA91B8F3289CEB7200B8BE88 /* UserGuideView.swift */; };
 		AA9246212895D28B00E7FCB9 /* MusicServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9246202895D28B00E7FCB9 /* MusicServices.swift */; };
 		AA9246232895D4E200E7FCB9 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9246222895D4E200E7FCB9 /* Room.swift */; };
 		AA9246252895D52C00E7FCB9 /* NowPlayingSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9246242895D52C00E7FCB9 /* NowPlayingSong.swift */; };
@@ -146,6 +149,8 @@
 		AA70BA3F27972AFB0033D376 /* LinkAdder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkAdder.swift; sourceTree = "<group>"; };
 		AA70BA4227972B6F0033D376 /* LibraryServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryServices.swift; sourceTree = "<group>"; };
 		AA70BA442797330B0033D376 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		AA70E9A8289CDD3D0033C06D /* NotificationStatusCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationStatusCard.swift; sourceTree = "<group>"; };
+		AA70E9AA289CE1B10033C06D /* SendMailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMailView.swift; sourceTree = "<group>"; };
 		AA85E2A027829ED9009F24ED /* Multiqueue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multiqueue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA85E2A327829ED9009F24ED /* MultiqueueApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiqueueApp.swift; sourceTree = "<group>"; };
 		AA85E2A727829EDA009F24ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -171,6 +176,7 @@
 		AA90A9F9289712540052E3DC /* CloudKitDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitDatabase.swift; sourceTree = "<group>"; };
 		AA90A9FB289722FE0052E3DC /* QueueSong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueSong.swift; sourceTree = "<group>"; };
 		AA90A9FD289766190052E3DC /* NotificationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationStatus.swift; sourceTree = "<group>"; };
+		AA91B8F3289CEB7200B8BE88 /* UserGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGuideView.swift; sourceTree = "<group>"; };
 		AA9246202895D28B00E7FCB9 /* MusicServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicServices.swift; sourceTree = "<group>"; };
 		AA9246222895D4E200E7FCB9 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		AA9246242895D52C00E7FCB9 /* NowPlayingSong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingSong.swift; sourceTree = "<group>"; };
@@ -293,6 +299,8 @@
 				AA588815279BB45100D4E9BB /* LocalNetworkSettingsView.swift */,
 				AA588817279BB45F00D4E9BB /* MediaSettingsView.swift */,
 				AA588819279BB49C00D4E9BB /* SubscriptionSettingsView.swift */,
+				AA70E9AA289CE1B10033C06D /* SendMailView.swift */,
+				AA91B8F3289CEB7200B8BE88 /* UserGuideView.swift */,
 			);
 			path = "Settings View Support";
 			sourceTree = "<group>";
@@ -409,6 +417,7 @@
 			isa = PBXGroup;
 			children = (
 				AA85E2D527829F60009F24ED /* MainMenuNavigationButtons.swift */,
+				AA70E9A8289CDD3D0033C06D /* NotificationStatusCard.swift */,
 				AA3551B7279B2D9C0022795A /* Warning & Alert Cards */,
 				AA3551BA279B2DC00022795A /* OK Cards */,
 				AA3551BB279B2DC90022795A /* Host & Join Cards */,
@@ -621,6 +630,7 @@
 				AA0F1F8A279C99C300C4D85F /* HostingMusicQueueHelpView.swift in Sources */,
 				AA0F1F88279C998D00C4D85F /* UserGuide.swift in Sources */,
 				AA268B062784E231004699DF /* JoiningViewConnectedDeviceRow.swift in Sources */,
+				AA70E9AB289CE1B10033C06D /* SendMailView.swift in Sources */,
 				AA90A9FA289712540052E3DC /* CloudKitDatabase.swift in Sources */,
 				AA5C4C372782A4DC00F34E2B /* PermissionsOKCard.swift in Sources */,
 				AA96A5DD28944A0B0014E000 /* RoomOptionView.swift in Sources */,
@@ -650,12 +660,14 @@
 				AA8E5379278BDC1C009F5458 /* SongRowView.swift in Sources */,
 				AA70BA452797330B0033D376 /* SearchBar.swift in Sources */,
 				AA43F09B2782C60500C9AE08 /* HostingViewConnectedDeviceRow.swift in Sources */,
+				AA70E9A9289CDD3D0033C06D /* NotificationStatusCard.swift in Sources */,
 				AAF236C6288E40BC00BF4E01 /* MyRoomsCard.swift in Sources */,
 				AA3B1FA6279919D9008F6693 /* ButtonSongRowView.swift in Sources */,
 				AA43F0992782C07000C9AE08 /* HostingView.swift in Sources */,
 				AA3551BD279B2EF30022795A /* AppleMusicPermissionsAlertCard.swift in Sources */,
 				AA70BA3C27972AF00033D376 /* LibraryAdder.swift in Sources */,
 				AA268B032784BA9E004699DF /* MultipeerServices.swift in Sources */,
+				AA91B8F4289CEB7200B8BE88 /* UserGuideView.swift in Sources */,
 				AA3A9917289B5CC1007DB861 /* LimitSetterView.swift in Sources */,
 				AA9D96F7278B90AB0009C044 /* MusicAdder.swift in Sources */,
 				AA1D782C2894CA8500F39AA6 /* RefreshableScrollView.swift in Sources */,

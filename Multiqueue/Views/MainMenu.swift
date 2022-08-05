@@ -19,6 +19,7 @@ struct MainMenu: View {
     
     @State var subscribedToAppleMusic = false
     @State var grantedLocalNetworkPermissions = true
+    @State var areNotificationsOn = false
     let timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
     
     var body: some View {
@@ -29,14 +30,13 @@ struct MainMenu: View {
                     
                     // MARK: - 1: Alert & Warning Cards
                     
-                    if !grantedLocalNetworkPermissions {
-                        NetworkPermissionsAlertCard()
-                            .padding([.top, .leading, .trailing])
-                    }
-                    
                     if MusicAuthorization.currentStatus != .authorized {
-                        AppleMusicPermissionsAlertCard()
-                            .padding([.top, .leading, .trailing])
+                        Button(action: {
+                            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, completionHandler: { _ in })
+                        }) {
+                            AppleMusicPermissionsAlertCard()
+                                .padding([.top, .leading, .trailing])
+                        }
                     }
                     
                     if !subscribedToAppleMusic && MusicAuthorization.currentStatus == .authorized {
@@ -49,35 +49,36 @@ struct MainMenu: View {
                         MyRoomsCard(isGray: !grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
                             .padding([.top, .leading, .trailing])
                     }
-                    .disabled(!grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
+                    .disabled(!subscribedToAppleMusic || MusicAuthorization.currentStatus != .authorized)
                     
                     NavigationLink(destination: JoinRoomView()) {
                         JoinRoomCard(isGray: !grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
                             .padding([.top, .leading, .trailing])
                     }
+                    .disabled(MusicAuthorization.currentStatus != .authorized)
                     
-//                    NavigationLink(destination: HostingView().environmentObject(multipeerServices).navigationBarTitle(Text("Host Queue"), displayMode: .inline).environmentObject(MultipeerServices(isHost: true))) {
-//                        HostQueueCard(isGray: !grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
-//                            .padding([.top, .leading, .trailing])
-//                    }
-//                    .disabled(!grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
-//
-//                    NavigationLink(destination: JoiningView().environmentObject(MultipeerServices(isHost: false)).navigationBarTitle(Text("Join Queue"), displayMode: .inline)) {
-//                        JoinQueueCard(isGray: !grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
-//                            .padding([.top, .leading, .trailing])
-//                    }
-//                    .disabled(!grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
-                    
-                    // MARK: - 3: OK/Status Cards
-                    
-                    if MusicAuthorization.currentStatus == .authorized && grantedLocalNetworkPermissions {
-                        PermissionsOKCard()
+                    // MARK: - 3: Notification Card
+                    Button(action: {
+                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, completionHandler: { _ in })
+                    }) {
+                        NotificationStatusCard(areNotificationsOn: areNotificationsOn)
                             .padding([.top, .leading, .trailing])
                     }
+                    
+                    // MARK: - 4: OK/Status Cards
                     
                     if subscribedToAppleMusic {
                         AppleMusicOKCard()
                             .padding([.top, .leading, .trailing])
+                    }
+                    
+                    if MusicAuthorization.currentStatus == .authorized && grantedLocalNetworkPermissions {
+                        Button(action: {
+                            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, completionHandler: { _ in })
+                        }) {
+                            PermissionsOKCard()
+                                .padding([.top, .leading, .trailing])
+                        }
                     }
                     
                 }
@@ -85,14 +86,11 @@ struct MainMenu: View {
             
             // MARK: - Navigation View Settings
             .navigationTitle(Text("Multiqueue"))
-            .navigationBarItems(trailing: HStack { MainMenuNavigationButtonsL(); MainMenuNavigationButtonsR().padding(.leading, 10) })
+            .navigationBarItems(trailing: HStack { MainMenuNavigationButtonsR().padding(.leading, 10) })
             
-        }.onAppear {
+        }
+        .onAppear {
             // MARK: - View Launch Code
-//            multipeerServices.stopBrowsing()
-//            multipeerServices.isReceivingData = false
-//            multipeerServices.session.disconnect()
-            
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
                 if success {
                     print("All set!")
@@ -111,15 +109,13 @@ struct MainMenu: View {
             }
             requestMusicAuthorization()
             getAppleMusicStatusProxy()
-            LocalNetworkAuthorization().requestAuthorization(completion: { authorization in
-                grantedLocalNetworkPermissions = authorization
-            })
         }
         .onReceive(timer) { time in
             getAppleMusicStatusProxy()
-            LocalNetworkAuthorization().requestAuthorization(completion: { authorization in
-                grantedLocalNetworkPermissions = authorization
-            })
+            let center = UNUserNotificationCenter.current()
+            center.getNotificationSettings { settings in
+                areNotificationsOn = settings.authorizationStatus == .authorized
+            }
         }
         .alert("Accepting Room Invitation...", isPresented: $sceneDelegate.isAcceptingShare) {
             Button("Cancel", role: .cancel) { }

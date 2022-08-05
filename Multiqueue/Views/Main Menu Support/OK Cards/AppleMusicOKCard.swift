@@ -19,7 +19,7 @@ struct AppleMusicOKCard: View {
             Text("Apple Music Status")
                 .font(.title3)
                 .fontWeight(.bold)
-            Text("You've subscribed to Apple Music. This will be a description of what that means for you!")
+            Text("You're subscribed to Apple Music, which means you can host rooms.")
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding([.bottom, .horizontal])

@@ -19,7 +19,7 @@ struct AppleMusicWarningCard: View {
             Text("No Apple Music Subscription")
                 .font(.title3)
                 .fontWeight(.bold)
-            Text("This will be a description of how app usage is limited by not being an Apple Music subscriber.")
+            Text("Without an Apple Music subscription tied to your Apple ID, you will not be able to host rooms.")
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding([.bottom, .horizontal])

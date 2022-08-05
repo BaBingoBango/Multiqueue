@@ -58,7 +58,16 @@ struct RoomInfoView: View {
                 .listRowBackground(Color(UIColor.systemGroupedBackground))
                 
                 Section(footer: Text("An inactive room will not accept new songs, but will still be visible to participants.")) {
-                    Toggle("Enable Room", isOn: $room.isActive)
+                    if isHost {
+                        Toggle("Enable Room", isOn: $room.isActive)
+                    } else {
+                        HStack {
+                            Text("Room Status")
+                            Spacer()
+                            Text(room.isActive ? "Active" : "Not Active")
+                                .foregroundColor(.secondary)
+                        }
+                    }
                 }
                 
                 Section(header: Text("Song Limit")) {
