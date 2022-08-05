@@ -1,14 +1,14 @@
 //
-//  PartyQueueTests.swift
-//  PartyQueueTests
+//  MultiqueueTests.swift
+//  MultiqueueTests
 //
 //  Created by Ethan Marshall on 1/2/22.
 //
 
 import XCTest
-@testable import PartyQueue
+@testable import Multiqueue
 
-class PartyQueueTests: XCTestCase {
+class MultiqueueTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

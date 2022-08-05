@@ -1,6 +1,6 @@
 //
 //  MyRoomsView.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 7/24/22.
 //
@@ -83,6 +83,7 @@ struct MyRoomsView: View {
                             .foregroundColor(.gray)
                             .font(.callout)
                             .padding(.top, 5)
+                            .padding(.horizontal)
                         
                     }
                 }

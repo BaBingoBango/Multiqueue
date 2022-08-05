@@ -1,6 +1,6 @@
 //
 //  RoomInfoView.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 8/3/22.
 //

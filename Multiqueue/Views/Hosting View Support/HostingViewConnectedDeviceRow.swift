@@ -1,6 +1,6 @@
 //
 //  HostingViewConnectedDeviceRow.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 1/3/22.
 //

@@ -1,6 +1,6 @@
 //
 //  MediaSettingsView.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 1/21/22.
 //
@@ -43,7 +43,7 @@ struct MediaSettingsView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 50)
                             .foregroundColor(.green)
-                        Text("You've granted PartyQueue Media & Apple Music access. To revoke access, visit Settings > Privacy > Media & Apple Music.")
+                        Text("You've granted Multiqueue Media & Apple Music access. To revoke access, visit Settings > Privacy > Media & Apple Music.")
                         Spacer()
                     }
                     .padding([.top, .leading, .bottom])
@@ -56,7 +56,7 @@ struct MediaSettingsView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 50)
                             .foregroundColor(.red)
-                        Text("You haven't given PartyQueue Media & Apple Music access. To grant access, visit Settings > Privacy > Media & Apple Music.")
+                        Text("You haven't given Multiqueue Media & Apple Music access. To grant access, visit Settings > Privacy > Media & Apple Music.")
                         Spacer()
                     }
                     .padding([.top, .leading, .bottom])
@@ -73,7 +73,7 @@ struct MediaSettingsView: View {
                 .padding([.top, .leading])
                 
                 HStack {
-                    Text("Apple Music is normally accessed through the Music app on Apple devices. As a third-party app, in order to interface with the Music app and the Apple Music catalog, PartyQueue uses Apple's MusicKit framework.\n\nIn this case, PartyQueue uses MusicKit to accomplish a number of important app functions: adding songs to the host device's music queue, accessing a device's music library, searching the Apple Music catalog, and following Apple Music song links.\n\nFor privacy reasons, Apple requires users explicity approve MusicKit access. You can grant or revoke this approval at any time in the Settings app.")
+                    Text("Apple Music is normally accessed through the Music app on Apple devices. As a third-party app, in order to interface with the Music app and the Apple Music catalog, Multiqueue uses Apple's MusicKit framework.\n\nIn this case, Multiqueue uses MusicKit to accomplish a number of important app functions: adding songs to the host device's music queue, accessing a device's music library, searching the Apple Music catalog, and following Apple Music song links.\n\nFor privacy reasons, Apple requires users explicity approve MusicKit access. You can grant or revoke this approval at any time in the Settings app.")
                         .multilineTextAlignment(.leading)
                         .offset(y: 5)
                     Spacer()

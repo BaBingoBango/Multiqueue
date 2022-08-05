@@ -1,6 +1,6 @@
 //
 //  PermissionsOKCard.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 1/2/22.
 //
@@ -20,7 +20,7 @@ struct PermissionsOKCard: View {
             Text("Permissions Status")
                 .font(.title3)
                 .fontWeight(.bold)
-            Text("You've granted PartyQueue access to Local Network and Media & Apple Music permissions, which can be changed in the Settings app.")
+            Text("You've granted Multiqueue access to Local Network and Media & Apple Music permissions, which can be changed in the Settings app.")
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding([.bottom, .horizontal])

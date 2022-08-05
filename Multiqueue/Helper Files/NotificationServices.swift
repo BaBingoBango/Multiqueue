@@ -1,6 +1,6 @@
 //
 //  NotificationService.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 8/2/22.
 //

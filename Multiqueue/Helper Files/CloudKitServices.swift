@@ -1,6 +1,6 @@
 //
 //  CloudKitServices.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 7/31/22.
 //

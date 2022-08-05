@@ -1,6 +1,6 @@
 //
 //  MultipeerServices.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 1/4/22.
 //
@@ -63,7 +63,7 @@ class MultipeerServices: NSObject, ObservableObject {
     }
     
     func invitePeer(_ peerID: MCPeerID) {
-        let context = "Verified PartyQueue Request".data(using: .utf8)
+        let context = "Verified Multiqueue Request".data(using: .utf8)
         nearbyServiceBrowser.invitePeer(peerID, to: session, withContext: context, timeout: TimeInterval(120))
     }
     

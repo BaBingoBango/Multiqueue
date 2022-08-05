@@ -1,6 +1,6 @@
 //
 //  HostingMusicQueueHelpView.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 1/22/22.
 //
@@ -18,7 +18,7 @@ struct HostingMusicQueueHelpView: View {
                         .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: false, vertical: true)
                     
-                    Text("\"Hosting\", in the context of PartyQueue, means that your device is the one that will play Apple Music songs suggested by both you and any participant devices. For example, if your device is the one connected to the speaker system at a party or the sound system of a car, your device would be the ideal choice for the host. All of the participant devices will send songs to your device, which will then be added to your personal Music app queue.")
+                    Text("\"Hosting\", in the context of Multiqueue, means that your device is the one that will play Apple Music songs suggested by both you and any participant devices. For example, if your device is the one connected to the speaker system at a party or the sound system of a car, your device would be the ideal choice for the host. All of the participant devices will send songs to your device, which will then be added to your personal Music app queue.")
                         .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: false, vertical: true)
                     
@@ -55,7 +55,7 @@ struct HostingMusicQueueHelpView: View {
                         .fixedSize(horizontal: false, vertical: true)
                         .padding(.top)
                     
-                    Text("PartyQueue communicates with the Music app through Apple's MusicKit framework. Becuase of this, there are certain restrictions placed on what PartyQueue can do in the Music app on your behalf. While Apple allows authorized apps to add songs to a user's queue, they cannot manage it in any further way. In order to accomplish this management, you as the host will need to use the standard system controls.")
+                    Text("Multiqueue communicates with the Music app through Apple's MusicKit framework. Becuase of this, there are certain restrictions placed on what Multiqueue can do in the Music app on your behalf. While Apple allows authorized apps to add songs to a user's queue, they cannot manage it in any further way. In order to accomplish this management, you as the host will need to use the standard system controls.")
                         .fixedSize(horizontal: false, vertical: true)
                     
                 }

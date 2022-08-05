@@ -1,6 +1,6 @@
 //
 //  PermissionsAlertCard.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 1/2/22.
 //
@@ -20,7 +20,7 @@ struct NetworkPermissionsAlertCard: View {
             Text("No Local Network Access")
                 .font(.title3)
                 .fontWeight(.bold)
-            Text("Since PartyQueue communicates wirelessly with nearby devices, you will not be able to use PartyQueue until you grant Local Network access in Settings.")
+            Text("Since Multiqueue communicates wirelessly with nearby devices, you will not be able to use Multiqueue until you grant Local Network access in Settings.")
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding([.bottom, .horizontal])

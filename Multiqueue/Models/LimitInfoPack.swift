@@ -1,6 +1,6 @@
 //
 //  LimitInfoPack.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 1/23/22.
 //

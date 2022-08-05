@@ -1,6 +1,6 @@
 //
 //  HostingView.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 1/3/22.
 //
@@ -44,7 +44,7 @@ struct HostingView: View {
                         .padding([.top, .leading])
                     } else if $multipeerServices.connectedDevices.isEmpty {
                         HStack {
-                            Text("To allow others access to your music queue, have them open PartyQueue and tap Join Queue. You'll see their device appear here.")
+                            Text("To allow others access to your music queue, have them open Multiqueue and tap Join Queue. You'll see their device appear here.")
                             Spacer()
                         }
                             .padding(.all)

@@ -1,6 +1,6 @@
 //
 //  AppleMusicPermissionsAlertCard.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 1/21/22.
 //
@@ -20,7 +20,7 @@ struct AppleMusicPermissionsAlertCard: View {
             Text("No Media & Apple Music Access")
                 .font(.title3)
                 .fontWeight(.bold)
-            Text("Since PartyQueue needs to look up and play songs from Apple Music, you will not be able to use it until you grant Media & Apple Music access in Settings.")
+            Text("Since Multiqueue needs to look up and play songs from Apple Music, you will not be able to use it until you grant Media & Apple Music access in Settings.")
                 .minimumScaleFactor(0.5)
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)

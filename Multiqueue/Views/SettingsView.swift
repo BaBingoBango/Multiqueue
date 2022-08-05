@@ -1,6 +1,6 @@
 //
 //  SettingsView.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 1/2/22.
 //

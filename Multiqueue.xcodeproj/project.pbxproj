@@ -44,14 +44,14 @@
 		AA70BA4027972AFB0033D376 /* LinkAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA70BA3F27972AFB0033D376 /* LinkAdder.swift */; };
 		AA70BA4327972B6F0033D376 /* LibraryServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA70BA4227972B6F0033D376 /* LibraryServices.swift */; };
 		AA70BA452797330B0033D376 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA70BA442797330B0033D376 /* SearchBar.swift */; };
-		AA85E2A427829ED9009F24ED /* PartyQueueApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2A327829ED9009F24ED /* PartyQueueApp.swift */; };
+		AA85E2A427829ED9009F24ED /* MultiqueueApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2A327829ED9009F24ED /* MultiqueueApp.swift */; };
 		AA85E2A827829EDA009F24ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA85E2A727829EDA009F24ED /* Assets.xcassets */; };
 		AA85E2AB27829EDA009F24ED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA85E2AA27829EDA009F24ED /* Preview Assets.xcassets */; };
 		AA85E2AD27829EDA009F24ED /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2AC27829EDA009F24ED /* Persistence.swift */; };
-		AA85E2B027829EDA009F24ED /* PartyQueue.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2AE27829EDA009F24ED /* PartyQueue.xcdatamodeld */; };
-		AA85E2BA27829EDA009F24ED /* PartyQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2B927829EDA009F24ED /* PartyQueueTests.swift */; };
-		AA85E2C427829EDA009F24ED /* PartyQueueUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2C327829EDA009F24ED /* PartyQueueUITests.swift */; };
-		AA85E2C627829EDA009F24ED /* PartyQueueUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2C527829EDA009F24ED /* PartyQueueUITestsLaunchTests.swift */; };
+		AA85E2B027829EDA009F24ED /* Multiqueue.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2AE27829EDA009F24ED /* Multiqueue.xcdatamodeld */; };
+		AA85E2BA27829EDA009F24ED /* MultiqueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2B927829EDA009F24ED /* MultiqueueTests.swift */; };
+		AA85E2C427829EDA009F24ED /* MultiqueueUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2C327829EDA009F24ED /* MultiqueueUITests.swift */; };
+		AA85E2C627829EDA009F24ED /* MultiqueueUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2C527829EDA009F24ED /* MultiqueueUITestsLaunchTests.swift */; };
 		AA85E2D327829F29009F24ED /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2D227829F29009F24ED /* MainMenu.swift */; };
 		AA85E2D627829F60009F24ED /* MainMenuNavigationButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2D527829F60009F24ED /* MainMenuNavigationButtons.swift */; };
 		AA85E2D927829FAD009F24ED /* NetworkPermissionsAlertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85E2D827829FAD009F24ED /* NetworkPermissionsAlertCard.swift */; };
@@ -95,14 +95,14 @@
 			containerPortal = AA85E29827829ED9009F24ED /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = AA85E29F27829ED9009F24ED;
-			remoteInfo = PartyQueue;
+			remoteInfo = Multiqueue;
 		};
 		AA85E2C027829EDA009F24ED /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AA85E29827829ED9009F24ED /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = AA85E29F27829ED9009F24ED;
-			remoteInfo = PartyQueue;
+			remoteInfo = Multiqueue;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -118,7 +118,7 @@
 		AA268B022784BA9E004699DF /* MultipeerServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerServices.swift; sourceTree = "<group>"; };
 		AA268B042784DE56004699DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AA268B052784E231004699DF /* JoiningViewConnectedDeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoiningViewConnectedDeviceRow.swift; sourceTree = "<group>"; };
-		AA268B0827851F1F004699DF /* PartyQueue.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PartyQueue.entitlements; sourceTree = "<group>"; };
+		AA268B0827851F1F004699DF /* Multiqueue.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Multiqueue.entitlements; sourceTree = "<group>"; };
 		AA268B0A27851F1F004699DF /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		AA3551B3279B24D90022795A /* HeadingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadingText.swift; sourceTree = "<group>"; };
 		AA3551B5279B2C840022795A /* AppleMusicWarningCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMusicWarningCard.swift; sourceTree = "<group>"; };
@@ -147,16 +147,16 @@
 		AA70BA4227972B6F0033D376 /* LibraryServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryServices.swift; sourceTree = "<group>"; };
 		AA70BA442797330B0033D376 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		AA85E2A027829ED9009F24ED /* Multiqueue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multiqueue.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA85E2A327829ED9009F24ED /* PartyQueueApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyQueueApp.swift; sourceTree = "<group>"; };
+		AA85E2A327829ED9009F24ED /* MultiqueueApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiqueueApp.swift; sourceTree = "<group>"; };
 		AA85E2A727829EDA009F24ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA85E2AA27829EDA009F24ED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AA85E2AC27829EDA009F24ED /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		AA85E2AF27829EDA009F24ED /* PartyQueue.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PartyQueue.xcdatamodel; sourceTree = "<group>"; };
+		AA85E2AF27829EDA009F24ED /* Multiqueue.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Multiqueue.xcdatamodel; sourceTree = "<group>"; };
 		AA85E2B527829EDA009F24ED /* MultiqueueTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultiqueueTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA85E2B927829EDA009F24ED /* PartyQueueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyQueueTests.swift; sourceTree = "<group>"; };
+		AA85E2B927829EDA009F24ED /* MultiqueueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiqueueTests.swift; sourceTree = "<group>"; };
 		AA85E2BF27829EDA009F24ED /* MultiqueueUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultiqueueUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA85E2C327829EDA009F24ED /* PartyQueueUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyQueueUITests.swift; sourceTree = "<group>"; };
-		AA85E2C527829EDA009F24ED /* PartyQueueUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyQueueUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		AA85E2C327829EDA009F24ED /* MultiqueueUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiqueueUITests.swift; sourceTree = "<group>"; };
+		AA85E2C527829EDA009F24ED /* MultiqueueUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiqueueUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		AA85E2D227829F29009F24ED /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		AA85E2D527829F60009F24ED /* MainMenuNavigationButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuNavigationButtons.swift; sourceTree = "<group>"; };
 		AA85E2D827829FAD009F24ED /* NetworkPermissionsAlertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPermissionsAlertCard.swift; sourceTree = "<group>"; };
@@ -313,8 +313,8 @@
 			children = (
 				AAA8DC1F27A5EFC100F22B59 /* README.md */,
 				AA85E2A227829ED9009F24ED /* Multiqueue */,
-				AA85E2B827829EDA009F24ED /* PartyQueueTests */,
-				AA85E2C227829EDA009F24ED /* PartyQueueUITests */,
+				AA85E2B827829EDA009F24ED /* MultiqueueTests */,
+				AA85E2C227829EDA009F24ED /* MultiqueueUITests */,
 				AA85E2A127829ED9009F24ED /* Products */,
 				AA268B0927851F1F004699DF /* Frameworks */,
 			);
@@ -333,15 +333,15 @@
 		AA85E2A227829ED9009F24ED /* Multiqueue */ = {
 			isa = PBXGroup;
 			children = (
-				AA268B0827851F1F004699DF /* PartyQueue.entitlements */,
+				AA268B0827851F1F004699DF /* Multiqueue.entitlements */,
 				AA268B042784DE56004699DF /* Info.plist */,
-				AA85E2A327829ED9009F24ED /* PartyQueueApp.swift */,
+				AA85E2A327829ED9009F24ED /* MultiqueueApp.swift */,
 				AA85E2D427829F4A009F24ED /* Views */,
 				AA9D96EF278B8AF70009C044 /* Models */,
 				AA85E2DC27829FFC009F24ED /* Helper Files */,
 				AA85E2A727829EDA009F24ED /* Assets.xcassets */,
 				AA85E2AC27829EDA009F24ED /* Persistence.swift */,
-				AA85E2AE27829EDA009F24ED /* PartyQueue.xcdatamodeld */,
+				AA85E2AE27829EDA009F24ED /* Multiqueue.xcdatamodeld */,
 				AA85E2A927829EDA009F24ED /* Preview Content */,
 			);
 			path = Multiqueue;
@@ -355,21 +355,21 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		AA85E2B827829EDA009F24ED /* PartyQueueTests */ = {
+		AA85E2B827829EDA009F24ED /* MultiqueueTests */ = {
 			isa = PBXGroup;
 			children = (
-				AA85E2B927829EDA009F24ED /* PartyQueueTests.swift */,
+				AA85E2B927829EDA009F24ED /* MultiqueueTests.swift */,
 			);
-			path = PartyQueueTests;
+			path = MultiqueueTests;
 			sourceTree = "<group>";
 		};
-		AA85E2C227829EDA009F24ED /* PartyQueueUITests */ = {
+		AA85E2C227829EDA009F24ED /* MultiqueueUITests */ = {
 			isa = PBXGroup;
 			children = (
-				AA85E2C327829EDA009F24ED /* PartyQueueUITests.swift */,
-				AA85E2C527829EDA009F24ED /* PartyQueueUITestsLaunchTests.swift */,
+				AA85E2C327829EDA009F24ED /* MultiqueueUITests.swift */,
+				AA85E2C527829EDA009F24ED /* MultiqueueUITestsLaunchTests.swift */,
 			);
-			path = PartyQueueUITests;
+			path = MultiqueueUITests;
 			sourceTree = "<group>";
 		};
 		AA85E2D427829F4A009F24ED /* Views */ = {
@@ -490,7 +490,7 @@
 			dependencies = (
 			);
 			name = Multiqueue;
-			productName = PartyQueue;
+			productName = Multiqueue;
 			productReference = AA85E2A027829ED9009F24ED /* Multiqueue.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -508,7 +508,7 @@
 				AA85E2B727829EDA009F24ED /* PBXTargetDependency */,
 			);
 			name = MultiqueueTests;
-			productName = PartyQueueTests;
+			productName = MultiqueueTests;
 			productReference = AA85E2B527829EDA009F24ED /* MultiqueueTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -526,7 +526,7 @@
 				AA85E2C127829EDA009F24ED /* PBXTargetDependency */,
 			);
 			name = MultiqueueUITests;
-			productName = PartyQueueUITests;
+			productName = MultiqueueUITests;
 			productReference = AA85E2BF27829EDA009F24ED /* MultiqueueUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
@@ -609,7 +609,7 @@
 				AA90A9F42896FB2D0052E3DC /* CloudKitButtonSongRowView.swift in Sources */,
 				AA0F1F8D279C9A0400C4D85F /* JoiningMusicQueueHelpView.swift in Sources */,
 				AA9246232895D4E200E7FCB9 /* Room.swift in Sources */,
-				AA85E2B027829EDA009F24ED /* PartyQueue.xcdatamodeld in Sources */,
+				AA85E2B027829EDA009F24ED /* Multiqueue.xcdatamodeld in Sources */,
 				AAF953B328949A6E00DBE562 /* JoinRoomCard.swift in Sources */,
 				AA85E2AD27829EDA009F24ED /* Persistence.swift in Sources */,
 				AA6CFC4F289AD70500E8C8E4 /* InitialsImageView.swift in Sources */,
@@ -631,7 +631,7 @@
 				AABB64F42895983700C7A31E /* OperationStatus.swift in Sources */,
 				AA3551B4279B24D90022795A /* HeadingText.swift in Sources */,
 				AA9246212895D28B00E7FCB9 /* MusicServices.swift in Sources */,
-				AA85E2A427829ED9009F24ED /* PartyQueueApp.swift in Sources */,
+				AA85E2A427829ED9009F24ED /* MultiqueueApp.swift in Sources */,
 				AA588816279BB45100D4E9BB /* LocalNetworkSettingsView.swift in Sources */,
 				AA85E2DB27829FF3009F24ED /* RectangleWrapper.swift in Sources */,
 				AA90A9F22896FB2D0052E3DC /* CloudKitMusicAdder.swift in Sources */,
@@ -684,7 +684,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA85E2BA27829EDA009F24ED /* PartyQueueTests.swift in Sources */,
+				AA85E2BA27829EDA009F24ED /* MultiqueueTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,8 +692,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA85E2C427829EDA009F24ED /* PartyQueueUITests.swift in Sources */,
-				AA85E2C627829EDA009F24ED /* PartyQueueUITestsLaunchTests.swift in Sources */,
+				AA85E2C427829EDA009F24ED /* MultiqueueUITests.swift in Sources */,
+				AA85E2C627829EDA009F24ED /* MultiqueueUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -834,18 +834,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = PartyQueue/PartyQueue.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Multiqueue/Multiqueue.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_ASSET_PATHS = "\"PartyQueue/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Multiqueue/Preview Content\"";
 				DEVELOPMENT_TEAM = GUDZ7ALN9J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PartyQueue/Info.plist;
+				INFOPLIST_FILE = Multiqueue/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Multiqueue;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSAppleMusicUsageDescription = "PartyQueue uses your music data to manage your queue and look up songs from connected devices.";
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "PartyQueue uses the local network to connect to nearby devices and transmit Apple Music songs.";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Multiqueue uses your music data to manage your queue and look up songs from connected devices.";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Multiqueue uses the local network to connect to nearby devices and transmit Apple Music songs.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -858,7 +858,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Ethan.PartyQueue;
+				PRODUCT_BUNDLE_IDENTIFIER = Ethan.Multiqueue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -873,18 +873,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = PartyQueue/PartyQueue.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Multiqueue/Multiqueue.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_ASSET_PATHS = "\"PartyQueue/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Multiqueue/Preview Content\"";
 				DEVELOPMENT_TEAM = GUDZ7ALN9J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PartyQueue/Info.plist;
+				INFOPLIST_FILE = Multiqueue/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Multiqueue;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSAppleMusicUsageDescription = "PartyQueue uses your music data to manage your queue and look up songs from connected devices.";
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "PartyQueue uses the local network to connect to nearby devices and transmit Apple Music songs.";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Multiqueue uses your music data to manage your queue and look up songs from connected devices.";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Multiqueue uses the local network to connect to nearby devices and transmit Apple Music songs.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -897,7 +897,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Ethan.PartyQueue;
+				PRODUCT_BUNDLE_IDENTIFIER = Ethan.Multiqueue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -918,7 +918,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Ethan.PartyQueueTests;
+				PRODUCT_BUNDLE_IDENTIFIER = Ethan.MultiqueueTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -938,7 +938,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Ethan.PartyQueueTests;
+				PRODUCT_BUNDLE_IDENTIFIER = Ethan.MultiqueueTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -956,12 +956,12 @@
 				DEVELOPMENT_TEAM = GUDZ7ALN9J;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Ethan.PartyQueueUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = Ethan.MultiqueueUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = PartyQueue;
+				TEST_TARGET_NAME = Multiqueue;
 			};
 			name = Debug;
 		};
@@ -974,12 +974,12 @@
 				DEVELOPMENT_TEAM = GUDZ7ALN9J;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Ethan.PartyQueueUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = Ethan.MultiqueueUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = PartyQueue;
+				TEST_TARGET_NAME = Multiqueue;
 			};
 			name = Release;
 		};
@@ -1025,13 +1025,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		AA85E2AE27829EDA009F24ED /* PartyQueue.xcdatamodeld */ = {
+		AA85E2AE27829EDA009F24ED /* Multiqueue.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				AA85E2AF27829EDA009F24ED /* PartyQueue.xcdatamodel */,
+				AA85E2AF27829EDA009F24ED /* Multiqueue.xcdatamodel */,
 			);
-			currentVersion = AA85E2AF27829EDA009F24ED /* PartyQueue.xcdatamodel */;
-			path = PartyQueue.xcdatamodeld;
+			currentVersion = AA85E2AF27829EDA009F24ED /* Multiqueue.xcdatamodel */;
+			path = Multiqueue.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

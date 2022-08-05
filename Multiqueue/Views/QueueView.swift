@@ -1,6 +1,6 @@
 //
 //  QueueView.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 1/4/22.
 //

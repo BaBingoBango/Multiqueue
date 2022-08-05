@@ -1,6 +1,6 @@
 //
 //  JoiningView.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 1/3/22.
 //
@@ -36,7 +36,7 @@ struct JoiningView: View {
                 
                 if multipeerServices.connectedDevices.isEmpty {
                     HStack {
-                        Text("To access someone else's music queue, have them open PartyQueue and tap Host Queue. They'll see your device name and can invite you to their session.")
+                        Text("To access someone else's music queue, have them open Multiqueue and tap Host Queue. They'll see your device name and can invite you to their session.")
                         Spacer()
                     }
                         .padding(.all)

@@ -1,6 +1,6 @@
 //
 //  AppleMusicWarningCard.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 1/21/22.
 //

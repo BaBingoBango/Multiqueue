@@ -1,6 +1,6 @@
 //
 //  Persistence.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 1/2/22.
 //
@@ -31,7 +31,7 @@ struct PersistenceController {
     let container: NSPersistentCloudKitContainer
 
     init(inMemory: Bool = false) {
-        container = NSPersistentCloudKitContainer(name: "Multiqueue") // "PartyQueue"
+        container = NSPersistentCloudKitContainer(name: "Multiqueue") // "Multiqueue"
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
             container.persistentStoreDescriptions.first!.cloudKitContainerOptions = nil

@@ -1,6 +1,6 @@
 //
 //  LocalNetworkSettingsView.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 1/21/22.
 //
@@ -46,7 +46,7 @@ struct LocalNetworkSettingsView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 50)
                             .foregroundColor(.green)
-                        Text("You've granted PartyQueue Local Network access. To revoke access, visit Settings > Privacy > Local Network.")
+                        Text("You've granted Multiqueue Local Network access. To revoke access, visit Settings > Privacy > Local Network.")
                         Spacer()
                     }
                     .padding([.top, .leading, .bottom])
@@ -59,7 +59,7 @@ struct LocalNetworkSettingsView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 50)
                             .foregroundColor(.red)
-                        Text("You haven't given PartyQueue Local Network access. To grant access, visit Settings > Privacy > Local Network.")
+                        Text("You haven't given Multiqueue Local Network access. To grant access, visit Settings > Privacy > Local Network.")
                         Spacer()
                     }
                     .padding([.top, .leading, .bottom])
@@ -76,7 +76,7 @@ struct LocalNetworkSettingsView: View {
                 .padding([.top, .leading])
                 
                 HStack {
-                    Text("PartyQueue allows multiple devices to contribute to a single music queue by sending data between devices. When one device makes a change to the music queue, a copy of that queue is trasmitted to all participant devices. In order to facilitate this transfer without needing to connect to the Internet, PartyQueue uses Apple's Multipeer Connectivity framework.\n\nIn this case, PartyQueue encodes Apple Music songs, the device name of the participant (e.g. \"My Cool iPhone\"), and the current time into JSON, which is then sent to other local devices.\n\nFor privacy reasons, Apple requires users explicity approve data transmissions of this type. You can grant or revoke this approval at any time in the Settings app.")
+                    Text("Multiqueue allows multiple devices to contribute to a single music queue by sending data between devices. When one device makes a change to the music queue, a copy of that queue is trasmitted to all participant devices. In order to facilitate this transfer without needing to connect to the Internet, Multiqueue uses Apple's Multipeer Connectivity framework.\n\nIn this case, Multiqueue encodes Apple Music songs, the device name of the participant (e.g. \"My Cool iPhone\"), and the current time into JSON, which is then sent to other local devices.\n\nFor privacy reasons, Apple requires users explicity approve data transmissions of this type. You can grant or revoke this approval at any time in the Settings app.")
                         .multilineTextAlignment(.leading)
                         .offset(y: 5)
                     Spacer()

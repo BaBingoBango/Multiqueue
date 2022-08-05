@@ -1,13 +1,13 @@
 //
-//  PartyQueueUITestsLaunchTests.swift
-//  PartyQueueUITests
+//  MultiqueueUITestsLaunchTests.swift
+//  MultiqueueUITests
 //
 //  Created by Ethan Marshall on 1/2/22.
 //
 
 import XCTest
 
-class PartyQueueUITestsLaunchTests: XCTestCase {
+class MultiqueueUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

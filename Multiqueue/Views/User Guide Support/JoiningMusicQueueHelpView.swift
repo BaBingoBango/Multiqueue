@@ -1,6 +1,6 @@
 //
 //  JoiningMusicQueueHelpView.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 1/22/22.
 //
@@ -18,7 +18,7 @@ struct JoiningMusicQueueHelpView: View {
                         .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: false, vertical: true)
                     
-                    Text("\"Joining\", in the context of PartyQueue, means that your device will not be the device to actually play any music. Rather, you will be able to send Apple Music songs to a host device's queue, which will then be played from the host device's speakers or connected sound system.")
+                    Text("\"Joining\", in the context of Multiqueue, means that your device will not be the device to actually play any music. Rather, you will be able to send Apple Music songs to a host device's queue, which will then be played from the host device's speakers or connected sound system.")
                         .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: false, vertical: true)
                     
@@ -55,7 +55,7 @@ struct JoiningMusicQueueHelpView: View {
                         .fixedSize(horizontal: false, vertical: true)
                         .padding(.top)
                     
-                    Text("PartyQueue communicates with the Music app through Apple's MusicKit framework. Becuase of this, there are restrictions placed on what PartyQueue can do in the Music app on your behalf. Authorized apps cannot manage the queue in any way other than adding songs. To do more, the host will need to use their device.")
+                    Text("Multiqueue communicates with the Music app through Apple's MusicKit framework. Becuase of this, there are restrictions placed on what Multiqueue can do in the Music app on your behalf. Authorized apps cannot manage the queue in any way other than adding songs. To do more, the host will need to use their device.")
                         .fixedSize(horizontal: false, vertical: true)
                     
                 }

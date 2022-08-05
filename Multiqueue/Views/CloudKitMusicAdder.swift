@@ -1,6 +1,6 @@
 //
 //  MusicAdder.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 1/9/22.
 //

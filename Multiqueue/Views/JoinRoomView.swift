@@ -1,6 +1,6 @@
 //
 //  JoinRoomView.swift
-//  PartyQueue
+//  Multiqueue
 //
 //  Created by Ethan Marshall on 7/29/22.
 //
@@ -75,6 +75,7 @@ struct JoinRoomView: View {
                             .foregroundColor(.gray)
                             .font(.callout)
                             .padding(.top, 5)
+                            .padding(.horizontal)
                         
                     }
                 }
