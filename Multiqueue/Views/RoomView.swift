@@ -184,7 +184,7 @@ struct RoomView: View {
                 room.details.record["SongLimit"] = room.songLimit
                 room.details.record["SongLimitAction"] = convertLimitExpirationActionToString(room.songLimitAction)
                 room.details.record["TimeLimit"] = room.timeLimit
-                room.details.record["TimeLimitAction"] = convertLimitExpirationActionToString(room.songLimitAction)
+                room.details.record["TimeLimitAction"] = convertLimitExpirationActionToString(room.timeLimitAction)
                 
                 // If the share was deleted, "intercept" it here and generate a new one
                 if room.share.participants.count == 0 {

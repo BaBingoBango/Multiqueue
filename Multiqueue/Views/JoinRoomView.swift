@@ -23,8 +23,7 @@ struct JoinRoomView: View {
                 VStack {
                     switch roomUpdateStatus {
                     case .notStarted:
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle())
+                        EmptyView()
                         
                     case .inProgress:
                         ProgressView()

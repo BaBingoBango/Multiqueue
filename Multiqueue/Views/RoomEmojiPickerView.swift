@@ -10,6 +10,10 @@ import SwiftUI
 struct RoomEmojiPickerView: View {
     
     // MARK: - View Variables
+    /// The horizontal size class of the current app environment.
+    ///
+    /// It is only relevant in iOS and iPadOS, since macOS and tvOS feature a consistent layout experience.
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var roomColor: Color
     @Binding var enteredIcon: String
@@ -23,7 +27,7 @@ struct RoomEmojiPickerView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 4)) {
+                LazyVGrid(columns: Array(repeating: .init(.flexible()), count: horizontalSizeClass == .compact ? 4 : 6)) {
                     ForEach(emojis, id: \.self) { emojiCode in
                         Button(action: {
                             enteredIcon = String(UnicodeScalar(emojiCode)!)
@@ -52,6 +56,7 @@ struct RoomEmojiPickerView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(leading: Button(action: { self.presentationMode.wrappedValue.dismiss() }) { Text("Cancel").fontWeight(.regular) })
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

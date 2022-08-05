@@ -43,8 +43,7 @@ struct MyRoomsView: View {
                     
                     switch roomUpdateStatus {
                     case .notStarted:
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle())
+                        EmptyView()
                         
                     case .inProgress:
                         ProgressView()
@@ -70,7 +69,7 @@ struct MyRoomsView: View {
                                 .foregroundColor(.gray)
                                 .font(.callout)
                                 .padding(.top, 5)
-                            padding(.horizontal)
+                                .padding(.horizontal)
                         }
                         
                     case .failure:
@@ -97,6 +96,7 @@ struct MyRoomsView: View {
             }
             .onChange(of: isShowingCreateRoomView) { newValue in
                 if newValue == false && roomUpdateStatus != .inProgress {
+                    sleep(3)
                     updateRoomList()
                 }
             }
@@ -180,8 +180,9 @@ struct MyRoomsView: View {
                                                     return nil
                                                 }
                                             }(), timeElapsed: nowPlayingRecord["TimeElapsed"] as! Double, songTime: nowPlayingRecord["SongTime"] as! Double, artwork: nowPlayingRecord.allKeys().contains("AlbumArtwork") ? nowPlayingRecord["AlbumArtwork"] as? CKAsset : nil), share: result as! CKShare, songLimit: queriedRecord["SongLimit"] as! Int, songLimitAction: convertStringToLimitExpirationAction(queriedRecord["SongLimitAction"] as! String), timeLimit: queriedRecord["TimeLimit"] as! Int, timeLimitAction: convertStringToLimitExpirationAction(queriedRecord["TimeLimitAction"] as! String)))
-                                            
+
                                             queriedZones += 1
+                                            print("Queried zone \(queriedZones) / \(zonesToQuery.count)!")
                                             if queriedZones == zonesToQuery.count {
                                                 roomUpdateStatus = .success
                                             }
