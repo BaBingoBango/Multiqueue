@@ -37,7 +37,7 @@ struct RoomView: View {
         //NavigationView {
             VStack {
                 ScrollView {
-                    VStack {
+                    LazyVStack {
                         HStack {
                             Text("\(room.share.participants.count) Participant\(room.share.participants.count != 1 ? "s" : "")")
                                 .font(.headline)
@@ -102,6 +102,12 @@ struct RoomView: View {
                             if queueUpdateStatus == .inProgress {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle())
+                                    .padding(.leading, 5)
+                                    .hidden()
+                            } else if queueUpdateStatus == .failure {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .imageScale(.large)
+                                    .foregroundColor(.yellow)
                                     .padding(.leading, 5)
                             }
                             
@@ -238,6 +244,7 @@ struct RoomView: View {
                                 }
                             }
                             
+                            roomDeleteOperation.qualityOfService = .userInteractive
                             CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(roomDeleteOperation)
                         }
                     }
@@ -336,6 +343,7 @@ struct RoomView: View {
                 }
             }
             
+            songQueryOperation.qualityOfService = .userInteractive
             if database == .privateDatabase {
                 CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(songQueryOperation)
             } else if database == .sharedDatabase {
@@ -405,6 +413,7 @@ struct RoomView: View {
                                         }
                                     }
                                     
+                                    roomDeleteOperation.qualityOfService = .userInteractive
                                     CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(roomDeleteOperation)
                                 }
                             }
@@ -445,6 +454,7 @@ struct RoomView: View {
                 }
             }
             
+            changeFetchOperation.qualityOfService = .userInteractive
             if database == .privateDatabase {
                 CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(changeFetchOperation)
             } else if database == .sharedDatabase {

@@ -181,6 +181,7 @@ struct CreateRoomView: View {
                                             }
                                         }
 
+                                        shareSaveOperation.qualityOfService = .userInteractive
                                         CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(shareSaveOperation)
                                         
                                     case .failure(let error):
@@ -188,6 +189,7 @@ struct CreateRoomView: View {
                                     }
                                 }
                                 
+                                subscriptionUploadOperation.qualityOfService = .userInteractive
                                 CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(subscriptionUploadOperation)
                                 
                             case .failure(let error):
@@ -196,6 +198,7 @@ struct CreateRoomView: View {
                             }
                         }
                         
+                        roomRecordsUploadOperation.qualityOfService = .userInteractive
                         CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(roomRecordsUploadOperation)
                         
                     case .failure(let error):
@@ -204,6 +207,7 @@ struct CreateRoomView: View {
                     }
                 }
                 
+                zoneUploadOperation.qualityOfService = .userInteractive
                 CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(zoneUploadOperation)
             }) { Text("Save").fontWeight(.bold) }))
         }

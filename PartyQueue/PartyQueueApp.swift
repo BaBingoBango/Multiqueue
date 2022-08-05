@@ -62,6 +62,7 @@ class MultiqueueAppDelegate: NSObject, UIApplicationDelegate, UNUserNotification
                     self.isAcceptingShare = false
                 }
             }
+            acceptShareOperation.qualityOfService = .userInteractive
             CKContainer(identifier: "iCloud.Multiqueue").add(acceptShareOperation)
         }
     }
@@ -138,6 +139,7 @@ class MultiqueueAppDelegate: NSObject, UIApplicationDelegate, UNUserNotification
                             }
                         }
                         
+                        songFetchOperation.qualityOfService = .userInteractive
                         CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(songFetchOperation)
                     }
                 }
@@ -176,6 +178,7 @@ class MultiqueueSceneDelegate: NSObject, UIWindowSceneDelegate, ObservableObject
                     self.isAcceptingShare = false
                 }
             }
+            acceptShareOperation.qualityOfService = .userInteractive
             CKContainer(identifier: "iCloud.Multiqueue").add(acceptShareOperation)
         }
     }

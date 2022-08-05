@@ -238,6 +238,7 @@ struct RoomInfoView: View {
                                 }
                             }
                             
+                            roomDeleteOperation.qualityOfService = .userInteractive
                             CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(roomDeleteOperation)
                         }
                     }

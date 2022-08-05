@@ -190,6 +190,7 @@ struct MyRoomsView: View {
                                         }
                                     }
                                     
+                                    shareQueryOperation.qualityOfService = .userInteractive
                                     CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(shareQueryOperation)
                                     
                                 case .failure(let error):
@@ -198,6 +199,7 @@ struct MyRoomsView: View {
                                 }
                             }
                             
+                            nowPlayingQueryOperation.qualityOfService = .userInteractive
                             CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(nowPlayingQueryOperation)
                             
                         case .failure(let error):
@@ -206,6 +208,7 @@ struct MyRoomsView: View {
                         }
                     }
                     
+                    detailsQueryOperation.qualityOfService = .userInteractive
                     CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(detailsQueryOperation)
                 }
                 
@@ -215,6 +218,7 @@ struct MyRoomsView: View {
             }
         }
         
+        zoneFetchOperation.qualityOfService = .userInteractive
         CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(zoneFetchOperation)
     }
 }

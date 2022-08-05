@@ -35,7 +35,7 @@ struct JoinedRoomView: View {
 //        NavigationView {
             VStack {
                 ScrollView {
-                    VStack {
+                    LazyVStack {
                         HStack {
                             Text("\(room.share.participants.count) Participant\(room.share.participants.count != 1 ? "s" : "")")
                                 .font(.headline)
@@ -79,7 +79,14 @@ struct JoinedRoomView: View {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle())
                                     .padding(.leading, 5)
+                                    .hidden()
+                            } else if nowPlayingUpdateStatus == .failure {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .imageScale(.large)
+                                    .foregroundColor(.yellow)
+                                    .padding(.leading, 5)
                             }
+                            
                             Spacer()
                         }
                         .padding([.top, .leading])
@@ -106,6 +113,11 @@ struct JoinedRoomView: View {
                             if queueUpdateStatus == .inProgress {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle())
+                                    .padding(.leading, 5)
+                            } else if queueUpdateStatus == .failure {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .imageScale(.large)
+                                    .foregroundColor(.yellow)
                                     .padding(.leading, 5)
                             }
                             
@@ -223,6 +235,7 @@ struct JoinedRoomView: View {
                 }
             }
             
+            nowPlayingQueryOperation.qualityOfService = .userInteractive
             CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(nowPlayingQueryOperation)
             
             // Fetch initial queue songs from the sever
@@ -276,6 +289,7 @@ struct JoinedRoomView: View {
                 }
             }
             
+            songQueryOperation.qualityOfService = .userInteractive
             if database == .privateDatabase {
                 CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(songQueryOperation)
             } else if database == .sharedDatabase {
@@ -383,6 +397,7 @@ struct JoinedRoomView: View {
                 }
             }
             
+            changeFetchOperation.qualityOfService = .userInteractive
             if database == .privateDatabase {
                 CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(changeFetchOperation)
             } else if database == .sharedDatabase {
