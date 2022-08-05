@@ -44,7 +44,7 @@ struct JoinRoomView: View {
                         
                     case .success:
                         if !avaliableRooms.isEmpty {
-                            ForEach(avaliableRooms, id: \.ID) { eachRoom in
+                            ForEach($avaliableRooms, id: \.ID) { eachRoom in
                                 ZStack {
                                     LinkedRoomOptionView(room: eachRoom)
                                         .padding(.trailing)
@@ -158,7 +158,7 @@ struct JoinRoomView: View {
                                     shareQueryOperation.recordMatchedBlock = { (_ recordID: CKRecord.ID, _ recordResult: Result<CKRecord, Error>) -> Void in
                                         switch recordResult {
                                         case .success(let result):
-                                            avaliableRooms.append(Room(isActive: queriedRecord["IsActive"] as! Int == 1 ? true : false, zone: eachZone, details: roomDetails, nowPlayingSong: NowPlayingSong(record: nowPlayingRecord, song: {
+                                            avaliableRooms.append(Room(isActive: queriedRecord["IsActive"] as! Int == 1 ? true : false, hostOnScreen: queriedRecord["HostOnScreen"] as! Int == 1 ? true : false, zone: eachZone, details: roomDetails, nowPlayingSong: NowPlayingSong(record: nowPlayingRecord, song: {
                                                 do {
                                                     return try JSONDecoder().decode(Song.self, from: nowPlayingRecord["PlayingSong"] as! Data)
                                                 } catch {

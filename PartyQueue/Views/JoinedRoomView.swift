@@ -37,6 +37,20 @@ struct JoinedRoomView: View {
                 ScrollView {
                     LazyVStack {
                         HStack {
+                            if room.hostOnScreen {
+                                Text("Host On Screen")
+                                    .font(.headline)
+                                    .foregroundColor(.accentColor)
+                            } else {
+                                Text("Host Away")
+                                    .font(.headline)
+                            }
+                            
+                            Spacer()
+                        }
+                        .padding(.leading)
+                        
+                        HStack {
                             Text("\(room.share.participants.count) Participant\(room.share.participants.count != 1 ? "s" : "")")
                                 .font(.headline)
                             Spacer()
@@ -350,6 +364,7 @@ struct JoinedRoomView: View {
                         
                         // Update other room variables
                         room.isActive = record["IsActive"] as! Int == 1 ? true : false
+                        room.hostOnScreen = record["HostOnScreen"] as! Int == 1 ? true : false
                         room.songLimit = record["SongLimit"] as! Int
                         room.songLimitAction = convertStringToLimitExpirationAction(record["SongLimitAction"] as! String)
                         room.timeLimit = record["TimeLimit"] as! Int

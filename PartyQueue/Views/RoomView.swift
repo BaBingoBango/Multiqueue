@@ -172,6 +172,7 @@ struct RoomView: View {
                 
                 // Prepare a new copy of the room details
                 room.details.record["IsActive"] = room.isActive ? 1 : 0
+                room.details.record["HostOnScreen"] = 1
                 room.details.record["Color"] = [
                     Double(room.details.color.cgColor!.components![0]),
                     Double(room.details.color.cgColor!.components![1]),

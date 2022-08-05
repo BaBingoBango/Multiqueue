@@ -109,6 +109,7 @@ struct CreateRoomView: View {
                     case .success(let zone):
                         let detailsRecord = CKRecord(recordType: "RoomDetails", recordID: CKRecord.ID(recordName: UUID().uuidString, zoneID: zone.zoneID))
                         detailsRecord["IsActive"] = 1
+                        detailsRecord["HostOnScreen"] = 0
                         detailsRecord["Name"] = enteredName
                         detailsRecord["Description"] = enteredDescription
                         detailsRecord["Icon"] = enteredIcon

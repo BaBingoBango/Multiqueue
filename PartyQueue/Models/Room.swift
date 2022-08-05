@@ -12,6 +12,7 @@ import CloudKit
 struct Room {
     var ID = UUID()
     var isActive: Bool
+    var hostOnScreen: Bool
     var zone: CKRecordZone
     var details: RoomDetails
     var nowPlayingSong: NowPlayingSong

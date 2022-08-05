@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import CloudKit
 
 struct LinkedRoomOptionView: View {
     
-    var room: Room
+    @Binding var room: Room
     @State var isRoomViewShowing = false
     
     var body: some View {
@@ -20,6 +21,20 @@ struct LinkedRoomOptionView: View {
                 isRoomViewShowing = true
             }) {
                 RoomOptionView(room: room)
+            }
+        }
+        .onChange(of: isRoomViewShowing) { newValue in
+            // Update the HostOnScreen field of the room
+            if newValue {
+                room.hostOnScreen = true
+                room.details.record["HostOnScreen"] = 1
+            } else {
+                room.hostOnScreen = false
+                room.details.record["HostOnScreen"] = 0
+                
+                let roomDetailsUploadOperation = CKModifyRecordsOperation(recordsToSave: [room.details.record])
+                roomDetailsUploadOperation.qualityOfService = .userInteractive
+                CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(roomDetailsUploadOperation)
             }
         }
     }
