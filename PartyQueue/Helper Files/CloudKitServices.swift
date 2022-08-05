@@ -23,7 +23,7 @@ func uploadQueueSong(song: Song, zoneID: CKRecordZone.ID, adderName: String, pla
     songRecord["ZoneOwnerName"] = zoneID.ownerName
     
     let artworkURL = song.artwork?.url(width: 50, height: 50)
-    let artworkFilename = FileManager.default.temporaryDirectory.appendingPathComponent("\(song.title)-\(UUID()).png")
+    let artworkFilename = FileManager.default.temporaryDirectory.appendingPathComponent("\(UUID()).png")
     if artworkURL != nil {
         try! UIImage(data: Data(contentsOf: artworkURL!), scale: UIScreen.main.scale)!.pngData()!.write(to: artworkFilename)
         songRecord["Artwork"] = CKAsset(fileURL: artworkFilename)
