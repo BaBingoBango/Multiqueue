@@ -168,7 +168,11 @@ struct CloudKitSwiftUIMPMediaPickerController: UIViewControllerRepresentable {
         @Sendable func getSong(_ mediaItem: MPMediaItem) async -> Song? {
             do {
                 
-                return try await MusicCatalogSearchRequest(term: mediaItem.title!, types: [Song.self]).response().songs[0]
+//                return try await MusicCatalogSearchRequest(term: mediaItem.title!, types: [Song.self]).response().songs[0]
+                
+                var searchRequest = MusicCatalogResourceRequest<Song>(matching: \.id, equalTo: MusicItemID(mediaItem.playbackStoreID))
+                searchRequest.limit = 1
+                return try await searchRequest.response().items[0]
                 
             } catch {
                 print(error.localizedDescription)

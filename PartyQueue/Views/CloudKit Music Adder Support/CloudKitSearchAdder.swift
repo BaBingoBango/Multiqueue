@@ -22,7 +22,7 @@ struct CloudKitSearchAdder: View {
             ScrollView {
                 VStack {
                     
-                    Picker("Choose a Play Type", selection: $multipeerServices.playType) {
+                    Picker("Choose a Play Type", selection: $room.selectedPlayType) {
                         ForEach(multipeerServices.playTypes, id: \.self) { playType in
                             if playType == .next {
                                 Text("Play Songs Next")

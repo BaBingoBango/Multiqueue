@@ -93,7 +93,6 @@ struct JoinedRoomView: View {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle())
                                     .padding(.leading, 5)
-                                    .hidden()
                             } else if nowPlayingUpdateStatus == .failure {
                                 Image(systemName: "exclamationmark.triangle.fill")
                                     .imageScale(.large)
