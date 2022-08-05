@@ -146,15 +146,15 @@
 		AA70BA3F27972AFB0033D376 /* LinkAdder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkAdder.swift; sourceTree = "<group>"; };
 		AA70BA4227972B6F0033D376 /* LibraryServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryServices.swift; sourceTree = "<group>"; };
 		AA70BA442797330B0033D376 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
-		AA85E2A027829ED9009F24ED /* PartyQueue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PartyQueue.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA85E2A027829ED9009F24ED /* Multiqueue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multiqueue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA85E2A327829ED9009F24ED /* PartyQueueApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyQueueApp.swift; sourceTree = "<group>"; };
 		AA85E2A727829EDA009F24ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA85E2AA27829EDA009F24ED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AA85E2AC27829EDA009F24ED /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		AA85E2AF27829EDA009F24ED /* PartyQueue.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PartyQueue.xcdatamodel; sourceTree = "<group>"; };
-		AA85E2B527829EDA009F24ED /* PartyQueueTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PartyQueueTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA85E2B527829EDA009F24ED /* MultiqueueTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultiqueueTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA85E2B927829EDA009F24ED /* PartyQueueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyQueueTests.swift; sourceTree = "<group>"; };
-		AA85E2BF27829EDA009F24ED /* PartyQueueUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PartyQueueUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA85E2BF27829EDA009F24ED /* MultiqueueUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultiqueueUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA85E2C327829EDA009F24ED /* PartyQueueUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyQueueUITests.swift; sourceTree = "<group>"; };
 		AA85E2C527829EDA009F24ED /* PartyQueueUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyQueueUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		AA85E2D227829F29009F24ED /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
@@ -312,7 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				AAA8DC1F27A5EFC100F22B59 /* README.md */,
-				AA85E2A227829ED9009F24ED /* PartyQueue */,
+				AA85E2A227829ED9009F24ED /* Multiqueue */,
 				AA85E2B827829EDA009F24ED /* PartyQueueTests */,
 				AA85E2C227829EDA009F24ED /* PartyQueueUITests */,
 				AA85E2A127829ED9009F24ED /* Products */,
@@ -323,14 +323,14 @@
 		AA85E2A127829ED9009F24ED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AA85E2A027829ED9009F24ED /* PartyQueue.app */,
-				AA85E2B527829EDA009F24ED /* PartyQueueTests.xctest */,
-				AA85E2BF27829EDA009F24ED /* PartyQueueUITests.xctest */,
+				AA85E2A027829ED9009F24ED /* Multiqueue.app */,
+				AA85E2B527829EDA009F24ED /* MultiqueueTests.xctest */,
+				AA85E2BF27829EDA009F24ED /* MultiqueueUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		AA85E2A227829ED9009F24ED /* PartyQueue */ = {
+		AA85E2A227829ED9009F24ED /* Multiqueue */ = {
 			isa = PBXGroup;
 			children = (
 				AA268B0827851F1F004699DF /* PartyQueue.entitlements */,
@@ -344,7 +344,7 @@
 				AA85E2AE27829EDA009F24ED /* PartyQueue.xcdatamodeld */,
 				AA85E2A927829EDA009F24ED /* Preview Content */,
 			);
-			path = PartyQueue;
+			path = Multiqueue;
 			sourceTree = "<group>";
 		};
 		AA85E2A927829EDA009F24ED /* Preview Content */ = {
@@ -477,9 +477,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AA85E29F27829ED9009F24ED /* PartyQueue */ = {
+		AA85E29F27829ED9009F24ED /* Multiqueue */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AA85E2C927829EDA009F24ED /* Build configuration list for PBXNativeTarget "PartyQueue" */;
+			buildConfigurationList = AA85E2C927829EDA009F24ED /* Build configuration list for PBXNativeTarget "Multiqueue" */;
 			buildPhases = (
 				AA85E29C27829ED9009F24ED /* Sources */,
 				AA85E29D27829ED9009F24ED /* Frameworks */,
@@ -489,14 +489,14 @@
 			);
 			dependencies = (
 			);
-			name = PartyQueue;
+			name = Multiqueue;
 			productName = PartyQueue;
-			productReference = AA85E2A027829ED9009F24ED /* PartyQueue.app */;
+			productReference = AA85E2A027829ED9009F24ED /* Multiqueue.app */;
 			productType = "com.apple.product-type.application";
 		};
-		AA85E2B427829EDA009F24ED /* PartyQueueTests */ = {
+		AA85E2B427829EDA009F24ED /* MultiqueueTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AA85E2CC27829EDA009F24ED /* Build configuration list for PBXNativeTarget "PartyQueueTests" */;
+			buildConfigurationList = AA85E2CC27829EDA009F24ED /* Build configuration list for PBXNativeTarget "MultiqueueTests" */;
 			buildPhases = (
 				AA85E2B127829EDA009F24ED /* Sources */,
 				AA85E2B227829EDA009F24ED /* Frameworks */,
@@ -507,14 +507,14 @@
 			dependencies = (
 				AA85E2B727829EDA009F24ED /* PBXTargetDependency */,
 			);
-			name = PartyQueueTests;
+			name = MultiqueueTests;
 			productName = PartyQueueTests;
-			productReference = AA85E2B527829EDA009F24ED /* PartyQueueTests.xctest */;
+			productReference = AA85E2B527829EDA009F24ED /* MultiqueueTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		AA85E2BE27829EDA009F24ED /* PartyQueueUITests */ = {
+		AA85E2BE27829EDA009F24ED /* MultiqueueUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AA85E2CF27829EDA009F24ED /* Build configuration list for PBXNativeTarget "PartyQueueUITests" */;
+			buildConfigurationList = AA85E2CF27829EDA009F24ED /* Build configuration list for PBXNativeTarget "MultiqueueUITests" */;
 			buildPhases = (
 				AA85E2BB27829EDA009F24ED /* Sources */,
 				AA85E2BC27829EDA009F24ED /* Frameworks */,
@@ -525,9 +525,9 @@
 			dependencies = (
 				AA85E2C127829EDA009F24ED /* PBXTargetDependency */,
 			);
-			name = PartyQueueUITests;
+			name = MultiqueueUITests;
 			productName = PartyQueueUITests;
-			productReference = AA85E2BF27829EDA009F24ED /* PartyQueueUITests.xctest */;
+			productReference = AA85E2BF27829EDA009F24ED /* MultiqueueUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -553,7 +553,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AA85E29B27829ED9009F24ED /* Build configuration list for PBXProject "PartyQueue" */;
+			buildConfigurationList = AA85E29B27829ED9009F24ED /* Build configuration list for PBXProject "Multiqueue" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -566,9 +566,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AA85E29F27829ED9009F24ED /* PartyQueue */,
-				AA85E2B427829EDA009F24ED /* PartyQueueTests */,
-				AA85E2BE27829EDA009F24ED /* PartyQueueUITests */,
+				AA85E29F27829ED9009F24ED /* Multiqueue */,
+				AA85E2B427829EDA009F24ED /* MultiqueueTests */,
+				AA85E2BE27829EDA009F24ED /* MultiqueueUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -702,12 +702,12 @@
 /* Begin PBXTargetDependency section */
 		AA85E2B727829EDA009F24ED /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AA85E29F27829ED9009F24ED /* PartyQueue */;
+			target = AA85E29F27829ED9009F24ED /* Multiqueue */;
 			targetProxy = AA85E2B627829EDA009F24ED /* PBXContainerItemProxy */;
 		};
 		AA85E2C127829EDA009F24ED /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AA85E29F27829ED9009F24ED /* PartyQueue */;
+			target = AA85E29F27829ED9009F24ED /* Multiqueue */;
 			targetProxy = AA85E2C027829EDA009F24ED /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -923,7 +923,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PartyQueue.app/PartyQueue";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multiqueue.app/Multiqueue";
 			};
 			name = Debug;
 		};
@@ -943,7 +943,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PartyQueue.app/PartyQueue";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multiqueue.app/Multiqueue";
 			};
 			name = Release;
 		};
@@ -986,7 +986,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AA85E29B27829ED9009F24ED /* Build configuration list for PBXProject "PartyQueue" */ = {
+		AA85E29B27829ED9009F24ED /* Build configuration list for PBXProject "Multiqueue" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AA85E2C727829EDA009F24ED /* Debug */,
@@ -995,7 +995,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AA85E2C927829EDA009F24ED /* Build configuration list for PBXNativeTarget "PartyQueue" */ = {
+		AA85E2C927829EDA009F24ED /* Build configuration list for PBXNativeTarget "Multiqueue" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AA85E2CA27829EDA009F24ED /* Debug */,
@@ -1004,7 +1004,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AA85E2CC27829EDA009F24ED /* Build configuration list for PBXNativeTarget "PartyQueueTests" */ = {
+		AA85E2CC27829EDA009F24ED /* Build configuration list for PBXNativeTarget "MultiqueueTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AA85E2CD27829EDA009F24ED /* Debug */,
@@ -1013,7 +1013,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AA85E2CF27829EDA009F24ED /* Build configuration list for PBXNativeTarget "PartyQueueUITests" */ = {
+		AA85E2CF27829EDA009F24ED /* Build configuration list for PBXNativeTarget "MultiqueueUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AA85E2D027829EDA009F24ED /* Debug */,
