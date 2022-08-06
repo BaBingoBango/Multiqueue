@@ -220,7 +220,7 @@ struct RoomView: View {
             }
             .onReceive(changeFetchTimer) { time in
                 // Update the list of queue songs to match the server's
-                if queueUpdateStatus != .inProgress {
+                if queueUpdateStatus != .inProgress && !isShowingInfoView {
                     getDataFromServer(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .privateDatabase, fetchChanges: true)
                 }
             }
@@ -376,13 +376,13 @@ struct RoomView: View {
                         let newQueueSong = QueueSong(song: try! JSONDecoder().decode(Song.self, from: record["Song"] as! Data), playType: record["PlayType"] as! String == "Next" ? .next : .later, adderName: record["AdderName"] as! String, timeAdded: record["TimeAdded"] as! Date, artwork: record["Artwork"] as! CKAsset)
                         
                         // Add the song to the local queue
-                        Task {
-                            do {
-                                try await SystemMusicPlayer.shared.queue.insert(newQueueSong.song, position: room.selectedPlayType == .next ? .afterCurrentEntry : .tail)
-                            } catch {
-                                print(error.localizedDescription)
-                            }
-                        }
+//                        Task {
+//                            do {
+//                                try await SystemMusicPlayer.shared.queue.insert(newQueueSong.song, position: room.selectedPlayType == .next ? .afterCurrentEntry : .tail)
+//                            } catch {
+//                                print(error.localizedDescription)
+//                            }
+//                        }
                         
                         // Add the new song to the UI
                         if !room.queueSongs.contains(where: { newQueueSong.song == $0.song && newQueueSong.timeAdded == $0.timeAdded }) {
