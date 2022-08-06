@@ -160,7 +160,18 @@ struct CreateRoomView: View {
                                 notificationInfo.alertBody = "hey!!!"
                                 subscription.notificationInfo = notificationInfo
                                 
-                                let subscriptionUploadOperation = CKModifySubscriptionsOperation(subscriptionsToSave: [subscription])
+                                //
+                                
+                                let subscription2 = CKRecordZoneSubscription(zoneID: zone.zoneID)
+                                let notificationInfo2 = CKSubscription.NotificationInfo()
+                                notificationInfo2.shouldSendContentAvailable = true
+                                notificationInfo.title = "ayoooo"
+                                notificationInfo.alertBody = "ahey!!!"
+                                subscription2.notificationInfo = notificationInfo2
+                                
+                                //
+                                
+                                let subscriptionUploadOperation = CKModifySubscriptionsOperation(subscriptionsToSave: [subscription, subscription2])
                                 
                                 subscriptionUploadOperation.perSubscriptionSaveBlock = { (_ subscriptionID: CKSubscription.ID, _ subscriptionSaveResult: Result<CKSubscription, Error>) -> Void in
                                     switch subscriptionSaveResult {

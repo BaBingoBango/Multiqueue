@@ -31,7 +31,7 @@ struct JoinRoomView: View {
                         
                     case .success:
                         if !avaliableRooms.isEmpty {
-                            ForEach($avaliableRooms.sorted(by: { $0.details.name.wrappedValue < $1.details.name.wrappedValue }), id: \.ID.wrappedValue) { eachRoom in
+                            ForEach($avaliableRooms.sorted(by: { $0.details.name.wrappedValue > $1.details.name.wrappedValue }), id: \.ID.wrappedValue) { eachRoom in
                                 ZStack {
                                     LinkedRoomOptionView(room: eachRoom, isHost: false)
                                 }
