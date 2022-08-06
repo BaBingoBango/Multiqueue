@@ -187,15 +187,27 @@ struct RoomView: View {
                 room.details.record["TimeLimitAction"] = convertLimitExpirationActionToString(room.timeLimitAction)
                 
                 // If the share was deleted, "intercept" it here and generate a new one
+                var deletedShare = false
                 if room.share.participants.count == 0 {
+                    deletedShare = true
+                    
                     room.share[CKShare.SystemFieldKey.title] = room.details.name as CKRecordValue
                     room.share[CKShare.SystemFieldKey.shareType] = "Room" as CKRecordValue
                     room.share[CKShare.SystemFieldKey.thumbnailImageData] = NSDataAsset(name: "Rounded App Icon")!.data as CKRecordValue
                     room.share.publicPermission = .readWrite
                 }
                 
+                // Compile the records to upload
+                var records: [CKRecord] = [room.details.record]
+                if shouldUploadNowPlaying {
+                    records.append(room.nowPlayingSong.record)
+                }
+                if deletedShare {
+                    records.append(room.share)
+                }
+                
                 // Upload the records to the server
-                let nowPlayingUpdateOperation = CKModifyRecordsOperation(recordsToSave: shouldUploadNowPlaying ? [room.nowPlayingSong.record, room.details.record, room.share] : [room.details.record, room.share])
+                let nowPlayingUpdateOperation = CKModifyRecordsOperation(recordsToSave: records)
                 nowPlayingUpdateOperation.savePolicy = .allKeys
                 nowPlayingUpdateOperation.qualityOfService = .userInteractive
                 CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(nowPlayingUpdateOperation)
@@ -244,7 +256,7 @@ struct RoomView: View {
                                 }
                             }
                             
-                            roomDeleteOperation.qualityOfService = .userInteractive
+//                            roomDeleteOperation.qualityOfService = .userInteractive
                             CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(roomDeleteOperation)
                         }
                     }
@@ -343,7 +355,7 @@ struct RoomView: View {
                 }
             }
             
-            songQueryOperation.qualityOfService = .userInteractive
+//            songQueryOperation.qualityOfService = .userInteractive
             if database == .privateDatabase {
                 CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(songQueryOperation)
             } else if database == .sharedDatabase {
@@ -355,7 +367,7 @@ struct RoomView: View {
             // Fetch changes for the Now Playing song, queue songs, and the share record
             let changeFetchConfiguration = CKFetchRecordZoneChangesOperation.ZoneConfiguration(previousServerChangeToken: queueChangeToken)
             let changeFetchOperation = CKFetchRecordZoneChangesOperation(recordZoneIDs: [zoneID], configurationsByRecordZoneID: [zoneID : changeFetchConfiguration])
-            changeFetchOperation.qualityOfService = .userInteractive
+//            changeFetchOperation.qualityOfService = .userInteractive
             changeFetchOperation.recordWasChangedBlock = { (_ recordID: CKRecord.ID, _ recordResult: Result<CKRecord, Error>) -> Void in
                 switch recordResult {
                     
@@ -413,7 +425,7 @@ struct RoomView: View {
                                         }
                                     }
                                     
-                                    roomDeleteOperation.qualityOfService = .userInteractive
+//                                    roomDeleteOperation.qualityOfService = .userInteractive
                                     CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(roomDeleteOperation)
                                 }
                             }
@@ -454,7 +466,7 @@ struct RoomView: View {
                 }
             }
             
-            changeFetchOperation.qualityOfService = .userInteractive
+//            changeFetchOperation.qualityOfService = .userInteractive
             if database == .privateDatabase {
                 CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(changeFetchOperation)
             } else if database == .sharedDatabase {

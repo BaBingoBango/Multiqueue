@@ -40,7 +40,7 @@ func uploadQueueSong(song: Song, zoneID: CKRecordZone.ID, adderName: String, pla
         completionHandler(saveResult)
     }
     
-    songUploadOperation.qualityOfService = .userInteractive
+//    songUploadOperation.qualityOfService = .userInteractive
     if database == .privateDatabase {
         CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(songUploadOperation)
     } else if database == .sharedDatabase {

@@ -146,10 +146,7 @@ struct JoinedRoomView: View {
                 }
                 
                 Button(action: {
-//                    isShowingMusicAdder.toggle() // FIXME: Put back!
-                    for eachSong in testSongs {
-                        uploadQueueSong(song: eachSong.song, zoneID: room.zone.zoneID, adderName: room.share.currentUserParticipant?.userIdentity.nameComponents?.formatted() ?? "the host", playType: room.selectedPlayType, database: .sharedDatabase) { (_ saveResult: Result<CKRecord, Error>) -> Void in }
-                    }
+                    isShowingMusicAdder.toggle()
                 }) {
                     ZStack {
                         Rectangle()
@@ -259,7 +256,7 @@ struct JoinedRoomView: View {
                 }
             }
             
-            nowPlayingQueryOperation.qualityOfService = .userInteractive
+//            nowPlayingQueryOperation.qualityOfService = .userInteractive
             CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(nowPlayingQueryOperation)
             
             // Fetch initial queue songs from the sever
@@ -313,7 +310,7 @@ struct JoinedRoomView: View {
                 }
             }
             
-            songQueryOperation.qualityOfService = .userInteractive
+//            songQueryOperation.qualityOfService = .userInteractive
             if database == .privateDatabase {
                 CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(songQueryOperation)
             } else if database == .sharedDatabase {
@@ -334,7 +331,6 @@ struct JoinedRoomView: View {
                         // Add a new queue song to the UI
                         let newQueueSong = QueueSong(song: try! JSONDecoder().decode(Song.self, from: record["Song"] as! Data), playType: record["PlayType"] as! String == "Next" ? .next : .later, adderName: record["AdderName"] as! String, timeAdded: record["TimeAdded"] as! Date, artwork: record["Artwork"] as! CKAsset)
                         
-                        testSongs.append(newQueueSong) // FIXME: Remove!
                         if !room.queueSongs.contains(where: { newQueueSong.song == $0.song && newQueueSong.timeAdded == $0.timeAdded }) {
                             if let index = room.queueSongs.firstIndex(where: { $0.timeAdded < record["TimeAdded"] as! Date }) {
                                 room.queueSongs.insert(newQueueSong, at: index)
@@ -422,7 +418,7 @@ struct JoinedRoomView: View {
                 }
             }
             
-            changeFetchOperation.qualityOfService = .userInteractive
+//            changeFetchOperation.qualityOfService = .userInteractive
             if database == .privateDatabase {
                 CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(changeFetchOperation)
             } else if database == .sharedDatabase {

@@ -53,7 +53,7 @@ struct MainMenu: View {
                             
                             // MARK: - 2: Room Management Cards
                             NavigationLink(destination: MyRoomsView()) {
-                                MyRoomsCard(isGray: !grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
+                                MyRoomsCard(isGray: !subscribedToAppleMusic || MusicAuthorization.currentStatus != .authorized)
                                     .padding([.top, .leading, .trailing])
                             }
                             .disabled(!subscribedToAppleMusic || MusicAuthorization.currentStatus != .authorized)

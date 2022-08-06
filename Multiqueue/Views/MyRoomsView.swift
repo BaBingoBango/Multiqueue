@@ -17,6 +17,7 @@ struct MyRoomsView: View {
     @State var userRooms: [Room] = []
     @State var roomUpdateStatus = OperationStatus.notStarted
     @State var isRoomViewShowing = false
+    @State var hasUpdated = false
     
     // MARK: View Body
     var body: some View {
@@ -90,13 +91,13 @@ struct MyRoomsView: View {
                 .padding(.bottom)
             }
             .onAppear {
-                if roomUpdateStatus != .inProgress {
+                if roomUpdateStatus != .inProgress && !hasUpdated {
                     updateRoomList()
+                    hasUpdated = true
                 }
             }
             .onChange(of: isShowingCreateRoomView) { newValue in
                 if newValue == false && roomUpdateStatus != .inProgress {
-                    sleep(3)
                     updateRoomList()
                 }
             }
@@ -192,7 +193,7 @@ struct MyRoomsView: View {
                                         }
                                     }
                                     
-                                    shareQueryOperation.qualityOfService = .userInteractive
+//                                    shareQueryOperation.qualityOfService = .userInteractive
                                     CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(shareQueryOperation)
                                     
                                 case .failure(let error):
@@ -201,7 +202,7 @@ struct MyRoomsView: View {
                                 }
                             }
                             
-                            nowPlayingQueryOperation.qualityOfService = .userInteractive
+//                            nowPlayingQueryOperation.qualityOfService = .userInteractive
                             CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(nowPlayingQueryOperation)
                             
                         case .failure(let error):
@@ -210,7 +211,7 @@ struct MyRoomsView: View {
                         }
                     }
                     
-                    detailsQueryOperation.qualityOfService = .userInteractive
+//                    detailsQueryOperation.qualityOfService = .userInteractive
                     CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(detailsQueryOperation)
                 }
                 
@@ -220,7 +221,7 @@ struct MyRoomsView: View {
             }
         }
         
-        zoneFetchOperation.qualityOfService = .userInteractive
+//        zoneFetchOperation.qualityOfService = .userInteractive
         CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(zoneFetchOperation)
     }
 }

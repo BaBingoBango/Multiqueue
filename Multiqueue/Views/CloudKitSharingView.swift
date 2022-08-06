@@ -52,6 +52,7 @@ struct CloudKitSharingView: UIViewControllerRepresentable {
         }
         
         func cloudSharingController(_ csc: UICloudSharingController, failedToSaveShareWithError error: Error) {
+            print(error.localizedDescription)
             csc.dismiss(animated: true)
         }
         

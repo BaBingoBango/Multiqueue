@@ -165,7 +165,7 @@ struct JoinRoomView: View {
                                         }
                                     }
                                     
-                                    shareQueryOperation.qualityOfService = .userInteractive
+//                                    shareQueryOperation.qualityOfService = .userInteractive
                                     CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(shareQueryOperation)
                                     
                                 case .failure(let error):
@@ -174,7 +174,7 @@ struct JoinRoomView: View {
                                 }
                             }
                             
-                            nowPlayingQueryOperation.qualityOfService = .userInteractive
+//                            nowPlayingQueryOperation.qualityOfService = .userInteractive
                             CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(nowPlayingQueryOperation)
                             
                         case .failure(let error):
@@ -183,7 +183,7 @@ struct JoinRoomView: View {
                         }
                     }
                     
-                    detailsQueryOperation.qualityOfService = .userInteractive
+//                    detailsQueryOperation.qualityOfService = .userInteractive
                     CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(detailsQueryOperation)
                 }
                 
@@ -193,7 +193,7 @@ struct JoinRoomView: View {
             }
         }
         
-        zoneFetchOperation.qualityOfService = .userInteractive
+//        zoneFetchOperation.qualityOfService = .userInteractive
         CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(zoneFetchOperation)
     }
 }

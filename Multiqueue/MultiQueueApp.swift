@@ -62,7 +62,7 @@ class MultiqueueAppDelegate: NSObject, UIApplicationDelegate, UNUserNotification
                     self.isAcceptingShare = false
                 }
             }
-            acceptShareOperation.qualityOfService = .userInteractive
+//            acceptShareOperation.qualityOfService = .userInteractive
             CKContainer(identifier: "iCloud.Multiqueue").add(acceptShareOperation)
         }
     }
@@ -87,7 +87,7 @@ class MultiqueueAppDelegate: NSObject, UIApplicationDelegate, UNUserNotification
                         
                         // Fetch the new song this notification was triggered by
                         let songFetchOperation = CKFetchRecordsOperation(recordIDs: [CKRecord.ID(recordName: recordName, zoneID: CKRecordZone.ID(zoneName: zoneName, ownerName: zoneOwnerName))])
-                        songFetchOperation.qualityOfService = .userInteractive
+//                        songFetchOperation.qualityOfService = .userInteractive
                         
                         songFetchOperation.perRecordResultBlock = { (_ recordID: CKRecord.ID, _ recordResult: Result<CKRecord, Error>) -> Void in
                             switch recordResult {
@@ -139,7 +139,7 @@ class MultiqueueAppDelegate: NSObject, UIApplicationDelegate, UNUserNotification
                             }
                         }
                         
-                        songFetchOperation.qualityOfService = .userInteractive
+//                        songFetchOperation.qualityOfService = .userInteractive
                         CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(songFetchOperation)
                     }
                 }
@@ -178,7 +178,16 @@ class MultiqueueSceneDelegate: NSObject, UIWindowSceneDelegate, ObservableObject
                     self.isAcceptingShare = false
                 }
             }
-            acceptShareOperation.qualityOfService = .userInteractive
+            acceptShareOperation.perShareResultBlock = { (_ metadata: CKShare.Metadata, _ metadataResult: Result<CKShare, Error>) -> Void in
+                switch metadataResult {
+                    
+                case .success(_):
+                    print("yay!")
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+//            acceptShareOperation.qualityOfService = .userInteractive
             CKContainer(identifier: "iCloud.Multiqueue").add(acceptShareOperation)
         }
     }

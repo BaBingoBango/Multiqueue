@@ -33,7 +33,7 @@ struct LinkedRoomOptionView: View {
                 room.details.record["HostOnScreen"] = 0
                 
                 let roomDetailsUploadOperation = CKModifyRecordsOperation(recordsToSave: [room.details.record])
-                roomDetailsUploadOperation.qualityOfService = .userInteractive
+//                roomDetailsUploadOperation.qualityOfService = .userInteractive
                 CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(roomDetailsUploadOperation)
             }
         }
