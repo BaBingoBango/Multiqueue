@@ -37,20 +37,6 @@ struct JoinedRoomView: View {
                 ScrollView {
                     LazyVStack {
                         HStack {
-                            if room.hostOnScreen {
-                                Text("Host On Screen")
-                                    .font(.headline)
-                                    .foregroundColor(.accentColor)
-                            } else {
-                                Text("Host Away")
-                                    .font(.headline)
-                            }
-                            
-                            Spacer()
-                        }
-                        .padding(.leading)
-                        
-                        HStack {
                             Text("\(room.share.participants.count) Participant\(room.share.participants.count != 1 ? "s" : "")")
                                 .font(.headline)
                             Spacer()

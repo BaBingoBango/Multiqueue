@@ -150,12 +150,14 @@ struct CreateRoomView: View {
                                 let subscription = CKQuerySubscription(recordType: "QueueSong",
                                                                        predicate: NSPredicate(value: true),
                                                                        subscriptionID: "\(enteredName == "" ? defaultRoomName : enteredName) Subscription [\(zoneCreationDate.description)] [\(zoneUUID)]",
-                                                                       options: .firesOnRecordCreation)
+                                                                       options: [.firesOnRecordUpdate, .firesOnRecordCreation])
                                 subscription.zoneID = zone.zoneID
                                 
                                 let notificationInfo = CKSubscription.NotificationInfo()
                                 notificationInfo.shouldSendContentAvailable = true
                                 notificationInfo.desiredKeys = ["RecordName", "ZoneName", "ZoneOwnerName"]
+                                notificationInfo.title = "yoooo"
+                                notificationInfo.alertBody = "hey!!!"
                                 subscription.notificationInfo = notificationInfo
                                 
                                 let subscriptionUploadOperation = CKModifySubscriptionsOperation(subscriptionsToSave: [subscription])

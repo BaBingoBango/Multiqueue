@@ -12,10 +12,11 @@ struct LinkedRoomOptionView: View {
     
     @Binding var room: Room
     @State var isRoomViewShowing = false
+    var isHost: Bool
     
     var body: some View {
         ZStack {
-            NavigationLink("", destination: RoomView(room: room, isRoomViewShowing: $isRoomViewShowing), isActive: $isRoomViewShowing)
+            NavigationLink("", destination: isHost ? AnyView(RoomView(room: room, isRoomViewShowing: $isRoomViewShowing)) : AnyView(JoinedRoomView(room: room, isRoomViewShowing: $isRoomViewShowing)), isActive: $isRoomViewShowing)
             
             Button(action: {
                 isRoomViewShowing = true

@@ -54,7 +54,7 @@ struct MyRoomsView: View {
                         if !userRooms.isEmpty {
                             ForEach($userRooms.sorted(by: { $0.details.name.wrappedValue < $1.details.name.wrappedValue }), id: \.ID.wrappedValue) { eachRoom in
                                 ZStack {
-                                    LinkedRoomOptionView(room: eachRoom)
+                                    LinkedRoomOptionView(room: eachRoom, isHost: true)
                                 }
                                     .padding(.horizontal)
                             }

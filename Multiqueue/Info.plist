@@ -21,6 +21,6 @@
 		<string>remote-notification</string>
 	</array>
 	<key>kTCCServiceMediaLibrary</key>
-	<string>Multiqueue uses your music data to manage your queue and look up songs from connected devices.</string>
+	<string>Multiqueue uses your music data to manage your queue and to look up songs from connected devices.</string>
 </dict>
 </plist>

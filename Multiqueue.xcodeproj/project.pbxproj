@@ -856,8 +856,8 @@
 				INFOPLIST_FILE = Multiqueue/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Multiqueue;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Multiqueue uses your music data to manage your queue and look up songs from connected devices.";
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Multiqueue uses the local network to connect to nearby devices and transmit Apple Music songs.";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Multiqueue uses your music data to manage your queue and to look up songs from connected devices.";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Multiqueue uses the local network to connect to nearby devices and to transmit Apple Music songs.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -895,8 +895,8 @@
 				INFOPLIST_FILE = Multiqueue/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Multiqueue;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Multiqueue uses your music data to manage your queue and look up songs from connected devices.";
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Multiqueue uses the local network to connect to nearby devices and transmit Apple Music songs.";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Multiqueue uses your music data to manage your queue and to look up songs from connected devices.";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Multiqueue uses the local network to connect to nearby devices and to transmit Apple Music songs.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
