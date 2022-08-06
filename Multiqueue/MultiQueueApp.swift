@@ -9,8 +9,12 @@ import SwiftUI
 import CloudKit
 import MusicKit
 
+var globalScenePhase: ScenePhase = .active
+
 @main
 struct MultiqueueApp: App {
+    /// The system-provided `ScenePhase` object.
+    @Environment(\.scenePhase) var scenePhase
     /// The persistence controller for Core Data.
     let persistenceController = PersistenceController.shared
     /// The custom app delegate for the app.
@@ -23,6 +27,10 @@ struct MultiqueueApp: App {
                 .environmentObject(MultipeerServices(isHost: false))
                 .onAppear {
                     UIApplication.shared.isIdleTimerDisabled = true
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
+                .onChange(of: scenePhase) { newValue in
+                    globalScenePhase = newValue
                 }
         }
     }
@@ -31,8 +39,6 @@ struct MultiqueueApp: App {
 #if os(iOS)
 /// The custom app delegate class for the app.
 class MultiqueueAppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, ObservableObject {
-    /// The system-provided `ScenePhase` object.
-    @Environment(\.scenePhase) var scenePhase
     /// Whether or not a share is currently being accepted.
     @Published var isAcceptingShare = false
     /// The status of notification handling for the app.
@@ -68,14 +74,14 @@ class MultiqueueAppDelegate: NSObject, UIApplicationDelegate, UNUserNotification
     }
     /// The "notification port" function; called when a push notification arrives from the server.
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        print("[\(Date().formatted(date: .omitted, time: .standard))] [SP: \(scenePhase)] Push notification received from the server!")
+        print("[\(Date().formatted(date: .omitted, time: .standard))] [SP: \(globalScenePhase)] Push notification received from the server!")
         
         // Update the app-wide notification status and completion handler
         notificationCompletionHandler = completionHandler
         notificationStatus = .responding
         
         // If the app is in the background, add the song to the local queue now
-        if scenePhase != .active {
+        if globalScenePhase != .active {
             // Get the record and zone information from the notification
             if let cloudKitInfo = userInfo["ck"] as? [String: Any] {
                 if let queryInfo = cloudKitInfo["qry"] as? [String: Any] {
