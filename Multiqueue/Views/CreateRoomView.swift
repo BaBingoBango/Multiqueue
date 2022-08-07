@@ -157,8 +157,8 @@ struct CreateRoomView: View {
                                 notificationInfo.shouldSendContentAvailable = true
                                 notificationInfo.desiredKeys = ["RecordName", "ZoneName", "ZoneOwnerName"]
                                 notificationInfo.shouldBadge = false
-                                notificationInfo.title = "Pushed!"
-                                notificationInfo.alertBody = "Pushed!!"
+                                notificationInfo.title = ""
+                                notificationInfo.alertBody = ""
                                 subscription.notificationInfo = notificationInfo
     
                                 

@@ -14,7 +14,7 @@ struct CloudKitLibraryAdder: View {
     /// The custom app delegate object for the app.
     @EnvironmentObject var appDelegate: MultiqueueAppDelegate
     
-    @State var isShowingLibraryPicker = false
+    @Binding var isShowingLibraryPicker: Bool
     @Environment(\.presentationMode) var presentationMode
     @Binding var room: Room
     
@@ -169,7 +169,6 @@ struct CloudKitSwiftUIMPMediaPickerController: UIViewControllerRepresentable {
             do {
                 
 //                return try await MusicCatalogSearchRequest(term: mediaItem.title!, types: [Song.self]).response().songs[0]
-                
                 var searchRequest = MusicCatalogResourceRequest<Song>(matching: \.id, equalTo: MusicItemID(mediaItem.playbackStoreID))
                 searchRequest.limit = 1
                 return try await searchRequest.response().items[0]

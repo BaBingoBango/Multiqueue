@@ -15,6 +15,7 @@ struct JoinedRoomView: View {
     @State var room: Room
     
     @State var isShowingMusicAdder = false
+    @State var isShowingLibraryPicker = false
     @State var isShowingPeopleView = false
     @State var isShowingInfoView = false
     
@@ -147,7 +148,7 @@ struct JoinedRoomView: View {
                 }
                 .padding([.top, .leading, .trailing])
                 .sheet(isPresented: $isShowingMusicAdder) {
-                    CloudKitMusicAdder(room: $room, database: .sharedDatabase)
+                    CloudKitMusicAdder(room: $room, isShowingLibraryPicker: $isShowingLibraryPicker, database: .sharedDatabase)
                 }
                 .disabled(!room.isActive || room.share.currentUserParticipant?.permission != .readWrite)
             }
@@ -160,7 +161,7 @@ struct JoinedRoomView: View {
             }
             .onReceive(viewUpdateTimer) { time in
                 // Update the list of queue songs to match the server's
-                if queueUpdateStatus != .inProgress {
+                if queueUpdateStatus != .inProgress && !isShowingLibraryPicker {
                     getDataFromServer(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .sharedDatabase, fetchChanges: true)
                 }
             }

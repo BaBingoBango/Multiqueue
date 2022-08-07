@@ -19,6 +19,7 @@ struct RoomView: View {
     @State var room: Room
     
     @State var isShowingMusicAdder = false
+    @State var isShowingLibraryPicker = false
     @State var isShowingPeopleView = false
     @State var isShowingInfoView = false
     
@@ -137,7 +138,7 @@ struct RoomView: View {
                 }
                 .padding([.top, .leading, .trailing])
                 .sheet(isPresented: $isShowingMusicAdder) {
-                    CloudKitMusicAdder(room: $room, database: .privateDatabase)
+                    CloudKitMusicAdder(room: $room, isShowingLibraryPicker: $isShowingLibraryPicker, database: .privateDatabase)
                 }
             }
             .padding(.bottom)
@@ -220,44 +221,46 @@ struct RoomView: View {
             }
             .onReceive(changeFetchTimer) { time in
                 // Update the list of queue songs to match the server's
-                if queueUpdateStatus != .inProgress && !isShowingInfoView {
+                if queueUpdateStatus != .inProgress && !isShowingInfoView && !isShowingLibraryPicker {
                     getDataFromServer(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .privateDatabase, fetchChanges: true)
                 }
             }
             .onReceive(timeLimitTimer) { time in
-                if room.timeLimit > 0 {
-                    room.timeLimit -= 1
-                    
-                    // If the song limit expires, perform the requested action
-                    if room.timeLimit <= 0 {
-                        switch room.timeLimitAction {
-                        case .nothing:
-                            print("Nothing is happening!")
-                            
-                        case .deactivateRoom:
-                            room.isActive = false
-                            
-                        case .removeParticipants:
-                            for eachParticipant in room.share.participants {
-                                if eachParticipant != room.share.owner {
-                                    room.share.removeParticipant(eachParticipant)
+                if !isShowingInfoView && !isShowingLibraryPicker {
+                    if room.timeLimit > 0 {
+                        room.timeLimit -= 1
+                        
+                        // If the song limit expires, perform the requested action
+                        if room.timeLimit <= 0 {
+                            switch room.timeLimitAction {
+                            case .nothing:
+                                print("Nothing is happening!")
+                                
+                            case .deactivateRoom:
+                                room.isActive = false
+                                
+                            case .removeParticipants:
+                                for eachParticipant in room.share.participants {
+                                    if eachParticipant != room.share.owner {
+                                        room.share.removeParticipant(eachParticipant)
+                                    }
                                 }
-                            }
-                            
-                        case .deleteRoom:
-                            let roomDeleteOperation = CKModifyRecordZonesOperation(recordZoneIDsToDelete: [room.zone.zoneID])
-                            
-                            roomDeleteOperation.perRecordZoneDeleteBlock = { (_ recordZoneID: CKRecordZone.ID, _ deleteResult: Result<Void, Error>) -> Void in
-                                switch deleteResult {
-                                case .success():
-                                    isRoomViewShowing = false
-                                case .failure(let error):
-                                    print(error.localizedDescription)
+                                
+                            case .deleteRoom:
+                                let roomDeleteOperation = CKModifyRecordZonesOperation(recordZoneIDsToDelete: [room.zone.zoneID])
+                                
+                                roomDeleteOperation.perRecordZoneDeleteBlock = { (_ recordZoneID: CKRecordZone.ID, _ deleteResult: Result<Void, Error>) -> Void in
+                                    switch deleteResult {
+                                    case .success():
+                                        isRoomViewShowing = false
+                                    case .failure(let error):
+                                        print(error.localizedDescription)
+                                    }
                                 }
+                                
+    //                            roomDeleteOperation.qualityOfService = .userInteractive
+                                CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(roomDeleteOperation)
                             }
-                            
-//                            roomDeleteOperation.qualityOfService = .userInteractive
-                            CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(roomDeleteOperation)
                         }
                     }
                 }

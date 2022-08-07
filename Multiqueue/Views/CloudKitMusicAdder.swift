@@ -12,12 +12,13 @@ struct CloudKitMusicAdder: View {
     
     @State var selectedTab = 0
     @Binding var room: Room
+    @Binding var isShowingLibraryPicker: Bool
     var database: CloudKitDatabase
     
     var body: some View {
         TabView(selection: $selectedTab) {
             
-            CloudKitLibraryAdder(room: $room, database: database)
+            CloudKitLibraryAdder(isShowingLibraryPicker: $isShowingLibraryPicker, room: $room, database: database)
                 .tabItem {
                 VStack {
                     Image(systemName: "music.note.house.fill")
