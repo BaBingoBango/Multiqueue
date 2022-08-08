@@ -184,7 +184,7 @@ struct JoinRoomView: View {
                                     }
                                     
 //                                    shareQueryOperation.qualityOfService = .userInteractive
-                                    CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(shareQueryOperation)
+                                    CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(shareQueryOperation)
                                     
                                 case .failure(let error):
                                     print(error.localizedDescription)
@@ -194,7 +194,7 @@ struct JoinRoomView: View {
                             }
                             
 //                            nowPlayingQueryOperation.qualityOfService = .userInteractive
-                            CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(nowPlayingQueryOperation)
+                            CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(nowPlayingQueryOperation)
                             
                         case .failure(let error):
                             print(error.localizedDescription)
@@ -214,7 +214,7 @@ struct JoinRoomView: View {
                     }
                     
 //                    detailsQueryOperation.qualityOfService = .userInteractive
-                    CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(detailsQueryOperation)
+                    CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(detailsQueryOperation)
                 }
                 
             case .failure(let error):
@@ -224,7 +224,7 @@ struct JoinRoomView: View {
         }
         
 //        zoneFetchOperation.qualityOfService = .userInteractive
-        CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(zoneFetchOperation)
+        CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(zoneFetchOperation)
     }
 }
 
