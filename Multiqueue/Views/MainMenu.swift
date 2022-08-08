@@ -151,7 +151,7 @@ struct MainMenu: View {
         }
         .onAppear {
             // MARK: - View Launch Code
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { success, error in
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .carPlay]) { success, error in
                 if let error = error {
                     print(error.localizedDescription)
                 }
