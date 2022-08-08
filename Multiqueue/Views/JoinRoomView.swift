@@ -35,7 +35,6 @@ struct JoinRoomView: View {
                                 ZStack {
                                     LinkedRoomOptionView(room: eachRoom, isHost: false)
                                 }
-                                    .padding(.horizontal)
                             }
                         } else {
                             Text("No Joinable Rooms Found")

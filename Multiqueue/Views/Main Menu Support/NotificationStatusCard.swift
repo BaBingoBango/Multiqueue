@@ -36,7 +36,7 @@ struct NotificationStatusCard: View {
                 .padding([.bottom, .horizontal])
                 .padding(.top, 1)
         }
-        .modifier(RectangleWrapper(fixedHeight: 215, color: .orange))
+        .modifier(RectangleWrapper(color: .orange))
     }
 }
 

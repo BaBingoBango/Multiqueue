@@ -67,15 +67,6 @@ struct CloudKitButtonSongRowView: View {
         .padding(.horizontal)
         .onTapGesture {
             if uploadStatus == .notStarted || uploadStatus == .failure {
-                // Add the song to the local queue
-//                Task {
-//                    do {
-//                        try await SystemMusicPlayer.shared.queue.insert(song, position: room.selectedPlayType == .next ? .afterCurrentEntry : .tail)
-//                    } catch {
-//                        print(error.localizedDescription)
-//                    }
-//                }
-                
                 // Add the song to the server
                 uploadStatus = .inProgress
                 

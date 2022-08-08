@@ -28,7 +28,7 @@ struct PermissionsOKCard: View {
                 .padding([.bottom, .horizontal])
                 .padding(.top, 1)
         }
-        .modifier(RectangleWrapper(fixedHeight: 215, color: .green))
+        .modifier(RectangleWrapper(color: .green))
     }
 }
 

@@ -28,7 +28,7 @@ struct MyRoomsCard: View {
             Spacer()
         }
         .padding(.all)
-        .modifier(RectangleWrapper(fixedHeight: 150, color: isGray ? .gray : .blue))
+        .modifier(RectangleWrapper(color: isGray ? .gray : .blue))
     }
 }
 

@@ -88,6 +88,7 @@ struct MainMenu: View {
                             }
                             
                         }
+                        .padding(.bottom)
                     }
                     
                     // MARK: - Navigation View Settings
@@ -152,10 +153,8 @@ struct MainMenu: View {
         }
         .onAppear {
             // MARK: - View Launch Code
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-                if success {
-                    print("All set!")
-                } else if let error = error {
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { success, error in
+                if let error = error {
                     print(error.localizedDescription)
                 }
             }

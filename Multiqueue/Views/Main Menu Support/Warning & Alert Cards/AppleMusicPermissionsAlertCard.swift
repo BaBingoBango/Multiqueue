@@ -30,7 +30,7 @@ struct AppleMusicPermissionsAlertCard: View {
                 .padding(.top, 1)
                 .padding(.bottom)
         }
-        .modifier(RectangleWrapper(fixedHeight: 215, color: .red))
+        .modifier(RectangleWrapper(color: .red))
     }
 }
 

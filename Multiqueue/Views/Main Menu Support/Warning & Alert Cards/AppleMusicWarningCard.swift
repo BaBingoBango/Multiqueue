@@ -25,7 +25,7 @@ struct AppleMusicWarningCard: View {
                 .padding([.bottom, .horizontal])
                 .padding(.top, 1)
         }
-        .modifier(RectangleWrapper(fixedHeight: 215, color: .yellow))
+        .modifier(RectangleWrapper(color: .yellow))
     }
 }
 

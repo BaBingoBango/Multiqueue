@@ -1,30 +1,38 @@
 //
-//  JoinRoomCard.swift
+//  MainMenuCardView.swift
 //  Multiqueue
 //
-//  Created by Ethan Marshall on 7/29/22.
+//  Created by Ethan Marshall on 8/7/22.
 //
 
 import SwiftUI
 
-struct JoinRoomCard: View {
+/// A card view with an icon and text that is shown on the Main Menu.
+struct MainMenuCardView: View {
+    // MARK: - View Variables
+    /// Whether or not the colors in this view should be forced into monochrome.
     var isGray = true
+    
+    // MARK: - View Body
     var body: some View {
         HStack {
-            Image(systemName: "envelope.circle.fill")
+            Image(systemName: "person.circle.fill")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 50)
                 .foregroundColor(isGray ? .gray : .blue)
+            
             VStack(alignment: .leading) {
-                Text("Join a Room")
+                Text("Host a Room")
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(.primary)
-                Text("Join another user's room to add songs to their Apple Music queue.")
+                
+                Text("Invite others to use your Apple Music subscription to add songs to your music queue.")
                     .foregroundColor(.primary)
                     .multilineTextAlignment(.leading)
             }
+            
             Spacer()
         }
         .padding(.all)
@@ -32,8 +40,8 @@ struct JoinRoomCard: View {
     }
 }
 
-struct JoinRoomCard_Previews: PreviewProvider {
+struct MainMenuCardView_Previews: PreviewProvider {
     static var previews: some View {
-        JoinRoomCard()
+        MainMenuCardView()
     }
 }

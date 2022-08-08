@@ -31,6 +31,7 @@
 		AA43F0992782C07000C9AE08 /* HostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43F0982782C07000C9AE08 /* HostingView.swift */; };
 		AA43F09B2782C60500C9AE08 /* HostingViewConnectedDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43F09A2782C60500C9AE08 /* HostingViewConnectedDeviceRow.swift */; };
 		AA43F0A02782DBC100C9AE08 /* JoiningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43F09F2782DBC100C9AE08 /* JoiningView.swift */; };
+		AA4B9B3828A0A61300A3494E /* MainMenuCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4B9B3728A0A61200A3494E /* MainMenuCardView.swift */; };
 		AA588814279BAD4300D4E9BB /* LocalNetworkAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA588813279BAD4300D4E9BB /* LocalNetworkAuthorization.swift */; };
 		AA588816279BB45100D4E9BB /* LocalNetworkSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA588815279BB45100D4E9BB /* LocalNetworkSettingsView.swift */; };
 		AA588818279BB45F00D4E9BB /* MediaSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA588817279BB45F00D4E9BB /* MediaSettingsView.swift */; };
@@ -136,6 +137,7 @@
 		AA43F0982782C07000C9AE08 /* HostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingView.swift; sourceTree = "<group>"; };
 		AA43F09A2782C60500C9AE08 /* HostingViewConnectedDeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingViewConnectedDeviceRow.swift; sourceTree = "<group>"; };
 		AA43F09F2782DBC100C9AE08 /* JoiningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoiningView.swift; sourceTree = "<group>"; };
+		AA4B9B3728A0A61200A3494E /* MainMenuCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuCardView.swift; sourceTree = "<group>"; };
 		AA588813279BAD4300D4E9BB /* LocalNetworkAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNetworkAuthorization.swift; sourceTree = "<group>"; };
 		AA588815279BB45100D4E9BB /* LocalNetworkSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNetworkSettingsView.swift; sourceTree = "<group>"; };
 		AA588817279BB45F00D4E9BB /* MediaSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaSettingsView.swift; sourceTree = "<group>"; };
@@ -386,6 +388,7 @@
 				AA85E2D227829F29009F24ED /* MainMenu.swift */,
 				AA85E2D727829F6B009F24ED /* Main Menu Support */,
 				AA43F0982782C07000C9AE08 /* HostingView.swift */,
+				AA4B9B3728A0A61200A3494E /* MainMenuCardView.swift */,
 				AAF236BF288E2BDD00BF4E01 /* MyRoomsView.swift */,
 				AA96A5DC28944A0B0014E000 /* RoomOptionView.swift */,
 				AAF236C3288E378000BF4E01 /* CreateRoomView.swift */,
@@ -660,6 +663,7 @@
 				AA8E5379278BDC1C009F5458 /* SongRowView.swift in Sources */,
 				AA70BA452797330B0033D376 /* SearchBar.swift in Sources */,
 				AA43F09B2782C60500C9AE08 /* HostingViewConnectedDeviceRow.swift in Sources */,
+				AA4B9B3828A0A61300A3494E /* MainMenuCardView.swift in Sources */,
 				AA70E9A9289CDD3D0033C06D /* NotificationStatusCard.swift in Sources */,
 				AAF236C6288E40BC00BF4E01 /* MyRoomsCard.swift in Sources */,
 				AA3B1FA6279919D9008F6693 /* ButtonSongRowView.swift in Sources */,

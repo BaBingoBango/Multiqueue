@@ -88,7 +88,7 @@ class MultipeerServices: NSObject, ObservableObject {
         if isHost {
             @Sendable func updateSystemQueueAsync() async {
                 do {
-                    try await SystemMusicPlayer.shared.queue.insert(queueState.addedToQueue.last!.song, position: queueState.addedToQueue.last!.playType == .next ? .afterCurrentEntry : .tail)
+//                    try await SystemMusicPlayer.shared.queue.insert(queueState.addedToQueue.last!.song, position: queueState.addedToQueue.last!.playType == .next ? .afterCurrentEntry : .tail)
                 } catch {
                     print("Error in adding to system music player queue!")
                     print(error.localizedDescription)
@@ -153,7 +153,7 @@ extension MultipeerServices: MCSessionDelegate {
             if isHost {
                 @Sendable func updateSystemQueueAsync() async {
                     do {
-                        try await SystemMusicPlayer.shared.queue.insert(queueState.addedToQueue.last!.song, position: queueState.addedToQueue.last!.playType == .next ? .afterCurrentEntry : .tail)
+//                        try await SystemMusicPlayer.shared.queue.insert(queueState.addedToQueue.last!.song, position: queueState.addedToQueue.last!.playType == .next ? .afterCurrentEntry : .tail)
                     } catch {
                         print("Error in adding to system music player queue!")
                         print(error.localizedDescription)
