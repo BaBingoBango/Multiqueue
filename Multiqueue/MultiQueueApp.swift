@@ -28,7 +28,6 @@ struct MultiqueueApp: App {
                 .onAppear {
                     UIApplication.shared.isIdleTimerDisabled = true
                     UIApplication.shared.registerForRemoteNotifications()
-                    print("Registered? \(UIApplication.shared.isRegisteredForRemoteNotifications)")
                 }
                 .onChange(of: scenePhase) { newValue in
                     globalScenePhase = newValue
