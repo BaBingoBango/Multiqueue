@@ -23,8 +23,6 @@ struct MainMenu: View {
     /// The custom scene delegate object for the app.
     @EnvironmentObject var sceneDelegate: MultiqueueSceneDelegate
     
-    @EnvironmentObject var multipeerServices: MultipeerServices
-    
     @State var subscribedToAppleMusic = false
     @State var grantedLocalNetworkPermissions = true
     @State var areNotificationsOn = false
@@ -200,6 +198,6 @@ struct MainMenu: View {
 
 struct MainMenu_Previews: PreviewProvider {
     static var previews: some View {
-        MainMenu().environmentObject(MultipeerServices(isHost: true))
+        MainMenu()
     }
 }

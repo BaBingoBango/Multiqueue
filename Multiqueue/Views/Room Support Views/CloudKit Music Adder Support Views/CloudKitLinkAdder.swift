@@ -10,7 +10,6 @@ import MusicKit
 
 struct CloudKitLinkAdder: View {
     
-    @EnvironmentObject var multipeerServices: MultipeerServices
     @State var linkText = ""
     @State var linkResults = MusicItemCollection<Song>()
     @Environment(\.presentationMode) var presentationMode
@@ -28,7 +27,7 @@ struct CloudKitLinkAdder: View {
                 VStack {
                     
                     Picker("Choose a Play Type", selection: $room.selectedPlayType) {
-                        ForEach(multipeerServices.playTypes, id: \.self) { playType in
+                        ForEach([PlayType.next, PlayType.later], id: \.self) { playType in
                             if playType == .next {
                                 Text("Play Songs Next")
                             } else {
@@ -70,7 +69,7 @@ struct CloudKitLinkAdder: View {
                         
                         ForEach(linkResults) { song in
                             Button(action: {}) {
-                                CloudKitButtonSongRowView(song: song, artwork: song.artwork!, room: $room, database: database).environmentObject(multipeerServices)
+                                CloudKitButtonSongRowView(song: song, artwork: song.artwork!, room: $room, database: database)
                             }
                         }
                         

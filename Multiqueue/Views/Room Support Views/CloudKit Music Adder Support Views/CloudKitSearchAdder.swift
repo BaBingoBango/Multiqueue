@@ -8,20 +8,21 @@
 import SwiftUI
 import MusicKit
 
-struct SearchAdder: View {
+struct CloudKitSearchAdder: View {
     
-    @EnvironmentObject var multipeerServices: MultipeerServices
     @State var searchText = ""
     @Environment(\.presentationMode) var presentationMode
     @State var searchResults = MusicItemCollection<Song>()
+    @Binding var room: Room
+    var database: CloudKitDatabase
     
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
                     
-                    Picker("Choose a Play Type", selection: $multipeerServices.playType) {
-                        ForEach(multipeerServices.playTypes, id: \.self) { playType in
+                    Picker("Choose a Play Type", selection: $room.selectedPlayType) {
+                        ForEach([PlayType.next, PlayType.later], id: \.self) { playType in
                             if playType == .next {
                                 Text("Play Songs Next")
                             } else {
@@ -45,7 +46,7 @@ struct SearchAdder: View {
                         
                         ForEach(searchResults) { song in
                             Button(action: {}) {
-                                ButtonSongRowView(song: song, artwork: song.artwork!).environmentObject(multipeerServices)
+                                CloudKitButtonSongRowView(song: song, artwork: song.artwork!, room: $room, database: database)
                             }
                         }
                         
@@ -85,8 +86,8 @@ struct SearchAdder: View {
     
 }
 
-struct SearchAdder_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchAdder().environmentObject(MultipeerServices(isHost: true))
-    }
-}
+//struct CloudKitSearchAdder_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CloudKitSearchAdder().environmentObject(MultipeerServices(isHost: true))
+//    }
+//}
