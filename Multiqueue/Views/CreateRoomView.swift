@@ -156,9 +156,6 @@ struct CreateRoomView: View {
                                 let notificationInfo = CKSubscription.NotificationInfo()
                                 notificationInfo.shouldSendContentAvailable = true
                                 notificationInfo.desiredKeys = ["RecordName", "ZoneName", "ZoneOwnerName"]
-                                notificationInfo.shouldBadge = false
-                                notificationInfo.title = ""
-                                notificationInfo.alertBody = ""
                                 subscription.notificationInfo = notificationInfo
     
                                 
