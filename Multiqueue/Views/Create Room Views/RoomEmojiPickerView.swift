@@ -18,9 +18,13 @@ struct RoomEmojiPickerView: View {
     var roomColor: Color
     @Binding var enteredIcon: String
     let emojis = [
-        0x1F601...0x1F64F,
-        0x2702...0x27B0,
-        0x1F680...0x1F6C0
+        0x1F600...0x1F64F, // Emoticons
+        0x1F300...0x1F5FF, // Misc Symbols and Pictographs
+        0x1F680...0x1F6FF, // Transport and Map
+        0x1F1E6...0x1F1FF, // Regional country flags
+        0x2600...0x26FF,   // Misc symbols 9728 - 9983
+        0x1F900...0x1F9FF,  // Supplemental Symbols and Pictographs 129280 - 129535
+        9100...9300 // Misc items
     ].reduce([], +)
     
     // MARK: - View Body
@@ -29,22 +33,24 @@ struct RoomEmojiPickerView: View {
             ScrollView {
                 LazyVGrid(columns: Array(repeating: .init(.flexible()), count: horizontalSizeClass == .compact ? 4 : 6)) {
                     ForEach(emojis, id: \.self) { emojiCode in
-                        Button(action: {
-                            enteredIcon = String(UnicodeScalar(emojiCode)!)
-                            presentationMode.wrappedValue.dismiss()
-                        }) {
-                            GeometryReader { geometry in
-                                ZStack {
-                                    Circle()
-                                        .foregroundColor(roomColor)
-                                        .opacity(0.3)
-                                    
-                                    Text(String(UnicodeScalar(emojiCode)!))
-                                        .font(.system(size: geometry.size.height > geometry.size.width ? geometry.size.width * 0.6: geometry.size.height * 0.6))
-                                        .foregroundColor(.primary)
+                        if Character(UnicodeScalar(emojiCode)!).unicodeAvailable() {
+                            Button(action: {
+                                enteredIcon = String(UnicodeScalar(emojiCode)!)
+                                presentationMode.wrappedValue.dismiss()
+                            }) {
+                                GeometryReader { geometry in
+                                    ZStack {
+                                        Circle()
+                                            .foregroundColor(roomColor)
+                                            .opacity(0.3)
+                                        
+                                        Text(String(UnicodeScalar(emojiCode)!))
+                                            .font(.system(size: geometry.size.height > geometry.size.width ? geometry.size.width * 0.6: geometry.size.height * 0.6))
+                                            .foregroundColor(.primary)
+                                    }
                                 }
+                                .aspectRatio(contentMode: .fit)
                             }
-                            .aspectRatio(contentMode: .fit)
                         }
                     }
                 }
