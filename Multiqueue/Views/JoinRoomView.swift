@@ -16,6 +16,11 @@ struct JoinRoomView: View {
     @State var roomUpdateStatus = OperationStatus.notStarted
     @State var isRoomViewShowing = false
     
+    let operationTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State var elapsedTime = 0
+    @State var isShowingFailureAlert = false
+    var errorText = "Check that you are signed in to iCloud and connected to the Internet."
+    
     // MARK: - View Body
     var body: some View {
 //        NavigationView {
@@ -50,7 +55,7 @@ struct JoinRoomView: View {
                         }
                         
                     case .failure:
-                        Text("Request Failure")
+                        Text("Network Error")
                             .foregroundColor(.gray)
                             .fontWeight(.bold)
                             .font(.title3)
@@ -60,10 +65,24 @@ struct JoinRoomView: View {
                             .foregroundColor(.gray)
                             .font(.callout)
                             .padding(.top, 5)
+                            .padding(.horizontal)
                         
                     }
                 }
                 .padding(.horizontal)
+            }
+            .alert(isPresented: $isShowingFailureAlert) {
+                Alert(title: Text("Could Not Fetch Rooms"), message: Text(errorText), dismissButton: .default(Text("Close")))
+            }
+            .onReceive(operationTimer) { time in
+                if roomUpdateStatus == .inProgress {
+                    elapsedTime += 1
+                    if elapsedTime > 20 {
+                        roomUpdateStatus = .failure
+                        isShowingFailureAlert = true
+                        elapsedTime = 0
+                    }
+                }
             }
             .onAppear {
                 if roomUpdateStatus != .inProgress {
@@ -151,38 +170,51 @@ struct JoinRoomView: View {
                                                     return nil
                                                 }
                                             }(), timeElapsed: nowPlayingRecord["TimeElapsed"] as! Double, songTime: nowPlayingRecord["SongTime"] as! Double, artwork: nowPlayingRecord.allKeys().contains("AlbumArtwork") ? nowPlayingRecord["AlbumArtwork"] as? CKAsset : nil), share: result as! CKShare, songLimit: queriedRecord["SongLimit"] as! Int, songLimitAction: convertStringToLimitExpirationAction(queriedRecord["SongLimitAction"] as! String), timeLimit: queriedRecord["TimeLimit"] as! Int, timeLimitAction: convertStringToLimitExpirationAction(queriedRecord["TimeLimitAction"] as! String)))
-                                            
+
                                             queriedZones += 1
-                                            if queriedZones == zonesToQuery.count {
+                                            if queriedZones >= zonesToQuery.count {
                                                 roomUpdateStatus = .success
                                             }
                                             
                                         case .failure(let error):
                                             print(error.localizedDescription)
+                                            queriedZones += 1
                                             roomUpdateStatus = .failure
                                         }
                                     }
                                     
 //                                    shareQueryOperation.qualityOfService = .userInteractive
-                                    CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(shareQueryOperation)
+                                    CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(shareQueryOperation)
                                     
                                 case .failure(let error):
                                     print(error.localizedDescription)
+                                    queriedZones += 1
                                     roomUpdateStatus = .failure
                                 }
                             }
                             
 //                            nowPlayingQueryOperation.qualityOfService = .userInteractive
-                            CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(nowPlayingQueryOperation)
+                            CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(nowPlayingQueryOperation)
                             
                         case .failure(let error):
                             print(error.localizedDescription)
+                            queriedZones += 1
                             roomUpdateStatus = .failure
                         }
                     }
                     
+                    detailsQueryOperation.queryResultBlock = { (_ operationResult: Result<CKQueryOperation.Cursor?, Error>) -> Void in
+                        switch operationResult {
+                        case .success(_):
+                            queriedZones += 1
+                        case .failure(let error):
+                            print(error.localizedDescription)
+                            queriedZones += 1
+                        }
+                    }
+                    
 //                    detailsQueryOperation.qualityOfService = .userInteractive
-                    CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(detailsQueryOperation)
+                    CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(detailsQueryOperation)
                 }
                 
             case .failure(let error):
@@ -192,7 +224,7 @@ struct JoinRoomView: View {
         }
         
 //        zoneFetchOperation.qualityOfService = .userInteractive
-        CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(zoneFetchOperation)
+        CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(zoneFetchOperation)
     }
 }
 

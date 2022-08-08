@@ -28,6 +28,12 @@ struct CreateRoomView: View {
     
     @State var roomUploadStatus = OperationStatus.notStarted
     
+    @State var isShowingFailureAlert = false
+    var errorText = "Check that you are signed in to iCloud and connected to the Internet."
+    
+    let operationTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State var elapsedTime = 0
+    
     // MARK: View Body
     var body: some View {
         NavigationView {
@@ -181,6 +187,7 @@ struct CreateRoomView: View {
                                             case .failure(let error):
                                                 print(error.localizedDescription)
                                                 roomUploadStatus = .failure
+                                                isShowingFailureAlert = true
                                             }
                                         }
 
@@ -189,6 +196,8 @@ struct CreateRoomView: View {
                                         
                                     case .failure(let error):
                                         print(error.localizedDescription)
+                                        roomUploadStatus = .failure
+                                        isShowingFailureAlert = true
                                     }
                                 }
                                 
@@ -198,6 +207,7 @@ struct CreateRoomView: View {
                             case .failure(let error):
                                 print(error.localizedDescription)
                                 roomUploadStatus = .failure
+                                isShowingFailureAlert = true
                             }
                         }
                         
@@ -207,12 +217,24 @@ struct CreateRoomView: View {
                     case .failure(let error):
                         print(error.localizedDescription)
                         roomUploadStatus = .failure
+                        isShowingFailureAlert = true
                     }
                 }
                 
 //                zoneUploadOperation.qualityOfService = .userInteractive
                 CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(zoneUploadOperation)
             }) { Text("Save").fontWeight(.bold) }))
+        }
+        .onReceive(operationTimer) { time in
+            elapsedTime += 1
+            if elapsedTime > 20 {
+                roomUploadStatus = .notStarted
+                isShowingFailureAlert = true
+                elapsedTime = 0
+            }
+        }
+        .alert(isPresented: $isShowingFailureAlert) {
+            Alert(title: Text("Could Not Create Room"), message: Text(errorText), dismissButton: .default(Text("Close")))
         }
     }
 }

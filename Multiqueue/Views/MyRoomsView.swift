@@ -19,6 +19,11 @@ struct MyRoomsView: View {
     @State var isRoomViewShowing = false
     @State var hasUpdated = false
     
+    let operationTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State var elapsedTime = 0
+    @State var isShowingFailureAlert = false
+    var errorText = "Check that you are signed in to iCloud and connected to the Internet."
+    
     // MARK: View Body
     var body: some View {
 //        NavigationView {
@@ -88,6 +93,19 @@ struct MyRoomsView: View {
                     }
                 }
                 .padding(.bottom)
+            }
+            .alert(isPresented: $isShowingFailureAlert) {
+                Alert(title: Text("Could Not Fetch Rooms"), message: Text(errorText), dismissButton: .default(Text("Close")))
+            }
+            .onReceive(operationTimer) { time in
+                if roomUpdateStatus == .inProgress {
+                    elapsedTime += 1
+                    if elapsedTime > 20 {
+                        roomUpdateStatus = .failure
+                        isShowingFailureAlert = true
+                        elapsedTime = 0
+                    }
+                }
             }
             .onAppear {
                 if roomUpdateStatus != .inProgress && !hasUpdated {
@@ -182,12 +200,13 @@ struct MyRoomsView: View {
                                             }(), timeElapsed: nowPlayingRecord["TimeElapsed"] as! Double, songTime: nowPlayingRecord["SongTime"] as! Double, artwork: nowPlayingRecord.allKeys().contains("AlbumArtwork") ? nowPlayingRecord["AlbumArtwork"] as? CKAsset : nil), share: result as! CKShare, songLimit: queriedRecord["SongLimit"] as! Int, songLimitAction: convertStringToLimitExpirationAction(queriedRecord["SongLimitAction"] as! String), timeLimit: queriedRecord["TimeLimit"] as! Int, timeLimitAction: convertStringToLimitExpirationAction(queriedRecord["TimeLimitAction"] as! String)))
 
                                             queriedZones += 1
-                                            if queriedZones == zonesToQuery.count {
+                                            if queriedZones >= zonesToQuery.count {
                                                 roomUpdateStatus = .success
                                             }
                                             
                                         case .failure(let error):
                                             print(error.localizedDescription)
+                                            queriedZones += 1
                                             roomUpdateStatus = .failure
                                         }
                                     }
@@ -197,6 +216,7 @@ struct MyRoomsView: View {
                                     
                                 case .failure(let error):
                                     print(error.localizedDescription)
+                                    queriedZones += 1
                                     roomUpdateStatus = .failure
                                 }
                             }
@@ -206,7 +226,18 @@ struct MyRoomsView: View {
                             
                         case .failure(let error):
                             print(error.localizedDescription)
+                            queriedZones += 1
                             roomUpdateStatus = .failure
+                        }
+                    }
+                    
+                    detailsQueryOperation.queryResultBlock = { (_ operationResult: Result<CKQueryOperation.Cursor?, Error>) -> Void in
+                        switch operationResult {
+                        case .success(_):
+                            queriedZones += 1
+                        case .failure(let error):
+                            print(error.localizedDescription)
+                            queriedZones += 1
                         }
                     }
                     
