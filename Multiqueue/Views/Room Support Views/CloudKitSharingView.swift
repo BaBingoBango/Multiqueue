@@ -15,6 +15,7 @@ struct CloudKitSharingView: UIViewControllerRepresentable {
     // MARK: View Variables
     var room: Room
     var container: CKContainer
+    @Binding var deletedShare: Bool
     
     // MARK: View Controller Generator
     func makeUIViewController(context: Context) -> UICloudSharingController {
@@ -54,6 +55,10 @@ struct CloudKitSharingView: UIViewControllerRepresentable {
         func cloudSharingController(_ csc: UICloudSharingController, failedToSaveShareWithError error: Error) {
             print(error.localizedDescription)
             csc.dismiss(animated: true)
+        }
+        
+        func cloudSharingControllerDidStopSharing(_ csc: UICloudSharingController) {
+            parent.deletedShare = true
         }
         
         func itemTitle(for csc: UICloudSharingController) -> String? {

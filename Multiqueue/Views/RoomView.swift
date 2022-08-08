@@ -33,6 +33,8 @@ struct RoomView: View {
     
     @Binding var isRoomViewShowing: Bool
     
+    @State var deletedShare = false
+    
     // MARK: - View Body
     var body: some View {
         //NavigationView {
@@ -86,12 +88,6 @@ struct RoomView: View {
                         } else {
                             SongRowView(title: "Not Playing" , subtitle: "", mode: .songOnly, nowPlayingTime: (room.nowPlayingSong.timeElapsed, room.nowPlayingSong.songTime ))
                         }
-                        
-//                        Image(systemName: "arrow.up")
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fit)
-//                            .frame(width: 30)
-//                            .padding(.top)
                         
                         HStack {
                             VStack(alignment: .leading) {
@@ -187,24 +183,10 @@ struct RoomView: View {
                 room.details.record["TimeLimit"] = room.timeLimit
                 room.details.record["TimeLimitAction"] = convertLimitExpirationActionToString(room.timeLimitAction)
                 
-                // If the share was deleted, "intercept" it here and generate a new one
-                var deletedShare = false
-                if room.share.participants.count == 0 {
-                    deletedShare = true
-                    
-                    room.share[CKShare.SystemFieldKey.title] = room.details.name as CKRecordValue
-                    room.share[CKShare.SystemFieldKey.shareType] = "Room" as CKRecordValue
-                    room.share[CKShare.SystemFieldKey.thumbnailImageData] = NSDataAsset(name: "Rounded App Icon")!.data as CKRecordValue
-                    room.share.publicPermission = .readWrite
-                }
-                
                 // Compile the records to upload
                 var records: [CKRecord] = [room.details.record]
                 if shouldUploadNowPlaying {
                     records.append(room.nowPlayingSong.record)
-                }
-                if deletedShare {
-                    records.append(room.share)
                 }
                 
                 // Upload the records to the server
@@ -212,6 +194,39 @@ struct RoomView: View {
                 nowPlayingUpdateOperation.savePolicy = .allKeys
                 nowPlayingUpdateOperation.qualityOfService = .userInteractive
                 CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(nowPlayingUpdateOperation)
+                
+                // After the initial upload, check if a share record still exists
+                var locatedShare = false
+                let shareQueryOperation = CKQueryOperation(query: CKQuery(recordType: "cloudkit.share", predicate: NSPredicate(value: true)))
+                shareQueryOperation.zoneID = room.zone.zoneID
+                
+                shareQueryOperation.recordMatchedBlock = { (_ recordID: CKRecord.ID, _ recordResult: Result<CKRecord, Error>) -> Void in
+                    switch recordResult {
+                    case .success(_):
+                        locatedShare = true
+                        print("Share located!")
+                        
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    }
+                }
+                
+                shareQueryOperation.queryResultBlock = { (_ operationResult: Result<CKQueryOperation.Cursor?, Error>) -> Void in
+                    if !locatedShare {
+                        // If the share is gone, upload a new one
+                        print("Creating and uploading new share...")
+                        room.share = CKShare(recordZoneID: room.zone.zoneID)
+                        room.share[CKShare.SystemFieldKey.title] = room.details.name as CKRecordValue
+                        room.share[CKShare.SystemFieldKey.shareType] = "Room" as CKRecordValue
+                        room.share[CKShare.SystemFieldKey.thumbnailImageData] = NSDataAsset(name: "Rounded App Icon")!.data as CKRecordValue
+                        room.share.publicPermission = .readWrite
+                        
+                        let shareUploadOperation = CKModifyRecordsOperation(recordsToSave: [room.share])
+                        CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(shareUploadOperation)
+                    }
+                }
+                
+                CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(shareQueryOperation)
             }
             .onAppear {
                 if !hasCompletedInitialQueueUpdate {
@@ -278,7 +293,7 @@ struct RoomView: View {
                                 .foregroundColor(.accentColor)
                         }
                         .sheet(isPresented: $isShowingPeopleView) {
-                            CloudKitSharingView(room: room, container: CKContainer(identifier: "iCloud.Multiqueue"))
+                            CloudKitSharingView(room: room, container: CKContainer(identifier: "iCloud.Multiqueue"), deletedShare: $deletedShare)
                         }
                         
                         Button(action: {

@@ -188,7 +188,7 @@ struct JoinedRoomView: View {
                                 .foregroundColor(.accentColor)
                         }
                         .sheet(isPresented: $isShowingPeopleView) {
-                            CloudKitSharingView(room: room, container: CKContainer(identifier: "iCloud.Multiqueue"))
+                            CloudKitSharingView(room: room, container: CKContainer(identifier: "iCloud.Multiqueue"), deletedShare: .constant(false))
                         }
                         
                         Button(action: {

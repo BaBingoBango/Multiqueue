@@ -249,6 +249,7 @@
 		AA4B9B3C28A0ABD700A3494E /* Room Support Views */ = {
 			isa = PBXGroup;
 			children = (
+				AA4B9B4228A0B07500A3494E /* CloudKitSharingView.swift */,
 				AA4B9B4028A0B04A00A3494E /* SongRowView.swift */,
 				AA90A9ED2896FB2D0052E3DC /* CloudKit Music Adder Support Views */,
 				AA3A9910289B39E7007DB861 /* RoomInfoView.swift */,
@@ -382,7 +383,6 @@
 		AA90A9ED2896FB2D0052E3DC /* CloudKit Music Adder Support Views */ = {
 			isa = PBXGroup;
 			children = (
-				AA4B9B4228A0B07500A3494E /* CloudKitSharingView.swift */,
 				AA90A9EE2896FB2D0052E3DC /* CloudKitLibraryAdder.swift */,
 				AA90A9EF2896FB2D0052E3DC /* CloudKitButtonSongRowView.swift */,
 				AA90A9F02896FB2D0052E3DC /* CloudKitLinkAdder.swift */,
