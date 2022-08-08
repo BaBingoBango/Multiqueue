@@ -204,7 +204,6 @@ struct RoomView: View {
                     switch recordResult {
                     case .success(_):
                         locatedShare = true
-                        print("Share located!")
                         
                     case .failure(let error):
                         print(error.localizedDescription)
@@ -214,7 +213,6 @@ struct RoomView: View {
                 shareQueryOperation.queryResultBlock = { (_ operationResult: Result<CKQueryOperation.Cursor?, Error>) -> Void in
                     if !locatedShare {
                         // If the share is gone, upload a new one
-                        print("Creating and uploading new share...")
                         room.share = CKShare(recordZoneID: room.zone.zoneID)
                         room.share[CKShare.SystemFieldKey.title] = room.details.name as CKRecordValue
                         room.share[CKShare.SystemFieldKey.shareType] = "Room" as CKRecordValue
