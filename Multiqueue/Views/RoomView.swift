@@ -134,7 +134,7 @@ struct RoomView: View {
                 }
                 .padding([.top, .leading, .trailing])
                 .sheet(isPresented: $isShowingMusicAdder) {
-                    CloudKitMusicAdder(room: $room, isShowingLibraryPicker: $isShowingLibraryPicker, database: .privateDatabase)
+                    CloudKitMusicAdder(room: $room, isShowingLibraryPicker: $isShowingLibraryPicker, database: .privateDatabase, isHost: true)
                 }
             }
             .padding(.bottom)

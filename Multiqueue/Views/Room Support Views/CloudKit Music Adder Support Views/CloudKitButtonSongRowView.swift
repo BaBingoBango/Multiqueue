@@ -18,6 +18,7 @@ struct CloudKitButtonSongRowView: View {
     var artwork: Artwork?
     @Binding var room: Room
     var database: CloudKitDatabase
+    var isHost: Bool
     
     var body: some View {
         HStack {
@@ -67,6 +68,17 @@ struct CloudKitButtonSongRowView: View {
         .padding(.horizontal)
         .onTapGesture {
             if uploadStatus == .notStarted || uploadStatus == .failure {
+                // Add the song to the local queue
+                if isHost {
+                    Task {
+                        do {
+                            try await SystemMusicPlayer.shared.queue.insert(song, position: room.selectedPlayType == .next ? .afterCurrentEntry : .tail)
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                    }
+                }
+                
                 // Add the song to the server
                 uploadStatus = .inProgress
                 

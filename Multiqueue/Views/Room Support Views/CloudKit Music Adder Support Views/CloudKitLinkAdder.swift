@@ -20,6 +20,7 @@ struct CloudKitLinkAdder: View {
     }
     @Binding var room: Room
     var database: CloudKitDatabase
+    var isHost: Bool
     
     var body: some View {
         NavigationView {
@@ -69,7 +70,7 @@ struct CloudKitLinkAdder: View {
                         
                         ForEach(linkResults) { song in
                             Button(action: {}) {
-                                CloudKitButtonSongRowView(song: song, artwork: song.artwork!, room: $room, database: database)
+                                CloudKitButtonSongRowView(song: song, artwork: song.artwork!, room: $room, database: database, isHost: isHost)
                             }
                         }
                         

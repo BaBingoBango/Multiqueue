@@ -148,7 +148,7 @@ struct JoinedRoomView: View {
                 }
                 .padding([.top, .leading, .trailing])
                 .sheet(isPresented: $isShowingMusicAdder) {
-                    CloudKitMusicAdder(room: $room, isShowingLibraryPicker: $isShowingLibraryPicker, database: .sharedDatabase)
+                    CloudKitMusicAdder(room: $room, isShowingLibraryPicker: $isShowingLibraryPicker, database: .sharedDatabase, isHost: false)
                 }
                 .disabled(!room.isActive || room.share.currentUserParticipant?.permission != .readWrite)
             }
