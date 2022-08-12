@@ -8,15 +8,24 @@
 import SwiftUI
 import MusicKit
 
+/// A view that can add songs to a room by searching Apple Music.
 struct CloudKitSearchAdder: View {
     
+    // MARK: - View Variables
+    /// The search text entered by the user.
     @State var searchText = ""
+    /// The `PresentationMode` variable for this view.
     @Environment(\.presentationMode) var presentationMode
+    /// The MusicKit search results for the entered search text on this view.
     @State var searchResults = MusicItemCollection<Song>()
+    /// The room this view can upload to.
     @Binding var room: Room
+    /// The database to use for uploads from this view.
     var database: CloudKitDatabase
+    /// Whether or not this user is the host.
     var isHost: Bool
     
+    // MARK: - View Body
     var body: some View {
         NavigationView {
             ScrollView {
@@ -67,12 +76,14 @@ struct CloudKitSearchAdder: View {
         .navigationViewStyle(StackNavigationViewStyle())
     }
     
+    /// A helper function which calls the function that searches MusicKit for songs.
     func searchForSongsProxy() {
         Task {
             await searchForSongs()
         }
     }
     
+    /// Searches MusicKit for songs.
     @Sendable func searchForSongs() async {
         do {
             
@@ -86,9 +97,3 @@ struct CloudKitSearchAdder: View {
     }
     
 }
-
-//struct CloudKitSearchAdder_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CloudKitSearchAdder().environmentObject(MultipeerServices(isHost: true))
-//    }
-//}

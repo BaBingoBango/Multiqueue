@@ -9,9 +9,13 @@ import SwiftUI
 import CloudKit
 import MusicKit
 
+/// The view allowing users to create and upload a new room.
 struct CreateRoomView: View {
+    
     // MARK: View Variables
+    /// The `PresentationMode` variable for this view.
     @SwiftUI.Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+    /// The default room name for a room.
     var defaultRoomName: String {
         if CKCurrentUserDefaultName != "__defaultOwner__" {
             return "\(CKCurrentUserDefaultName)'s Room"
@@ -19,19 +23,29 @@ struct CreateRoomView: View {
             return "My Room"
         }
     }
+    /// The name the user has entered in the text field.
     @State var enteredName = ""
+    /// The icon the user has selected.
     @State var enteredIcon = "🎶"
+    /// The color the user has selected.
     @State var enteredColor: Color = .red
+    /// The description the user has entered in the text field.
     @State var enteredDescription = ""
     
+    /// Whether or not the icon picker view is being presented.
     @State var isShowingIconPicker = false
     
+    /// The status of a currently running room upload operation.
     @State var roomUploadStatus = OperationStatus.notStarted
     
+    /// Whether or not an operation failure alert is being presented.
     @State var isShowingFailureAlert = false
+    /// Error text for an operation failure alert.
     var errorText = "Check that you are signed in to iCloud and connected to the Internet."
     
+    /// A 1-second timer triggering a timeout error in a room upload.
     let operationTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    /// The elapsed time for a room upload operation.
     @State var elapsedTime = 0
     
     // MARK: View Body
@@ -191,7 +205,6 @@ struct CreateRoomView: View {
                                             }
                                         }
 
-//                                        shareSaveOperation.qualityOfService = .userInteractive
                                         CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(shareSaveOperation)
                                         
                                     case .failure(let error):
@@ -201,7 +214,6 @@ struct CreateRoomView: View {
                                     }
                                 }
                                 
-//                                subscriptionUploadOperation.qualityOfService = .userInteractive
                                 CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(subscriptionUploadOperation)
                                 
                             case .failure(let error):
@@ -211,7 +223,6 @@ struct CreateRoomView: View {
                             }
                         }
                         
-//                        roomRecordsUploadOperation.qualityOfService = .userInteractive
                         CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(roomRecordsUploadOperation)
                         
                     case .failure(let error):
@@ -221,7 +232,6 @@ struct CreateRoomView: View {
                     }
                 }
                 
-//                zoneUploadOperation.qualityOfService = .userInteractive
                 CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(zoneUploadOperation)
             }) { Text("Save").fontWeight(.bold) }))
         }

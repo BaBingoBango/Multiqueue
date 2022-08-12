@@ -7,10 +7,14 @@
 
 import SwiftUI
 
+/// The main menu card informing users of the status of their notification permission for the app.
 struct NotificationStatusCard: View {
     
+    // MARK: - View Variables
+    /// Whether or not notifications are enabled.
     var areNotificationsOn: Bool
     
+    // MARK: - View Body
     var body: some View {
         VStack {
             Image(systemName: areNotificationsOn ? "bell.badge.circle.fill" : "bell.slash.circle.fill")

@@ -8,8 +8,7 @@
 import Foundation
 import MusicKit
 
-var testSongs: [QueueSong] = []
-
+/// The song currently playing in the system music player.
 var systemPlayingSong: Song? {
     if SystemMusicPlayer.shared.queue.currentEntry == nil {
         return nil
@@ -24,15 +23,19 @@ var systemPlayingSong: Song? {
         }
     }
 }
+/// The title of the song currently playing in the system music player.
 var systemPlayingSongTitle: String {
     SystemMusicPlayer.shared.queue.currentEntry?.title ?? "No Current Song"
 }
+/// The artist of the song currently playing in the system music player.
 var systemPlayingSongArtist: String {
     SystemMusicPlayer.shared.queue.currentEntry?.description.components(separatedBy: "artistName: \"")[1].components(separatedBy: "\"))")[0] ?? ""
 }
+/// The artwork of the song currently playing in the system music player.
 var systemPlayingSongArtwork: Artwork? {
     SystemMusicPlayer.shared.queue.currentEntry?.artwork
 }
+/// The elapsed time and total time of the song currently playing in the system music player.
 var systemPlayingSongTime: (Double, Double) {
     if SystemMusicPlayer.shared.queue.currentEntry == nil {
         return (0, 0)

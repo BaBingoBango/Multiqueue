@@ -13,129 +13,137 @@ import MusicKit
 struct MyRoomsView: View {
     
     // MARK: View Variables
+    /// Whether or not the Create Room view is being presented.
     @State var isShowingCreateRoomView = false
+    /// The user rooms retrieved from the server.
     @State var userRooms: [Room] = []
+    /// The status of the current room update network operation.
     @State var roomUpdateStatus = OperationStatus.notStarted
+    /// Whether or not a room view is being presented.
     @State var isRoomViewShowing = false
+    /// Whether or not the view has updated via the server.
     @State var hasUpdated = false
     
+    /// A 1-second interval timer which triggers updates to the view.
     let operationTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    /// The time elapsed in a room update oepration.
     @State var elapsedTime = 0
+    /// Whether or not a failure alert message is being presented.
     @State var isShowingFailureAlert = false
+    /// Error text for the failure alert for this view.
     var errorText = "Check that you are signed in to iCloud and connected to the Internet."
     
     // MARK: View Body
     var body: some View {
-//        NavigationView {
-            ScrollView {
-                VStack {
-                    Button(action: {
-                        isShowingCreateRoomView = true
-                    }) {
-                        HStack {
-                            Image(systemName: "plus.circle.fill")
-                                .foregroundColor(.white)
-                            
-                            Text("Create Room")
-                                .foregroundColor(.white)
-                                .fontWeight(.bold)
-                        }
-                        .modifier(RectangleWrapper(fixedHeight: 50, color: .red, opacity: 1.0))
+        ScrollView {
+            VStack {
+                Button(action: {
+                    isShowingCreateRoomView = true
+                }) {
+                    HStack {
+                        Image(systemName: "plus.circle.fill")
+                            .foregroundColor(.white)
+                        
+                        Text("Create Room")
+                            .foregroundColor(.white)
+                            .fontWeight(.bold)
                     }
-                    .padding()
-                    .sheet(isPresented: $isShowingCreateRoomView) {
-                        CreateRoomView()
-                    }
+                    .modifier(RectangleWrapper(fixedHeight: 50, color: .red, opacity: 1.0))
+                }
+                .padding()
+                .sheet(isPresented: $isShowingCreateRoomView) {
+                    CreateRoomView()
+                }
+                
+                switch roomUpdateStatus {
+                case .notStarted:
+                    EmptyView()
                     
-                    switch roomUpdateStatus {
-                    case .notStarted:
-                        EmptyView()
-                        
-                    case .inProgress:
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle())
-                        
-                    case .success:
-                        if !userRooms.isEmpty {
-                            ForEach($userRooms.sorted(by: { $0.details.name.wrappedValue < $1.details.name.wrappedValue }), id: \.ID.wrappedValue) { eachRoom in
-                                ZStack {
-                                    LinkedRoomOptionView(room: eachRoom, isHost: true)
-                                }
-                                    .padding(.horizontal)
+                case .inProgress:
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                    
+                case .success:
+                    if !userRooms.isEmpty {
+                        ForEach($userRooms.sorted(by: { $0.details.name.wrappedValue < $1.details.name.wrappedValue }), id: \.ID.wrappedValue) { eachRoom in
+                            ZStack {
+                                LinkedRoomOptionView(room: eachRoom, isHost: true)
                             }
-                        } else {
-                            Text("You Have No Rooms")
-                                .foregroundColor(.gray)
-                                .fontWeight(.bold)
-                                .font(.title3)
-                                .padding(.top, 25)
-                            Text("Tap Create Room to get started!")
-                                .multilineTextAlignment(.center)
-                                .foregroundColor(.gray)
-                                .font(.callout)
-                                .padding(.top, 5)
                                 .padding(.horizontal)
                         }
-                        
-                    case .failure:
-                        Text("Network Error")
+                    } else {
+                        Text("You Have No Rooms")
                             .foregroundColor(.gray)
                             .fontWeight(.bold)
                             .font(.title3)
                             .padding(.top, 25)
-                        Text("Check that you are connected to the Internet and signed in to iCloud and try again.")
+                        Text("Tap Create Room to get started!")
                             .multilineTextAlignment(.center)
                             .foregroundColor(.gray)
                             .font(.callout)
                             .padding(.top, 5)
                             .padding(.horizontal)
-                        
                     }
+                    
+                case .failure:
+                    Text("Network Error")
+                        .foregroundColor(.gray)
+                        .fontWeight(.bold)
+                        .font(.title3)
+                        .padding(.top, 25)
+                    Text("Check that you are connected to the Internet and signed in to iCloud and try again.")
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.gray)
+                        .font(.callout)
+                        .padding(.top, 5)
+                        .padding(.horizontal)
+                    
                 }
-                .padding(.bottom)
             }
-            .alert(isPresented: $isShowingFailureAlert) {
-                Alert(title: Text("Could Not Fetch Rooms"), message: Text(errorText), dismissButton: .default(Text("Close")))
+            .padding(.bottom)
+        }
+        .alert(isPresented: $isShowingFailureAlert) {
+            Alert(title: Text("Could Not Fetch Rooms"), message: Text(errorText), dismissButton: .default(Text("Close")))
+        }
+        .onReceive(operationTimer) { time in
+            if roomUpdateStatus == .inProgress {
+                elapsedTime += 1
+                if elapsedTime > 20 {
+                    roomUpdateStatus = .failure
+                    isShowingFailureAlert = true
+                    elapsedTime = 0
+                }
             }
-            .onReceive(operationTimer) { time in
-                if roomUpdateStatus == .inProgress {
-                    elapsedTime += 1
-                    if elapsedTime > 20 {
-                        roomUpdateStatus = .failure
-                        isShowingFailureAlert = true
-                        elapsedTime = 0
+        }
+        .onAppear {
+            if roomUpdateStatus != .inProgress && !hasUpdated {
+                updateRoomList()
+                hasUpdated = true
+            }
+        }
+        .onChange(of: isShowingCreateRoomView) { newValue in
+            if newValue == false && roomUpdateStatus != .inProgress {
+                updateRoomList()
+            }
+        }
+        
+        // MARK: Navigation View Settings
+        .navigationTitle(Text("My Rooms"))
+        .toolbar(content: {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    if roomUpdateStatus != .inProgress {
+                        updateRoomList()
                     }
+                }) {
+                    Image(systemName: "arrow.clockwise")
                 }
             }
-            .onAppear {
-                if roomUpdateStatus != .inProgress && !hasUpdated {
-                    updateRoomList()
-                    hasUpdated = true
-                }
-            }
-            .onChange(of: isShowingCreateRoomView) { newValue in
-                if newValue == false && roomUpdateStatus != .inProgress {
-                    updateRoomList()
-                }
-            }
-            
-            // MARK: Navigation View Settings
-            .navigationTitle(Text("My Rooms"))
-            .toolbar(content: {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        if roomUpdateStatus != .inProgress {
-                            updateRoomList()
-                        }
-                    }) {
-                        Image(systemName: "arrow.clockwise")
-                    }
-                }
-            })
-//        }
+        })
     }
     
     // MARK: - View Functions
+    /// Updates the list of rooms via the network.
     func updateRoomList() {
         userRooms = []
         roomUpdateStatus = .inProgress
@@ -211,7 +219,6 @@ struct MyRoomsView: View {
                                         }
                                     }
                                     
-//                                    shareQueryOperation.qualityOfService = .userInteractive
                                     CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(shareQueryOperation)
                                     
                                 case .failure(let error):
@@ -221,7 +228,6 @@ struct MyRoomsView: View {
                                 }
                             }
                             
-//                            nowPlayingQueryOperation.qualityOfService = .userInteractive
                             CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(nowPlayingQueryOperation)
                             
                         case .failure(let error):
@@ -241,7 +247,6 @@ struct MyRoomsView: View {
                         }
                     }
                     
-//                    detailsQueryOperation.qualityOfService = .userInteractive
                     CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(detailsQueryOperation)
                 }
                 
@@ -251,7 +256,6 @@ struct MyRoomsView: View {
             }
         }
         
-//        zoneFetchOperation.qualityOfService = .userInteractive
         CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(zoneFetchOperation)
     }
 }

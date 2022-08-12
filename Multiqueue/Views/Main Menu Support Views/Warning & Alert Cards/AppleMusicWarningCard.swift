@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A main menu card warning users that they are not subscribed to Apple Music.
 struct AppleMusicWarningCard: View {
     var body: some View {
         VStack {

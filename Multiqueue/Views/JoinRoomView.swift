@@ -9,101 +9,107 @@ import SwiftUI
 import CloudKit
 import MusicKit
 
+/// The view listing avaliable rooms for the user to join.
 struct JoinRoomView: View {
     
     // MARK: - View Variables
+    /// The rooms the user has been invited to retrieved from the server.
     @State var avaliableRooms: [Room] = []
+    /// The status of a currently running room fetch operation.
     @State var roomUpdateStatus = OperationStatus.notStarted
+    /// Whether or not a room view is being presented.
     @State var isRoomViewShowing = false
     
+    /// A 1-second interval timer which triggers updates to the view.
     let operationTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    /// The time elapsed in a room update oepration.
     @State var elapsedTime = 0
+    /// Whether or not a failure alert message is being presented.
     @State var isShowingFailureAlert = false
+    /// Error text for the failure alert for this view.
     var errorText = "Check that you are signed in to iCloud and connected to the Internet."
     
     // MARK: - View Body
     var body: some View {
-//        NavigationView {
-            ScrollView {
-                VStack {
-                    switch roomUpdateStatus {
-                    case .notStarted:
-                        EmptyView()
-                        
-                    case .inProgress:
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle())
-                        
-                    case .success:
-                        if !avaliableRooms.isEmpty {
-                            ForEach($avaliableRooms.sorted(by: { $0.details.name.wrappedValue > $1.details.name.wrappedValue }), id: \.ID.wrappedValue) { eachRoom in
-                                ZStack {
-                                    LinkedRoomOptionView(room: eachRoom, isHost: false)
-                                }
+        ScrollView {
+            VStack {
+                switch roomUpdateStatus {
+                case .notStarted:
+                    EmptyView()
+                    
+                case .inProgress:
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                    
+                case .success:
+                    if !avaliableRooms.isEmpty {
+                        ForEach($avaliableRooms.sorted(by: { $0.details.name.wrappedValue > $1.details.name.wrappedValue }), id: \.ID.wrappedValue) { eachRoom in
+                            ZStack {
+                                LinkedRoomOptionView(room: eachRoom, isHost: false)
                             }
-                        } else {
-                            Text("No Joinable Rooms Found")
-                                .foregroundColor(.gray)
-                                .fontWeight(.bold)
-                                .font(.title3)
-                                .padding(.top, 25)
-                            Text("Open an invitation link received by your host to see it here!")
-                                .multilineTextAlignment(.center)
-                                .foregroundColor(.gray)
-                                .font(.callout)
-                                .padding(.top, 5)
                         }
-                        
-                    case .failure:
-                        Text("Network Error")
+                    } else {
+                        Text("No Joinable Rooms Found")
                             .foregroundColor(.gray)
                             .fontWeight(.bold)
                             .font(.title3)
                             .padding(.top, 25)
-                        Text("Check that you are connected to the Internet and signed in to iCloud and try again.")
+                        Text("Open an invitation link received by your host to see it here!")
                             .multilineTextAlignment(.center)
                             .foregroundColor(.gray)
                             .font(.callout)
                             .padding(.top, 5)
-                            .padding(.horizontal)
-                        
                     }
+                    
+                case .failure:
+                    Text("Network Error")
+                        .foregroundColor(.gray)
+                        .fontWeight(.bold)
+                        .font(.title3)
+                        .padding(.top, 25)
+                    Text("Check that you are connected to the Internet and signed in to iCloud and try again.")
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.gray)
+                        .font(.callout)
+                        .padding(.top, 5)
+                        .padding(.horizontal)
+                    
                 }
-                .padding(.horizontal)
             }
-            .alert(isPresented: $isShowingFailureAlert) {
-                Alert(title: Text("Could Not Fetch Rooms"), message: Text(errorText), dismissButton: .default(Text("Close")))
+            .padding(.horizontal)
+        }
+        .alert(isPresented: $isShowingFailureAlert) {
+            Alert(title: Text("Could Not Fetch Rooms"), message: Text(errorText), dismissButton: .default(Text("Close")))
+        }
+        .onReceive(operationTimer) { time in
+            if roomUpdateStatus == .inProgress {
+                elapsedTime += 1
+                if elapsedTime > 20 {
+                    roomUpdateStatus = .failure
+                    isShowingFailureAlert = true
+                    elapsedTime = 0
+                }
             }
-            .onReceive(operationTimer) { time in
-                if roomUpdateStatus == .inProgress {
-                    elapsedTime += 1
-                    if elapsedTime > 20 {
-                        roomUpdateStatus = .failure
-                        isShowingFailureAlert = true
-                        elapsedTime = 0
+        }
+        .onAppear {
+            if roomUpdateStatus != .inProgress {
+                updateRoomList()
+            }
+        }
+        
+        // MARK: - Navigation View Settings
+        .navigationTitle("Join Room")
+        .toolbar(content: {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    if roomUpdateStatus != .inProgress {
+                        updateRoomList()
                     }
+                }) {
+                    Image(systemName: "arrow.clockwise")
                 }
             }
-            .onAppear {
-                if roomUpdateStatus != .inProgress {
-                    updateRoomList()
-                }
-            }
-            
-            // MARK: - Navigation View Settings
-            .navigationTitle("Join Room")
-            .toolbar(content: {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        if roomUpdateStatus != .inProgress {
-                            updateRoomList()
-                        }
-                    }) {
-                        Image(systemName: "arrow.clockwise")
-                    }
-                }
-            })
-//        }
+        })
     }
     
     // MARK: - View Functions
@@ -183,7 +189,6 @@ struct JoinRoomView: View {
                                         }
                                     }
                                     
-//                                    shareQueryOperation.qualityOfService = .userInteractive
                                     CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(shareQueryOperation)
                                     
                                 case .failure(let error):
@@ -193,7 +198,6 @@ struct JoinRoomView: View {
                                 }
                             }
                             
-//                            nowPlayingQueryOperation.qualityOfService = .userInteractive
                             CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(nowPlayingQueryOperation)
                             
                         case .failure(let error):
@@ -213,7 +217,6 @@ struct JoinRoomView: View {
                         }
                     }
                     
-//                    detailsQueryOperation.qualityOfService = .userInteractive
                     CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(detailsQueryOperation)
                 }
                 
@@ -223,7 +226,6 @@ struct JoinRoomView: View {
             }
         }
         
-//        zoneFetchOperation.qualityOfService = .userInteractive
         CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(zoneFetchOperation)
     }
 }

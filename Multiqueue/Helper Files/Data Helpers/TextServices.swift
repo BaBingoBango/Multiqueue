@@ -13,6 +13,7 @@ extension Character {
     private static let refUnicodePng =
         Character("\u{1fff}").png(ofSize: Character.refUnicodeSize)
     
+    /// Converts a `Character` object to raw data.
     func png(ofSize fontSize: CGFloat) -> Data? {
         let attributes = [NSAttributedString.Key.font:
                               UIFont.systemFont(ofSize: fontSize)]
@@ -31,6 +32,7 @@ extension Character {
         return png
     }
 
+    /// Checks whether or not a Unicode `Character` is avaliable on the current device.
     func unicodeAvailable() -> Bool {
         if let refUnicodePng = Character.refUnicodePng,
             let myPng = self.png(ofSize: Character.refUnicodeSize) {

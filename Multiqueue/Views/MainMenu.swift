@@ -12,6 +12,7 @@ import Network
 /// The landing view for the app. It contains navigation to all the major features, including hosting, joining, settings, and help.
 struct MainMenu: View {
     
+    // MARK: - View Variables
     /// The horizontal size class of the current app environment.
     ///
     /// It is only relevant in iOS and iPadOS, since macOS and tvOS feature a consistent layout experience.
@@ -23,11 +24,14 @@ struct MainMenu: View {
     /// The custom scene delegate object for the app.
     @EnvironmentObject var sceneDelegate: MultiqueueSceneDelegate
     
+    /// Whether or not the user has subscribed to Apple Music.
     @State var subscribedToAppleMusic = false
-    @State var grantedLocalNetworkPermissions = true
+    /// Whether or not the user has enabled notifications.
     @State var areNotificationsOn = false
+    /// A 0.5-second interval timer to trigger update code in this view.
     let timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
     
+    // MARK: - View Body
     var body: some View {
         ZStack {
             if horizontalSizeClass == .compact {
@@ -57,7 +61,7 @@ struct MainMenu: View {
                             .disabled(!subscribedToAppleMusic || MusicAuthorization.currentStatus != .authorized)
                             
                             NavigationLink(destination: JoinRoomView()) {
-                                JoinRoomCard(isGray: !grantedLocalNetworkPermissions || MusicAuthorization.currentStatus != .authorized)
+                                JoinRoomCard(isGray: MusicAuthorization.currentStatus != .authorized)
                                     .padding([.top, .leading, .trailing])
                             }
                             .disabled(MusicAuthorization.currentStatus != .authorized)
@@ -76,7 +80,7 @@ struct MainMenu: View {
                                     .padding([.top, .leading, .trailing])
                             }
                             
-                            if MusicAuthorization.currentStatus == .authorized && grantedLocalNetworkPermissions {
+                            if MusicAuthorization.currentStatus == .authorized {
                                 Button(action: {
                                     UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, completionHandler: { _ in })
                                 }) {
@@ -180,6 +184,7 @@ struct MainMenu: View {
         }
     }
     
+    /// Checks the Apple Music subscription status for the user.
     func getAppleMusicStatus() async {
         do {
             try await subscribedToAppleMusic = MusicSubscription.current.canPlayCatalogContent
@@ -187,7 +192,8 @@ struct MainMenu: View {
             print(error.localizedDescription)
         }
     }
-
+    
+    /// A proxy method which interfaces with Swift concurrency to check the Apple Music subscription status for the user.
     func getAppleMusicStatusProxy() {
         Task {
             await getAppleMusicStatus()

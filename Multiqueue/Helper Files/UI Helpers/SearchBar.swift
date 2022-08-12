@@ -7,15 +7,20 @@
 
 import SwiftUI
 
+/// A search bar text field used throughout the app.
 struct SearchBar: View {
+    
+    // MARK: - View Variables
+    /// The text entered in the field.
     @Binding var text: String
-
+    /// Whether or not the user is editing the text.
     @State private var isEditing = false
-    
+    /// Whether or not the glass icon should be shown.
     let includeGlassIcon = true
-    
+    /// The placeholder text for the view.
     var placeholder = "Search"
-        
+    
+    // MARK: - View Body
     var body: some View {
         HStack {
             
@@ -64,7 +69,6 @@ struct SearchBar: View {
                 }
                 .padding(.trailing, 10)
                 .transition(.move(edge: .trailing))
-//                .animation(.default)
             }
         }
     }

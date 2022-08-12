@@ -9,17 +9,26 @@ import SwiftUI
 import MusicKit
 import CloudKit
 
+/// A song row option view that can uplaod its song to the server.
 struct CloudKitButtonSongRowView: View {
+    
+    // MARK: - View Variables
     /// The custom app delegate object for the app.
     @EnvironmentObject var appDelegate: MultiqueueAppDelegate
-    
+    /// The song this view represents.
     var song: Song
+    /// The upload status for this view.
     @State var uploadStatus = OperationStatus.notStarted
+    /// The artwork on this view.
     var artwork: Artwork?
+    /// The room this view can upload to.
     @Binding var room: Room
+    /// The database to use for uploads from this view.
     var database: CloudKitDatabase
+    /// Whether or not this user is the host.
     var isHost: Bool
     
+    // MARK: - View Body
     var body: some View {
         HStack {
             if song.title != "Not Pl" && artwork != nil {

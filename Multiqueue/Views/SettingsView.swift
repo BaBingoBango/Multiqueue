@@ -10,15 +10,22 @@ import MessageUI
 
 /// The view surfacing controls for various preferences of the app.
 struct SettingsView: View {
+    
+    // MARK: - View Variables
     /// The horizontal size class of the current app environment.
     ///
     /// It is only relevant in iOS and iPadOS, since macOS and tvOS feature a consistent layout experience.
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    /// The `PresentationMode` variable for this view.
     @Environment(\.presentationMode) var presentationMode
+    /// Whether or not the mail sender view is being presented.
     @State var isShowingMailSender = false
+    /// Whether or not the user has copied the feedback email.
     @State var hasCopiedFeedbackEmail = false
+    /// Whether or not the user guide view is presented.
     @State var isShowingUserGuide = false
     
+    // MARK: - View Body
     var body: some View {
         let settingsForm = Form {
             Section(header: Text("Permissions"), footer: Text("To grant or revoke Multiqueue permissions, tap to visit Settings.")) {

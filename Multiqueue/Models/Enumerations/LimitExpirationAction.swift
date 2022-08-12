@@ -22,6 +22,9 @@ enum LimitExpirationAction {
     case deleteRoom
 }
 
+/// Converts a properly formatted string into a `LimitExpirationAction` enumeration.
+/// - Parameter string: The string to convert.
+/// - Returns: The converted `LimitExpirationAction` enumeration.
 func convertStringToLimitExpirationAction(_ string: String) -> LimitExpirationAction {
     if string == "Deactivate Room" {
         return .deactivateRoom
@@ -34,6 +37,9 @@ func convertStringToLimitExpirationAction(_ string: String) -> LimitExpirationAc
     }
 }
 
+/// Converts a `LimitExpirationAction` enumeration into a properly formatted string.
+/// - Parameter action: The `LimitExpirationAction` enumeration to convert.
+/// - Returns: The converted string.
 func convertLimitExpirationActionToString(_ action: LimitExpirationAction) -> String {
     switch action {
     case .nothing:

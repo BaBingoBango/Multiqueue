@@ -9,24 +9,43 @@ import SwiftUI
 import MusicKit
 import CloudKit
 
+// MARK: - View Variables
+/// A list row view for a song in room views.
 struct SongRowView: View {
     
+    /// A type of `SongRowView`
     enum SongRowViewMode {
+        /// A `SongRowView` showing just the song.
         case songOnly
+        
+        /// A `SongRowView` showing the song and a time bar.
         case withTimeBar
+        
+        /// A `SongRowView` showing the song, a time bar, and song controls.
         case withSongControls
     }
     
+    /// The title to place in this view.
     var title: String
+    /// The subtitle to place in this view.
     var subtitle: String
+    /// Artwork to place in this view.
     var artwork: Artwork?
+    /// Custom artwork to override the `artwork` property in this view.
     var customArtwork: CKAsset?
+    /// A sub-subtitle to place in this view.
     var subsubtitle: String?
+    /// MusicKit search results for this view.
     @State var searchResults = MusicItemCollection<Song>()
     
+    /// The display mode for this view.
     var mode = SongRowViewMode.songOnly
+    /// The time to insert in the time bar, if it is showing.
+    ///
+    /// The first value is the time elapsed, while the second value is the total time.
     var nowPlayingTime: (Double, Double)?
     
+    // MARK: - View Body
     var body: some View {
         VStack {
             HStack {
@@ -195,9 +214,3 @@ struct SongRowView: View {
         .padding(.horizontal)
     }
 }
-
-//struct SongRowView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SongRowView(title: "Preview Song", subtitle: "Preview Artist")
-//    }
-//}

@@ -9,10 +9,16 @@ import Foundation
 import MusicKit
 import CloudKit
 
+/// A song that is currently playing on the host's device.
 struct NowPlayingSong {
+    /// The CloudKit record corresponding to the song.
     var record: CKRecord
+    /// The MusicKit `Song` object that is playing.
     var song: Song?
-    var timeElapsed: Double // in seconds
-    var songTime: Double // in seconds
+    /// The amount of time that the song has been playing, in seconds.
+    var timeElapsed: Double
+    /// The total song length, in seconds.
+    var songTime: Double
+    /// Artwork for this song.
     var artwork: CKAsset?
 }

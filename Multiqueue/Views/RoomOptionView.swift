@@ -8,12 +8,18 @@
 import SwiftUI
 import CloudKit
 
+/// An option view for a room, linked to a room view via a `NavigationLink`.
 struct LinkedRoomOptionView: View {
     
+    // MARK: - View Variables
+    /// The room this view describes.
     @Binding var room: Room
+    /// Whether or not a room view is being presented.
     @State var isRoomViewShowing = false
+    /// Whether or not the current user is this room's host.
     var isHost: Bool
     
+    // MARK: - View Body
     var body: some View {
         ZStack {
             NavigationLink("", destination: isHost ? AnyView(RoomView(room: room, isRoomViewShowing: $isRoomViewShowing)) : AnyView(JoinedRoomView(room: room, isRoomViewShowing: $isRoomViewShowing)), isActive: $isRoomViewShowing)
@@ -34,18 +40,20 @@ struct LinkedRoomOptionView: View {
                 room.details.record["HostOnScreen"] = 0
                 
                 let roomDetailsUploadOperation = CKModifyRecordsOperation(recordsToSave: [room.details.record])
-//                roomDetailsUploadOperation.qualityOfService = .userInteractive
                 CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(roomDetailsUploadOperation)
             }
         }
     }
 }
 
+/// A list option view for a room.
 struct RoomOptionView: View {
     
     // MARK: - View Variables
+    /// The room this view describes.
     var room: Room
     
+    // MARK: - View Body
     var body: some View {
         HStack {
             Text(room.details.icon)
@@ -70,9 +78,3 @@ struct RoomOptionView: View {
         .modifier(RectangleWrapper(fixedHeight: 100, color: room.details.color, opacity: 0.15))
     }
 }
-
-//struct RoomOptionView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RoomOptionView(roomDetails: RoomDetails(name: "My Room Room Room Room", icon: "🎶", color: .blue, description: "Test description!"))
-//    }
-//}

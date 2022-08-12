@@ -10,17 +10,24 @@ import MediaPlayer
 import MusicKit
 import CloudKit
 
+/// The view for adding music via the user's Apple Music library.
 struct CloudKitLibraryAdder: View {
+    
+    // MARK: - View Variables
     /// The custom app delegate object for the app.
     @EnvironmentObject var appDelegate: MultiqueueAppDelegate
-    
+    /// Whether or not this view is being presented.
     @Binding var isShowingLibraryPicker: Bool
+    /// The `PresentationMode` variable for this view.
     @Environment(\.presentationMode) var presentationMode
+    /// The room this view can add songs to.
     @Binding var room: Room
+    /// Whether or not the current user is the host.
     var isHost: Bool
-    
+    /// The database to use for CloudKit operations from this view.
     var database: CloudKitDatabase
     
+    // MARK: - View Body
     var body: some View {
         NavigationView {
             VStack {
@@ -86,12 +93,6 @@ struct CloudKitLibraryAdder: View {
         .navigationViewStyle(StackNavigationViewStyle())
     }
 }
-
-//struct CloudKitLibraryAdder_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CloudKitLibraryAdder(multipeerServices: MultipeerServices(isHost: true))
-//    }
-//}
 
 struct CloudKitSwiftUIMPMediaPickerController: UIViewControllerRepresentable {
     

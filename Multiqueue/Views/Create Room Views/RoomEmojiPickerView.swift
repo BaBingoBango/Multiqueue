@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A view listing emoji options for a room.
 struct RoomEmojiPickerView: View {
     
     // MARK: - View Variables
@@ -14,9 +15,13 @@ struct RoomEmojiPickerView: View {
     ///
     /// It is only relevant in iOS and iPadOS, since macOS and tvOS feature a consistent layout experience.
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    /// The `PresentationMode` variable for this view.
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    /// The color of the current room.
     var roomColor: Color
+    /// The icon the user has selected for the room.
     @Binding var enteredIcon: String
+    /// Codes for emoji to display as options in this view.
     let emojis = [
         0x1F600...0x1F64F, // Emoticons
         0x1F300...0x1F5FF, // Misc Symbols and Pictographs

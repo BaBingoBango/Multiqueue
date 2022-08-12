@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A card alerting users that they are not subscribed to Apple Music.
 struct AppleMusicPermissionsAlertCard: View {
     var body: some View {
         VStack {

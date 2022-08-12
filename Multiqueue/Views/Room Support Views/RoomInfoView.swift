@@ -12,16 +12,22 @@ import CloudKit
 struct RoomInfoView: View {
     
     // MARK: - View Variables
+    /// The `PresentationMode` variable for this view.
     @Environment(\.presentationMode) var presentationMode
     /// The information for the room this view describes and edits.
     @Binding var room: Room
+    /// Whether or not the current user is a host.
     var isHost: Bool
     
+    /// Whether or not the icon picker view is being presented.
     @State var isShowingIconPicker = false
+    /// Whether or not the song limit editor view is being presented.
     @State var isShowingSongLimitEditor = false
+    /// Whether or not the time limit editor  view is being presented.
     @State var isShowingTimeLimitEditor = false
+    /// Whether or not the deletion confirmation view is being presented.
     @State var isShowingDeletionConfirmation = false
-    
+    /// Whether or not the room view is being presented.
     @Binding var isRoomViewShowing: Bool
     
     // MARK: - View Body
@@ -260,9 +266,3 @@ struct RoomInfoView: View {
         }
     }
 }
-
-//struct RoomInfoView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RoomInfoView(roomDetails: .constant(RoomDetails(name: "Preview Room", icon: "😩", color: .blue, description: "This is a preview room! Cool!")), isHost: true)
-//    }
-//}

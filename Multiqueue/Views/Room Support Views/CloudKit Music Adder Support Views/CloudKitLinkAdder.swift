@@ -8,20 +8,30 @@
 import SwiftUI
 import MusicKit
 
+/// The view for adding songs to a room via an Apple Music link.
 struct CloudKitLinkAdder: View {
     
+    // MARK: - View Variables
+    /// The entered text in the link text box.
     @State var linkText = ""
+    /// The search results for the entered link.
     @State var linkResults = MusicItemCollection<Song>()
+    /// The `PresentationMode` variable for this view.
     @Environment(\.presentationMode) var presentationMode
+    /// The link ID from the entered text box text.
     var linkID: String {
         let components = URLComponents(string: linkText)
         guard let songID = components?.queryItems?.first?.value else { return "" }
         return songID
     }
+    /// The room this view can upload to.
     @Binding var room: Room
+    /// The database this view can upload to.
     var database: CloudKitDatabase
+    /// Whether or not this user is the host.
     var isHost: Bool
     
+    // MARK: - View Body
     var body: some View {
         NavigationView {
             ScrollView {
@@ -91,12 +101,14 @@ struct CloudKitLinkAdder: View {
         .navigationViewStyle(StackNavigationViewStyle())
     }
     
+    /// A helper function which calls the function that searches MusicKit for the song a link leads to.
     func getLinkResultProxy() {
         Task {
             await getLinkResult()
         }
     }
     
+    /// Searches MusicKit for the song a link leads to.
     @Sendable func getLinkResult() async {
         do {
             
@@ -110,9 +122,3 @@ struct CloudKitLinkAdder: View {
     }
     
 }
-
-//struct CloudKitLinkAdder_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CloudKitLinkAdder().environmentObject(MultipeerServices(isHost: true))
-//    }
-//}

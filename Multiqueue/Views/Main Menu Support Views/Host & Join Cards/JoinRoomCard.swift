@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// The main menu card giving users access to the Join Room view.
 struct JoinRoomCard: View {
     var isGray = true
     var body: some View {

@@ -9,201 +9,205 @@ import SwiftUI
 import CloudKit
 import MusicKit
 
+/// A view surfacing controls for a room, in the context of a participant.
 struct JoinedRoomView: View {
     
     // MARK: - View Variables
+    /// The room this view surfaces controls for.
     @State var room: Room
     
+    /// Whether or not the music adder view is being presented.
     @State var isShowingMusicAdder = false
+    /// Whether or not the library adder view is being presented.
     @State var isShowingLibraryPicker = false
+    /// Whether or not the People view is being presented.
     @State var isShowingPeopleView = false
+    /// Whether or not the room information view is being presented.
     @State var isShowingInfoView = false
     
+    /// A 0.5-second interval timer triggering Now Playing section updates on this view.
     let nowPlayingUpdateTimer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
+    /// The status of a currently running Now Playing update operation.
     @State var nowPlayingUpdateStatus = OperationStatus.notStarted
     
+    /// The current CloudKit change token for this room's zone.
     @State var queueChangeToken: CKServerChangeToken? = nil
+    /// A 3-second interval timer triggering queue updates on this view.
     let queueUpdateTimer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
+    /// Whether or not an initial queue update has completed on this view.
     @State var hasCompletedInitialQueueUpdate = false
+    /// The status of a currently running queue update operation.
     @State var queueUpdateStatus = OperationStatus.notStarted
-    
+    /// A 0.5-second interval timer triggering view updates.
     let viewUpdateTimer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
-    
+    /// Whether or not this view is being presented.
     @Binding var isRoomViewShowing: Bool
     
     // MARK: - View Body
     var body: some View {
-//        NavigationView {
-            VStack {
-                ScrollView {
-                    LazyVStack {
-                        HStack {
-                            Text("\(room.share.participants.count) Participant\(room.share.participants.count != 1 ? "s" : "")")
+        VStack {
+            ScrollView {
+                LazyVStack {
+                    HStack {
+                        Text("\(room.share.participants.count) Participant\(room.share.participants.count != 1 ? "s" : "")")
+                            .font(.headline)
+                        Spacer()
+                    }
+                    .padding(.leading)
+                    
+                    HStack {
+                        if room.songLimit <= 0 {
+                            Text("No Song Limit")
                                 .font(.headline)
-                            Spacer()
+                        } else {
+                            Text("\(room.songLimit) Song\(room.songLimit != 1 ? "s" : "") Remaining")
+                                .font(.headline)
                         }
-                        .padding(.leading)
-                        
-                        HStack {
-                            if room.songLimit <= 0 {
-                                Text("No Song Limit")
-                                    .font(.headline)
-                            } else {
-                                Text("\(room.songLimit) Song\(room.songLimit != 1 ? "s" : "") Remaining")
-                                    .font(.headline)
-                            }
-                            Spacer()
+                        Spacer()
+                    }
+                    .padding(.leading)
+                    
+                    HStack {
+                        if room.timeLimit <= 0 {
+                            Text("No Time Limit")
+                                .font(.headline)
+                        } else {
+                            Text(verbatim: {
+                                let timeLeft = secondsToHoursMinutesSeconds(room.timeLimit)
+                                return "\(timeLeft.0 < 10 ? "0" : "")\(timeLeft.0):\(timeLeft.1 < 10 ? "0" : "")\(timeLeft.1):\(timeLeft.2 < 10 ? "0" : "")\(timeLeft.2) Remaining"
+                            }())
+                                .font(.headline)
                         }
-                        .padding(.leading)
+                        Spacer()
+                    }
+                    .padding(.leading)
+                    
+                    HStack {
+                        Text("Now Playing")
+                            .font(.title2)
+                            .fontWeight(.bold)
                         
-                        HStack {
-                            if room.timeLimit <= 0 {
-                                Text("No Time Limit")
-                                    .font(.headline)
-                            } else {
-                                Text(verbatim: {
-                                    let timeLeft = secondsToHoursMinutesSeconds(room.timeLimit)
-                                    return "\(timeLeft.0 < 10 ? "0" : "")\(timeLeft.0):\(timeLeft.1 < 10 ? "0" : "")\(timeLeft.1):\(timeLeft.2 < 10 ? "0" : "")\(timeLeft.2) Remaining"
-                                }())
-                                    .font(.headline)
-                            }
-                            Spacer()
+                        if nowPlayingUpdateStatus == .inProgress {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle())
+                                .padding(.leading, 5)
+                        } else if nowPlayingUpdateStatus == .failure {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .imageScale(.large)
+                                .foregroundColor(.yellow)
+                                .padding(.leading, 5)
                         }
-                        .padding(.leading)
                         
-                        HStack {
-                            Text("Now Playing")
+                        Spacer()
+                    }
+                    .padding([.top, .leading])
+                    
+                    if let song = room.nowPlayingSong.song {
+                        SongRowView(title: song.title , subtitle: song.artistName, customArtwork: room.nowPlayingSong.artwork, mode: .withTimeBar, nowPlayingTime: (room.nowPlayingSong.timeElapsed, room.nowPlayingSong.songTime ))
+                    } else {
+                        SongRowView(title: "Not Playing" , subtitle: "", mode: .songOnly, nowPlayingTime: (room.nowPlayingSong.timeElapsed, room.nowPlayingSong.songTime ))
+                    }
+                    
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Added to Queue")
                                 .font(.title2)
                                 .fontWeight(.bold)
-                            
-                            if nowPlayingUpdateStatus == .inProgress {
-                                ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle())
-                                    .padding(.leading, 5)
-                            } else if nowPlayingUpdateStatus == .failure {
-                                Image(systemName: "exclamationmark.triangle.fill")
-                                    .imageScale(.large)
-                                    .foregroundColor(.yellow)
-                                    .padding(.leading, 5)
-                            }
-                            
-                            Spacer()
-                        }
-                        .padding([.top, .leading])
-                        
-                        if let song = room.nowPlayingSong.song {
-                            SongRowView(title: song.title , subtitle: song.artistName, customArtwork: room.nowPlayingSong.artwork, mode: .withTimeBar, nowPlayingTime: (room.nowPlayingSong.timeElapsed, room.nowPlayingSong.songTime ))
-                        } else {
-                            SongRowView(title: "Not Playing" , subtitle: "", mode: .songOnly, nowPlayingTime: (room.nowPlayingSong.timeElapsed, room.nowPlayingSong.songTime ))
                         }
                         
-//                        Image(systemName: "arrow.up")
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fit)
-//                            .frame(width: 30)
-//                            .padding(.top)
-                        
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text("Added to Queue")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                            }
-                            
-                            if queueUpdateStatus == .inProgress {
-                                ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle())
-                                    .padding(.leading, 5)
-                            } else if queueUpdateStatus == .failure {
-                                Image(systemName: "exclamationmark.triangle.fill")
-                                    .imageScale(.large)
-                                    .foregroundColor(.yellow)
-                                    .padding(.leading, 5)
-                            }
-                            
-                            Spacer()
-                        }
-                        .padding([.top, .leading])
-                        
-                        ForEach(room.queueSongs, id: \.ID) { song in
-                            SongRowView(title: song.song.title, subtitle: song.song.artistName, artwork: song.song.artwork, subsubtitle: "Added by \(song.adderName) for \(song.playType == .next ? "next" : "later") at \(song.timeAdded.formatted(date: .omitted, time: .standard))")
+                        if queueUpdateStatus == .inProgress {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle())
+                                .padding(.leading, 5)
+                        } else if queueUpdateStatus == .failure {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .imageScale(.large)
+                                .foregroundColor(.yellow)
+                                .padding(.leading, 5)
                         }
                         
+                        Spacer()
                     }
-                }
-                
-                Button(action: {
-                    isShowingMusicAdder.toggle()
-                }) {
-                    ZStack {
-                        Rectangle()
-                            .foregroundColor(.accentColor)
-                            .cornerRadius(15)
-                            .frame(height: 55)
-                        Text("Add Songs to Queue")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
+                    .padding([.top, .leading])
+                    
+                    ForEach(room.queueSongs, id: \.ID) { song in
+                        SongRowView(title: song.song.title, subtitle: song.song.artistName, artwork: song.song.artwork, subsubtitle: "Added by \(song.adderName) for \(song.playType == .next ? "next" : "later") at \(song.timeAdded.formatted(date: .omitted, time: .standard))")
                     }
-                }
-                .padding([.top, .leading, .trailing])
-                .sheet(isPresented: $isShowingMusicAdder) {
-                    CloudKitMusicAdder(room: $room, isShowingLibraryPicker: $isShowingLibraryPicker, database: .sharedDatabase, isHost: false)
-                }
-                .disabled(!room.isActive || room.share.currentUserParticipant?.permission != .readWrite)
-            }
-            .padding(.bottom)
-            .onAppear {
-                if !hasCompletedInitialQueueUpdate {
-                    getDataFromServer(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .sharedDatabase)
-                    hasCompletedInitialQueueUpdate = true
-                }
-            }
-            .onReceive(viewUpdateTimer) { time in
-                // Update the list of queue songs to match the server's
-                if queueUpdateStatus != .inProgress && !isShowingLibraryPicker {
-                    getDataFromServer(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .sharedDatabase, fetchChanges: true)
-                }
-            }
-            .onChange(of: room.isActive) { newValue in
-                if !newValue {
-                    isShowingMusicAdder = false
-                }
-            }
-            .onChange(of: room.share.currentUserParticipant?.permission) { newValue in
-                if newValue != .readWrite {
-                    isShowingMusicAdder = false
+                    
                 }
             }
             
-            // MARK: - Navigation View Settings
-            .navigationTitle(room.details.name)
-            .toolbar(content: {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    HStack(spacing: 25) {
-                        Button(action: {
-                            isShowingPeopleView = true
-                        }) {
-                            Image(systemName: "person.crop.circle.badge.plus")
-                                .foregroundColor(.accentColor)
-                        }
-                        .sheet(isPresented: $isShowingPeopleView) {
-                            CloudKitSharingView(room: room, container: CKContainer(identifier: "iCloud.Multiqueue"), deletedShare: .constant(false))
-                        }
-                        
-                        Button(action: {
-                            isShowingInfoView = true
-                        }) {
-                            Image(systemName: "info.circle")
-                                .foregroundColor(.accentColor)
-                        }
-                        .sheet(isPresented: $isShowingInfoView) {
-                            RoomInfoView(room: $room, isHost: false, isRoomViewShowing: $isRoomViewShowing)
-                        }
+            Button(action: {
+                isShowingMusicAdder.toggle()
+            }) {
+                ZStack {
+                    Rectangle()
+                        .foregroundColor(.accentColor)
+                        .cornerRadius(15)
+                        .frame(height: 55)
+                    Text("Add Songs to Queue")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                }
+            }
+            .padding([.top, .leading, .trailing])
+            .sheet(isPresented: $isShowingMusicAdder) {
+                CloudKitMusicAdder(room: $room, isShowingLibraryPicker: $isShowingLibraryPicker, database: .sharedDatabase, isHost: false)
+            }
+            .disabled(!room.isActive || room.share.currentUserParticipant?.permission != .readWrite)
+        }
+        .padding(.bottom)
+        .onAppear {
+            if !hasCompletedInitialQueueUpdate {
+                getDataFromServer(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .sharedDatabase)
+                hasCompletedInitialQueueUpdate = true
+            }
+        }
+        .onReceive(viewUpdateTimer) { time in
+            // Update the list of queue songs to match the server's
+            if queueUpdateStatus != .inProgress && !isShowingLibraryPicker {
+                getDataFromServer(afterDate: room.queueSongs.first?.timeAdded ?? Date.distantPast, zoneID: room.zone.zoneID, database: .sharedDatabase, fetchChanges: true)
+            }
+        }
+        .onChange(of: room.isActive) { newValue in
+            if !newValue {
+                isShowingMusicAdder = false
+            }
+        }
+        .onChange(of: room.share.currentUserParticipant?.permission) { newValue in
+            if newValue != .readWrite {
+                isShowingMusicAdder = false
+            }
+        }
+        
+        // MARK: - Navigation View Settings
+        .navigationTitle(room.details.name)
+        .toolbar(content: {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                HStack(spacing: 25) {
+                    Button(action: {
+                        isShowingPeopleView = true
+                    }) {
+                        Image(systemName: "person.crop.circle.badge.plus")
+                            .foregroundColor(.accentColor)
+                    }
+                    .sheet(isPresented: $isShowingPeopleView) {
+                        CloudKitSharingView(room: room, container: CKContainer(identifier: "iCloud.Multiqueue"), deletedShare: .constant(false))
+                    }
+                    
+                    Button(action: {
+                        isShowingInfoView = true
+                    }) {
+                        Image(systemName: "info.circle")
+                            .foregroundColor(.accentColor)
+                    }
+                    .sheet(isPresented: $isShowingInfoView) {
+                        RoomInfoView(room: $room, isHost: false, isRoomViewShowing: $isRoomViewShowing)
                     }
                 }
-            })
-//        }
+            }
+        })
     }
     
     // MARK: - View Functions
@@ -243,7 +247,6 @@ struct JoinedRoomView: View {
                 }
             }
             
-//            nowPlayingQueryOperation.qualityOfService = .userInteractive
             CKContainer(identifier: "iCloud.Multiqueue").sharedCloudDatabase.add(nowPlayingQueryOperation)
             
             // Fetch initial queue songs from the sever
@@ -297,7 +300,6 @@ struct JoinedRoomView: View {
                 }
             }
             
-//            songQueryOperation.qualityOfService = .userInteractive
             if database == .privateDatabase {
                 CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(songQueryOperation)
             } else if database == .sharedDatabase {
@@ -414,9 +416,3 @@ struct JoinedRoomView: View {
         }
     }
 }
-
-//struct JoinedRoomView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        JoinedRoomView(room: (CKRecordZone(zoneName: "Preview Zone"), RoomDetails(name: "Preview Room", icon: "🎶", color: .blue, description: "Preview description."), CKShare(recordZoneID: CKRecordZone.ID(zoneName: "Preview Zone", ownerName: "Preview Owner"))))
-//    }
-//}

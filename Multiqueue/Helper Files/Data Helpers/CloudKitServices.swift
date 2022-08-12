@@ -11,6 +11,13 @@ import MusicKit
 import UIKit
 
 /// Uploads a song to the specified room zone to be inserted into the room's host's music queue.
+/// - Parameters:
+///   - song: The song to upload.
+///   - zoneID: The ID of the zone to upload the room to.
+///   - adderName: The name of the person who is uploading the song.
+///   - playType: The type of queue insertion that this song should follow.
+///   - database: The database to upload this song to.
+///   - completionHandler: Code to run when the song upload operation has finished.
 func uploadQueueSong(song: Song, zoneID: CKRecordZone.ID, adderName: String, playType: PlayType, database: CloudKitDatabase, completionHandler: @escaping (Result<CKRecord, Error>) -> Void) {
     let songRecord = CKRecord(recordType: "QueueSong", recordID: CKRecord.ID(recordName: "\(song.title) [\(adderName) Added \(playType == .next ? "For Next" : "For Later")] [\(Date().description)] [\(UUID())]", zoneID: zoneID))
     
@@ -40,7 +47,6 @@ func uploadQueueSong(song: Song, zoneID: CKRecordZone.ID, adderName: String, pla
         completionHandler(saveResult)
     }
     
-//    songUploadOperation.qualityOfService = .userInteractive
     if database == .privateDatabase {
         CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(songUploadOperation)
     } else if database == .sharedDatabase {

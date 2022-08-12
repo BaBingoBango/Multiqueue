@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A main menu card informing users that they are subscribed to Apple Music.
 struct AppleMusicOKCard: View {
     var body: some View {
         VStack {

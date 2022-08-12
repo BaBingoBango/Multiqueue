@@ -7,8 +7,14 @@
 
 import Foundation
 
+/// A type of CloudKit database.
 enum CloudKitDatabase {
+    /// The public CloudKit database.
     case publicDatabase
+    
+    /// The private CloudKit database.
     case privateDatabase
+    
+    /// The shared CloudKit database.
     case sharedDatabase
 }

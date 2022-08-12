@@ -11,18 +11,20 @@ import Intents
 import UIKit
 import CloudKit
 
+/// Shows a local notification for a newly added queue song.
+/// - Parameters:
+///   - adderName: The name of the person who added the song.
+///   - songTitle: The title of the song that was added.
+///   - artistName: The artist of the song that was added.
+///   - songArtworkURL: The URL for this song's artwork
+///   - playType: The type of queue insertion that this song should follow.
+///   - userName: The name of the current user.
+///   - roomName: The name of the room this song was added to.
 func showSongAddedNotification(adderName: String, songTitle: String, artistName: String, songArtworkURL: URL?, playType: PlayType, userName: String, roomName: String) {
     // Set the basic content for the notification
     var content = UNMutableNotificationContent()
     content.body = "\"\(songTitle)\" by \(artistName) was just added to play \(playType == .next ? "next" : "later")!"
     content.sound = UNNotificationSound.default
-    
-    // Attempt to set the attachment for the notification
-//    do {
-//        content.attachments = [try UNNotificationAttachment(identifier: "\(songTitle) by \(artistName) Artwork", url: songArtworkURL!)]
-//    } catch {
-//        print(error.localizedDescription)
-//    }
     
     // Configure the notification's recipient
     let user = INPerson(

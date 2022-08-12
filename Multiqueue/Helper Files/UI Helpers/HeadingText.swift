@@ -7,11 +7,14 @@
 
 import SwiftUI
 
+/// A small text view which bolds and left-aligns text.
 struct HeadingText: View {
     
-    // Variables
+    // MARK: - View Variables
+    /// The text the view should show.
     var text: String
     
+    // MARK: - View Body
     var body: some View {
         
         HStack {

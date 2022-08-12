@@ -8,14 +8,22 @@
 import SwiftUI
 import MusicKit
 
+/// A tab view that provides options for songs to be added to a room.
 struct CloudKitMusicAdder: View {
     
+    // MARK: - View Variables
+    /// The currently selected tab on this view.
     @State var selectedTab = 0
+    /// The room this view can upload to.
     @Binding var room: Room
+    /// Whether or not the library picker is being presented.
     @Binding var isShowingLibraryPicker: Bool
+    /// The database this view should upload to.
     var database: CloudKitDatabase
+    /// Whether or not this user is a host
     var isHost: Bool
     
+    // MARK: - View Body
     var body: some View {
         TabView(selection: $selectedTab) {
             
@@ -45,9 +53,3 @@ struct CloudKitMusicAdder: View {
     }
     
 }
-
-//struct CloudKitMusicAdder_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CloudKitMusicAdder()
-//    }
-//}

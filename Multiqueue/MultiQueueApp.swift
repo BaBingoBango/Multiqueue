@@ -9,6 +9,7 @@ import SwiftUI
 import CloudKit
 import MusicKit
 
+/// A global variable for keeping track of the app's current `ScenePhase`.
 var globalScenePhase: ScenePhase = .inactive
 
 @main
@@ -22,13 +23,16 @@ struct MultiqueueApp: App {
 
     var body: some Scene {
         WindowGroup {
+            // MARK: - App Entry Point
             MainMenu()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onAppear {
+                    // Disable Auto-Lock and register for push notifications
                     UIApplication.shared.isIdleTimerDisabled = true
                     UIApplication.shared.registerForRemoteNotifications()
                 }
                 .onChange(of: scenePhase) { newValue in
+                    // Update the global scene phase variable when the scene phase changes
                     globalScenePhase = newValue
                 }
         }
@@ -67,7 +71,6 @@ class MultiqueueAppDelegate: NSObject, UIApplicationDelegate, UNUserNotification
                     self.isAcceptingShare = false
                 }
             }
-//            acceptShareOperation.qualityOfService = .userInteractive
             CKContainer(identifier: "iCloud.Multiqueue").add(acceptShareOperation)
         }
     }
@@ -80,68 +83,65 @@ class MultiqueueAppDelegate: NSObject, UIApplicationDelegate, UNUserNotification
         notificationStatus = .responding
         
         // Add the song to the local queue now
-        if true {
-            // Get the record and zone information from the notification
-            if let cloudKitInfo = userInfo["ck"] as? [String: Any] {
-                if let queryInfo = cloudKitInfo["qry"] as? [String: Any] {
-                    if let requestedKeys = queryInfo["af"] as? [String: Any] {
-                        
-                        let recordName = requestedKeys["RecordName"] as! String
-                        let zoneName = requestedKeys["ZoneName"] as! String
-                        let zoneOwnerName = requestedKeys["ZoneOwnerName"] as! String
-                        
-                        // Fetch the new song this notification was triggered by
-                        let songFetchOperation = CKFetchRecordsOperation(recordIDs: [CKRecord.ID(recordName: recordName, zoneID: CKRecordZone.ID(zoneName: zoneName, ownerName: zoneOwnerName))])
-//                        songFetchOperation.qualityOfService = .userInteractive
-                        
-                        songFetchOperation.perRecordResultBlock = { (_ recordID: CKRecord.ID, _ recordResult: Result<CKRecord, Error>) -> Void in
-                            switch recordResult {
-                                
-                            case .success(let record):
-                                // Unpack the fetched record
-                                let newSong = QueueSong(song: try! JSONDecoder().decode(Song.self, from: record["Song"] as! Data),
-                                                        playType: {
-                                    let playTypeString = record["PlayType"] as! String
-                                    if playTypeString == "Next" {
-                                        return .next
-                                    } else {
-                                        return .later
-                                    }
-                                }(),
-                                                        adderName: record["AdderName"] as! String,
-                                                        timeAdded: record["TimeAdded"] as! Date,
-                                                        artwork: record["Artwork"] as! CKAsset)
-                                
-                                // Add the song to the system music queue
-                                Task {
-                                    do {
-                                        try await SystemMusicPlayer.shared.queue.insert(newSong.song, position: newSong.playType == .next ? .afterCurrentEntry : .tail)
-                                        
-                                        // Display a visual notification about the new song
-                                        if globalScenePhase != .active {
-                                            showSongAddedNotification(adderName: newSong.adderName, songTitle: newSong.song.title, artistName: newSong.song.artistName, songArtworkURL: nil, playType: newSong.playType, userName: zoneOwnerName, roomName: zoneName.components(separatedBy: " [")[0])
-                                        }
-                                        
-                                        completionHandler(.newData)
-                                    } catch {
-                                        print(error.localizedDescription)
-                                        completionHandler(.failed)
-                                    }
+        // Get the record and zone information from the notification
+        if let cloudKitInfo = userInfo["ck"] as? [String: Any] {
+            if let queryInfo = cloudKitInfo["qry"] as? [String: Any] {
+                if let requestedKeys = queryInfo["af"] as? [String: Any] {
+                    
+                    let recordName = requestedKeys["RecordName"] as! String
+                    let zoneName = requestedKeys["ZoneName"] as! String
+                    let zoneOwnerName = requestedKeys["ZoneOwnerName"] as! String
+                    
+                    // Fetch the new song this notification was triggered by
+                    let songFetchOperation = CKFetchRecordsOperation(recordIDs: [CKRecord.ID(recordName: recordName, zoneID: CKRecordZone.ID(zoneName: zoneName, ownerName: zoneOwnerName))])
+                    
+                    songFetchOperation.perRecordResultBlock = { (_ recordID: CKRecord.ID, _ recordResult: Result<CKRecord, Error>) -> Void in
+                        switch recordResult {
+                            
+                        case .success(let record):
+                            // Unpack the fetched record
+                            let newSong = QueueSong(song: try! JSONDecoder().decode(Song.self, from: record["Song"] as! Data),
+                                                    playType: {
+                                let playTypeString = record["PlayType"] as! String
+                                if playTypeString == "Next" {
+                                    return .next
+                                } else {
+                                    return .later
                                 }
-                                
-                            case .failure(let error):
-                                print(error.localizedDescription)
-                                completionHandler(.failed)
+                            }(),
+                                                    adderName: record["AdderName"] as! String,
+                                                    timeAdded: record["TimeAdded"] as! Date,
+                                                    artwork: record["Artwork"] as! CKAsset)
+                            
+                            // Add the song to the system music queue
+                            Task {
+                                do {
+                                    try await SystemMusicPlayer.shared.queue.insert(newSong.song, position: newSong.playType == .next ? .afterCurrentEntry : .tail)
+                                    
+                                    // Display a visual notification about the new song
+                                    if globalScenePhase != .active {
+                                        showSongAddedNotification(adderName: newSong.adderName, songTitle: newSong.song.title, artistName: newSong.song.artistName, songArtworkURL: nil, playType: newSong.playType, userName: zoneOwnerName, roomName: zoneName.components(separatedBy: " [")[0])
+                                    }
+                                    
+                                    completionHandler(.newData)
+                                } catch {
+                                    print(error.localizedDescription)
+                                    completionHandler(.failed)
+                                }
                             }
+                            
+                        case .failure(let error):
+                            print(error.localizedDescription)
+                            completionHandler(.failed)
                         }
-                        
-//                        songFetchOperation.qualityOfService = .userInteractive
-                        CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(songFetchOperation)
                     }
+                    
+                    CKContainer(identifier: "iCloud.Multiqueue").privateCloudDatabase.add(songFetchOperation)
                 }
             }
         }
     }
+    /// The standard system function called when the app is launched with system options.
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         UNUserNotificationCenter.current().delegate = self
         
@@ -183,7 +183,6 @@ class MultiqueueSceneDelegate: NSObject, UIWindowSceneDelegate, ObservableObject
                     print(error.localizedDescription)
                 }
             }
-//            acceptShareOperation.qualityOfService = .userInteractive
             CKContainer(identifier: "iCloud.Multiqueue").add(acceptShareOperation)
         }
     }

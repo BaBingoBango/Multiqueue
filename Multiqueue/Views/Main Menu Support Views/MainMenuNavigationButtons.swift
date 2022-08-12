@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// The navigation buttons for the right-hand side of the main menu.
 struct MainMenuNavigationButtonsR: View {
     
     @State var showingSettings = false
